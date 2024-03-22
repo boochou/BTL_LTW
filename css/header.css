@@ -1,0 +1,31 @@
+.navbar-toggler-icon {
+    color: black; /* Change this to your desired color */
+}
+.navbar-toggler {
+    display: block !important;
+}
+.navbar-brand {
+    color: #FFC700;
+    font-size: 30px;
+    font-weight: bold;
+}
+.custom-toggler {
+    border:2px solid #FFC700;
+    color: #FFC700;
+}
+.custom-input {
+    border-radius: 20px; 
+    width: 100%; 
+    max-width: 400px; 
+}
+
+.border-gray {
+    border: 1px solid #cccccc; /* Set border color and thickness */
+}
+
+.rounded {
+    border-radius: 20px !important; 
+}
+
+
+
