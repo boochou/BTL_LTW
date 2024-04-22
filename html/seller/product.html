@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="../../css/header.css"> -->
+    <title>UniEat</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+    <header class="container-fluid">
+        <div class="row d-flex align-items-center justify-content-center mt-2">
+            <div class="col-3 col-md-5 col-lg-4 align-items-center justify-content-center d-lg-flex d-md-flex">
+                <button class="border-0 bg-transparent">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="#FFC700" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                    </svg>
+                </button>
+                <a class="fs-2 fw-bold text-decoration-none d-none d-md-block d-lg-block" style="color: #FFC700;">UniEat <span style="color: red;">For Seller</span></a>
+            </div>
+            <div class="col-6 col-md-6 col-lg-4 align-items-center justify-content-center d-lg-flex">
+                <input class="form-control" type="text" placeholder="Tìm kiếm sản phẩm/đơn hàng"/>
+            </div>
+            <div class="col-lg-3 align-items-center justify-content-center d-md-none d-none d-lg-flex">
+                <a class="fw-bold text-decoration-none text-center" style="color: black;">Xin chào, <span class="fs-4" style="color:#FFC700">Trà Sữa Tocotoco</span></a>
+            </div>
+            <div class="col-3 col-md-1 col-lg-1 align-items-center justify-content-center d-flex">
+                <button type="button" class="border-0 bg-transparent position-relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#FFC700" class="bi bi-bell-fill" viewBox="0 0 16 16">
+                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901"/>
+                    </svg>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">
+                        5
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    
+    <div class="d-flex flex-row">
+        <div class="slidebar">
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+                <div class="accordion-item border-top-0">
+                  <h2 class="accordion-header ">
+                    <button class="accordion-button bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#FFC700" class="bi bi-journal-text" viewBox="0 0 16 16">
+                            <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
+                            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
+                        </svg>
+                        <a style="margin-left: 10px; margin-right: 10px; color:black">Quản lý đơn hàng</a>
+                    </button>
+                  </h2>
+                  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                        <div class="list-group ">
+                            <a href="#" class="list-group-item list-group-item-action border-0">Tất cả đơn hàng</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0">Đơn đã hủy</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0">Đơn hoàn tiền/trả lại</a>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#FFC700" class="bi bi-bag" viewBox="0 0 16 16">
+                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                          </svg>
+                        <a style="margin-left: 10px; margin-right: 10px; color:black">Quản lý sản phẩm</a>
+                    </button>
+                  </h2>
+                  <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action border-0">Sản phẩm hiện tại</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0">Thêm sản phẩm</a>
+                            <a href="#" class="list-group-item list-group-item-action border-0">Sản phẩm vi phạm</a>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#FFC700" class="bi bi-truck" viewBox="0 0 16 16">
+                            <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5zm1.294 7.456A2 2 0 0 1 4.732 11h5.536a2 2 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456M12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
+                        </svg>
+                        <a style="margin-left: 10px; margin-right: 10px; color:black">Quản lý vận chuyển</a>
+                    </button>
+                  </h2>
+                  <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action border-0">Phương thức vận chuyển</a>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#FFC700" class="bi bi-wallet2" viewBox="0 0 16 16">
+                            <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
+                          </svg>
+                          <a style="margin-left: 10px; margin-right: 10px; color:black">Tài chính</a>
+                      </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show">
+                      <div class="accordion-body">
+                          <div class="list-group">
+                              <a href="#" class="list-group-item list-group-item-action border-0">Doanh thu</a>
+                              <a href="#" class="list-group-item list-group-item-action border-0">Cài đặt thanh toán</a>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#FFC700" class="bi bi-wallet2" viewBox="0 0 16 16">
+                            <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
+                          </svg>
+                          <a style="margin-left: 10px; margin-right: 10px; color:black">Marketing</a>
+                      </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show">
+                      <div class="accordion-body">
+                          <div class="list-group">
+                              <a href="#" class="list-group-item list-group-item-action border-0">Kênh Marketing</a>
+                              <a href="#" class="list-group-item list-group-item-action border-0">Voucher/Khuyến mãi</a>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="accordion-item border-bottom-0">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#FCC700" class="bi bi-chat-dots" viewBox="0 0 16 16">
+                                <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                                <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9 9 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.4 10.4 0 0 1-.524 2.318l-.003.011a11 11 0 0 1-.244.637c-.079.186.074.394.273.362a22 22 0 0 0 .693-.125m.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6-3.004 6-7 6a8 8 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a11 11 0 0 0 .398-2"/>
+                            </svg>
+                            <a style="margin-left: 10px; margin-right: 10px; color:black">Giao tiếp</a>
+                      </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse show">
+                      <div class="accordion-body">
+                          <div class="list-group">
+                              <a href="#" class="list-group-item list-group-item-action border-0">Trang cộng đồng</a>
+                              <a href="#" class="list-group-item list-group-item-action border-0">Khách hàng</a>
+                              <a href="#" class="list-group-item list-group-item-action border-0">Cài đặt thông báo</a>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+
+        <!-- content -->
+        <div class="content d-flex align-items-center justify-content-center">
+                <a>
+                    aaaaaaaaaaaaaaaaaaaaa
+                </a>
+        </div>
+        <!-- content -->
+    </div>
+
+    <footer>
+
+    </footer>
+</body>
+</html>
