@@ -140,13 +140,13 @@
             <nav aria-label="breadcrumb" class="d-none d-md-flex d-lg-flex ms-5">
             <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#" class="text-decoration-none" style="color: black;">Trang chủ</a></li>
-                    <li class="breadcrumb-item"><a href="./voucher.html" class="text-decoration-none" style="color: black;">Marketing</a></li>
-                    <li class="breadcrumb-item"><a href="./voucher.html" class="text-decoration-none" style="color: black;">Voucher-Khuyến mãi</a></li>
+                    <li class="breadcrumb-item"><a href="./account.html" class="text-decoration-none" style="color: black;">Marketing</a></li>
+                    <li class="breadcrumb-item"><a href="./voucherdetail.html" class="text-decoration-none" style="color: black;">Chi tiết voucher</a></li>
                 </ol>
             </nav>
             <div>
                 <div class="d-flex flex-row align-items-center">
-                    <button type="button" class="btn btn-outline-warning ">THÊM VOUCHER/KHUYẾN MÃI</button>
+                    <button type="button" class="btn btn-outline-warning" onclick="redirectToAddVoucher()">THÊM VOUCHER/KHUYẾN MÃI</button>
                 </div>
                 <div class="justify-content-center mt-4">
                     <div class="row border rounded-4">
@@ -160,8 +160,8 @@
                                         </svg>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">THÔNG TIN</a></li>
-                                        <li><a class="dropdown-item" href="#">XÓA</a></li>
+                                        <li><a class="dropdown-item" href="./voucherdetail.html">THÔNG TIN</a></li>
+                                        <li><a class="dropdown-item" onclick="deleteVoucher()">XÓA</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -169,23 +169,35 @@
                             <a class="mb-2 mt-2 text-decoration-none" style="color: black;">Giảm %: <span>10%</span> - Giảm tối đa: <span>50000</span>đ</a>
                             <a class="mb-2 mt-2 text-decoration-none" style="color: black;">Giảm tiền: <span>0</span>đ</a>
                             <a class="mb-2 mt-2 text-decoration-none" style="color: black;">Thời gian áp dụng: <span>28/09/2023</span> - <span>28/09/2024</span></a>
-                            <a class="mb-2 mt-2 text-decoration-none" style="color: black;">Phương thức thanh toán: <span>Mọi hình thức thanh toán</span>đ</a>
+                            <a class="mb-2 mt-2 text-decoration-none" style="color: black;">Phương thức thanh toán: <span>Mọi hình thức thanh toán</span></a>
                         </div>
                         <div class="col-12 col-md-4 col-lg-3 d-flex flex-column justify-content-center mt-2 mb-2">
                             <a class="mb-2 mt-2 text-decoration-none" style="color: black;">Đã sử dụng: <span>200</span></a>
                             <a class="mb-2 mt-2 text-decoration-none" style="color: black;">Số lượng còn lại: <span>200</span></a>
                         </div>
                         <div class="col-lg-2 d-none d-lg-flex flex-column justify-content-center mt-2 mb-2">
-                            <button type="button" class="btn btn-outline-warning border-black mb-2 mt-2">SỬA</button>
-                            <button type="button" class="btn btn-outline-warning mb-2 mt-2" style="color: red;">XÓA</button>
-
+                            <button type="button" class="btn btn-outline-warning border-black mb-2 mt-2" onclick="redirectToVoucherDetail()">SỬA</button>
+                            <button type="button" class="btn btn-outline-warning mb-2 mt-2" style="color: red;" onclick="deleteVoucher()">XÓA</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
         <!-- content -->
+        <script>
+            function redirectToAddVoucher(){
+                window.location.href = "./addvoucher.html";
+            }
+            function redirectToVoucherDetail(){
+                window.location.href = "./voucherdetail.html";
+            }
+            function deleteVoucher(){
+                var confirmation = confirm("Bạn có chắc chắn muôn xóa voucher 'ABC'?");
+                if (!confirmation) {
+                    event.preventDefault();
+                }
+            }
+        </script>
     </div>
 
     <footer>

@@ -170,7 +170,7 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="price">Giá sản phẩm đề nghị</label>
+                    <label class="form-label" for="price">Giá sản phẩm</label>
                     <input class="form-control" id="price" name="price" type="number" placeholder="Nhập giá sản phẩm" required style="width: 100%;">
                 </div>
                 <div class="mb-3">
@@ -180,8 +180,10 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="status">Tình trạng sản phẩm</label>
-                    <input class="form-control" id="status" name="status" value="Đã ẩn" type="text" required readonly style="width: 100%;" aria-describedby="statushelp">
-                    <div id="statushelp" class="form-text">Sản phẩm sẽ được đăng bán sau khi tạo thành công</div>
+                    <select class="form-select" id="status" name="status" aria-label="Default select example">
+                        <option value="1">Đang bán</option>
+                        <option value="0">Ẩn</option>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="ship">Phương thức vận chuyển</label>
@@ -229,11 +231,13 @@
                     event.preventDefault();
                     const form = event.target;
                     const formData = new FormData(form);
-                    
-                    for (let pair of formData.entries()) {
-                        console.log(pair[0] + ': ' + pair[1]);
+                    var confirmation = confirm("Bạn có chắc chắn muốn thêm sản phẩm mới?");
+                    if (confirmation) {
+                        for (let pair of formData.entries()) {
+                            console.log(pair[0] + ': ' + pair[1]);
+                        }
+                        console.log('Form data will be sent to the server...');
                     }
-                    console.log('Form data will be sent to the server...');
                 }
             </script>
         </div>
