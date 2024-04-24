@@ -163,7 +163,7 @@
                                 Bạn có đơn hàng mới!</a>
                             <a class="text-decoration-none mt-2 mb-2" style="color: black;">Đơn hàng ABCDXYZ nóng hổi vừa mới đến. Hãy xác nhận đơn và thực hiện đơn hàng cho khách yêu của bạn nào!</a>
                             <a class="text-decoration-none mt-2 mb-2" style="font-size: 13px; color:#A29D9D">20:00 28/09/2023 </a>
-                            <button type="button" class="btn btn-outline-warning mt-2 mb-2 me-5">ĐÃ ĐỌC</button>
+                            <button type="button" class="btn btn-outline-warning mt-2 mb-2 me-5" onclick="readNotification()">ĐÃ ĐỌC</button>
 
                         </div>
                     </div>
@@ -171,6 +171,14 @@
             </div>
         </div>
         <!-- content -->
+        <script>
+            function readNotification(){
+                var confirmation = confirm("Đánh dấu đã đọc?");
+                if (!confirmation) {
+                    event.preventDefault();
+                }
+            }
+        </script>
     </div>
 
     <footer>

@@ -140,7 +140,7 @@
             <nav aria-label="breadcrumb" class="d-none d-md-flex d-lg-flex ms-5">
             <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#" class="text-decoration-none" style="color: black;">Trang chủ</a></li>
-                    <li class="breadcrumb-item"><a href="./voucher.html" class="text-decoration-none" style="color: black;">Marketing</a></li>
+                    <li class="breadcrumb-item"><a href="./account.html" class="text-decoration-none" style="color: black;">Marketing</a></li>
                     <li class="breadcrumb-item"><a href="./addvoucher.html" class="text-decoration-none" style="color: black;">Thêm Voucher-Khuyến mãi</a></li>
                 </ol>
             </nav>
@@ -186,8 +186,10 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="status">Tình trạng voucher</label>
-                    <input class="form-control" id="status" name="status" value="Đã ẩn" type="text" required readonly style="width: 100%;" aria-describedby="statushelp">
-                    <div id="statushelp" class="form-text">Voucher sẽ được kích hoạt sau khi tạo thành công</div>
+                    <select class="form-select" id="status" name="status" aria-label="Default select example">
+                        <option value="1">Đang phát</option>
+                        <option value="0">Ẩn</option>
+                    </select>
                 </div>
                 <div class="mb-5">
                     <label class="form-label" for="pay">Phương thức thanh toán</label>
@@ -207,11 +209,13 @@
                     event.preventDefault();
                     const form = event.target;
                     const formData = new FormData(form);
-                    
-                    for (let pair of formData.entries()) {
-                        console.log(pair[0] + ': ' + pair[1]);
+                    var confirmation = confirm("Bạn có chắc chắn muốn thêm voucher mới mới?");
+                    if (confirmation) {
+                        for (let pair of formData.entries()) {
+                            console.log(pair[0] + ': ' + pair[1]);
+                        }
+                        console.log('Form data will be sent to the server...');
                     }
-                    console.log('Form data will be sent to the server...');
                 }
             </script>
         </div>
