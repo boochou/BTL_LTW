@@ -12,7 +12,8 @@
 
 - Vào thư mục `C:\xampp\htdocs\`, tạo folder tên `BTL`.
 - Sau đó `cd BTL` và thực hiện lệnh sau:
-  ```
+  ```sh
+  git init
   git remote add origin https://github.com/boochou/BTL_LTW.git
   git pull origin main
   ```
