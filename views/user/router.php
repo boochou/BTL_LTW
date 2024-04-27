@@ -2,11 +2,11 @@
         // Kiểm tra nếu có tham số truyền vào từ URL, nếu không, mặc định là trang chính
 $page = $_GET['page'] ?? 'homepage';
 $url_pages = [
-    'homepage' => './user/homepage.php',
-    'user_info' => './user/user_info.php',
-    'wish_list' => './user/wish_list.php',
-    'orders' => './user/orders.php',
-    'community' => './user/community.php'
+    'homepage' => './homepage.php',
+    'user_info' => './user_info.php',
+    'wish_list' => './wish_list.php',
+    'orders' => './orders.php',
+    'community' => './community.php'
 ];
 $load_page = $url_pages[$page];
 

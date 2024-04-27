@@ -2,7 +2,7 @@
   <div class="col" style="max-width: 20%; display: flex; align-items: center">
     <button style="background: white; border: 0px" onclick="sidebar_open()">
       <img
-        src="../public/images/Vector.png"
+        src="/BTL/public/images/Vector.png"
         style="padding-left: 7px; height: 20px"
         alt=""
       />
@@ -130,7 +130,7 @@
               </button>
             </div>
             <div class="col form-food">
-              <img src="../public/images/Rectangle 21.png" alt="" />
+              <img src="/BTL/public/images/Rectangle 21.png" alt="" />
               <div style="margin-left: 20px">
                 <div>
                   <strong>Trà sữa ba anh em</strong>
@@ -160,7 +160,7 @@
               ></span>
             </div>
             <div class="col form-food">
-              <img src="../public/images/Rectangle 21.png" alt="" />
+              <img src="/BTL/public/images/Rectangle 21.png" alt="" />
               <div style="margin-left: 20px">
                 <div>
                   <strong>Trà sữa ba anh em</strong>
@@ -190,7 +190,7 @@
               ></span>
             </div>
             <div class="col form-food">
-              <img src="../public/images/Rectangle 21.png" alt="" />
+              <img src="/BTL/public/images/Rectangle 21.png" alt="" />
               <div style="margin-left: 20px">
                 <div>
                   <strong>Trà sữa ba anh em</strong>
@@ -272,7 +272,7 @@
     <div style="display: flex">
       <div style="display: flex; align-items: center">
         <img
-          src="../public/images/Avatar-Profile-PNG-Photos 1.png"
+          src="/BTL/public/images/Avatar-Profile-PNG-Photos 1.png"
           alt=""
           style="height: 55px; width: 55px"
         />
