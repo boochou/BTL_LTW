@@ -1,0 +1,9 @@
+- truyền idaccount cho trang (trang account, notification) 
+- hàm tính sl còn lại của sp (trang product)
+- hàm lấy số đánh giá của sp (trang product)
+- hàm lấy tính sao trung bình của product dựa theo đơn hàng (trang product)
+- xem chi tiết sp (LINK TỪ TRANG PRODUCT/SP VI PHẠM SANG TRANG PRODUCT DETAIL)
+- sản phẩm vi phạm
+- trang đánh giá
+sửa header footer theo php
+- report người mua (ở trang sp vi phạm, thêm option report khi nhấn vào customer)

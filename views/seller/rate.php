@@ -188,7 +188,7 @@
         </div>
     </div>
     <p class="fw-bold fs-4 ms-5 mb-3">TỪ KHÁCH HÀNG</p>
-    <div class="row border rounded-4">
+    <div class="row border rounded-4 me-5 ms-5 mb-3">
         <div class="col-12 d-flex flex-row mt-3 align-items-center">
         <img
             src="https://res.cloudinary.com/hy4kyit2a/f_auto,fl_lossy,q_70/learn/modules/salesforce-b2b-commerce-storefront-experience/support-your-buyers-b2b-journey/images/4889eb0c3f27a0c1a53bc4e89b09bdb4_b-42-aa-2-e-0-1-bc-4-4-cb-9-a-91-e-016914-c-0-a-473.png"
@@ -278,14 +278,14 @@
         <div class="col-12 d-flex flex-row ms-2 mt-3 mb-3">
         <button
             type="button"
-            class="btn btn-outline-warning border-black me-3"
+            class="btn btn-outline-warning me-3"
             onclick="redirectToProductDetail()"
         >
             PHẢN HỒI
         </button>
         <button
             type="button"
-            class="btn btn-outline-warning border-black ms-3"
+            class="btn btn-outline-warning ms-3"
             style="color: red"
             onclick="redirectToProductDetail()"
         >

@@ -1,6 +1,6 @@
 <?php
 function getNotification($mysqli, $accountID) {
-    $sql_get_account_detail = mysqli_query($mysqli,
+    $sql_get_noti_detail = mysqli_query($mysqli,
         "SELECT notifications.id, notifications.message, notifications.timeNoti, notifications.title,
             notify.isRead
         FROM notifications
@@ -10,8 +10,8 @@ function getNotification($mysqli, $accountID) {
 
     $notifications = array();
 
-    if(mysqli_num_rows($sql_get_account_detail) > 0) {
-        while ($row = mysqli_fetch_assoc($sql_get_account_detail)) {
+    if(mysqli_num_rows($sql_get_noti_detail) > 0) {
+        while ($row = mysqli_fetch_assoc($sql_get_noti_detail)) {
             $notifications[] = $row;
         }
     }

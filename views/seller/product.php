@@ -4,7 +4,7 @@
     <nav aria-label="breadcrumb" class="d-none d-md-flex d-lg-flex ms-5">
         <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#" class="text-decoration-none" style="color: black"
+            <a href="?page=mainpage" class="text-decoration-none" style="color: black"
             >Trang chủ</a
             >
         </li>
@@ -70,7 +70,6 @@
                 $result = mysqli_query($mysqli, $query);
                 $row = mysqli_fetch_assoc($result);
                 $next_id = $row['max_id'] + 1;
-                mysqli_close($mysqli);
             ?>
             <form action="../../controller/seller/addCategory.php" method="post" onsubmit= "return confirmAddCategory()">
                 <div class="modal-body">
@@ -123,139 +122,82 @@
         </div>
         </div>
         <div class="justify-content-center mt-4 ms-5 me-5 mb-4" >
+        <?php
+            include_once("../../controller/seller/getCategory.php");
+            include_once("../../controller/seller/getProduct.php");
+            $categorylist = fetchCategory();
+            foreach ($categorylist as $itemmcategory) {
+                
+        ?>
         <div>
-            <p class="fs-4 fw-bold">Best Seller</p>
-            <div class="row border rounded-4">
-            <div
-                class="col-lg-3 d-none mt-2 mb-2 d-lg-flex justify-content-center align-items-center"
-            >
+            <p class="fs-4 fw-bold"><?php echo $itemmcategory['typeName']; ?></p>
+            <?php
+                $categoryId = $itemmcategory['id'];
+                $productslist = fetchProductsByCategory($categoryId);
+                foreach ($productslist as $itemmproduct) {
+            ?>
+            <div class="row border rounded-4 mb-3">
+            <div class="col-lg-3 d-none mt-2 mb-2 d-lg-flex justify-content-center align-items-center">
                 <div class="container">
-                <img
-                    src="https://media1.nguoiduatin.vn/media/nhap-bai-qc/2018/11/09/tocotoco2.png"
-                    class="img-fluid"
-                    alt="product image"
-                />
+                    <img src="<?php echo $itemmproduct['image']; ?>" class="img-fluid" alt="product image"/>
                 </div>
             </div>
-            <div
-                class="col-12 col-md-7 col-lg-4 d-flex flex-column justify-content-center mt-2 mb-2"
-            >
+            <div class="col-12 col-md-7 col-lg-4 d-flex flex-column justify-content-center mt-2 mb-2">
                 <div class="d-flex flex-row align-item-center">
-                <a
-                    class="mb-2 mt-2 text-decoration-none fw-bold"
-                    style="color: black"
-                    ><span>Trà sữa trân châu hoàng kim</span> -
-                    <span>TS1500</span></a
-                >
+                    <a class="mb-2 mt-2 text-decoration-none fw-bold" style="color: black">
+                        <span><?php echo $itemmproduct['name']; ?></span> - <span><?php echo $itemmproduct['id']; ?></span></a>
                 <div class="dropdown d-lg-none d-flex ms-1">
-                    <button
-                    type="button"
-                    class="dropdown-toggle border-0 bg-transparent"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        fill="#FCC700"
-                        class="bi bi-three-dots"
-                        viewBox="0 0 16 16"
-                    >
-                        <path
-                        d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"
-                        />
-                    </svg>
+                    <button type="button" class="dropdown-toggle border-0 bg-transparent" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#FCC700"
+                            class="bi bi-three-dots" viewBox="0 0 16 16">
+                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"
+                            />
+                        </svg>
                     </button>
                     <ul class="dropdown-menu">
-                    <li>
-                        <a class="dropdown-item" onclick="redirectToProductDetail()"
-                        >THÔNG TIN</a
-                        >
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item" onclick="hideProduct()"
-                        >ẨN</a
-                        >
-                    </li>
-                    <li>
-                        <a class="dropdown-item" onclick="deleteProduct()"
-                        >XÓA</a
-                        >
-                    </li>
+                        <li><a class="dropdown-item" onclick="redirectToProductDetail()">THÔNG TIN</a></li>
+                        <li><a class="dropdown-item" onclick="hideProduct()">ẨN</a></li>
+                        <li><a class="dropdown-item" onclick="deleteProduct()">XÓA</a></li>
                     </ul>
                 </div>
                 </div>
-                <a class="mb-2 mt-2 text-decoration-none" style="color: black"
-                ><span>412000</span> đồng -
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="#FFC700"
-                    class="bi bi-star-fill"
-                    viewBox="0 0 16 16"
-                >
-                    <path
-                    d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
-                    />
-                </svg>
-                <span>4.7</span>
+                <a class="mb-2 mt-2 text-decoration-none" style="color: black"><span><?php echo $itemmproduct['price']; ?></span> đồng -
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFC700" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                    </svg>
+                    <span><?php echo $itemmproduct['rate']; ?></span>
                 </a>
-                <a class="mb-2 mt-2 text-decoration-none" style="color: black"
-                >Danh mục: <span>Best Seller, Trà sữa</span></a
-                >
-                <a
-                class="mb-2 mt-2 text-decoration-none"
-                style="color: #aba9a9"
-                >Mô tả</a
-                >
+                <a class="mb-2 mt-2 text-decoration-none" style="color: black">Danh mục: <span><?php echo $itemmproduct['typeName']; ?></span></a>
+                <a class="mb-2 mt-2 text-decoration-none" style="color: #aba9a9">Mô tả: <span><?php echo $itemmproduct['description']; ?></span></a>
             </div>
-            <div
-                class="col-12 col-md-5 col-lg-3 d-flex flex-column justify-content-center mt-2 mb-2"
-            >
-                <a class="mb-2 mt-2 text-decoration-none" style="color: black"
-                >Đã bán: <span>200</span></a
-                >
-                <a class="mb-2 mt-2 text-decoration-none" style="color: black"
-                >Số lượng còn lại: <span>200</span></a
-                >
-                <a class="mb-2 mt-2 text-decoration-none" style="color: black"
-                >Số đánh giá: <span>200</span></a
-                >
-                <a class="mb-2 mt-2 text-decoration-none" style="color: black"
-                >Trạng thái: <span>Đang bán</span></a
-                >
+            <div class="col-12 col-md-5 col-lg-3 d-flex flex-column justify-content-center mt-2 mb-2">
+                <a class="mb-2 mt-2 text-decoration-none" style="color: black">Đã bán: <span>200</span></a>
+                <a class="mb-2 mt-2 text-decoration-none" style="color: black">Số lượng còn lại: <span><?php echo $itemmproduct['quantity']; ?></span></a>
+                <a class="mb-2 mt-2 text-decoration-none" style="color: black">Số đánh giá: <span>200</span></a>
+                <a class="mb-2 mt-2 text-decoration-none" style="color: black">Trạng thái: 
+                    <span><?php echo $itemmproduct['isHidden'] == 0 ? "Đang bán" : "Đã ẩn";?></span>
+                </a>
             </div>
-            <div
-                class="col-lg-2 d-none d-lg-flex flex-column justify-content-center mt-2 mb-2"
-            >
-                <button
-                type="button"
-                class="btn btn-outline-warning mb-2 mt-2"
-                onclick="redirectToProductDetail()"
-                >
-                THÔNG TIN
-                </button>
-                <button
-                type="button"
-                class="btn btn-outline-warning mb-2 mt-2"
-                onclick="hideProduct()"
-                >
-                ẨN
-                </button>
-                <button
-                type="button"
-                class="btn btn-outline-warning mb-2 mt-2"
-                style="color: red"
-                onclick="deleteProduct()"
-                >
-                XÓA
-                </button>
+            <div class="col-lg-2 d-none d-lg-flex flex-column justify-content-center mt-2 mb-2">
+                <button type="button" class="btn btn-outline-warning mb-2 mt-2" onclick="redirectToProductDetail()">THÔNG TIN</button>
+                <?php if ($itemmproduct['isHidden'] == 0) { ?>
+                    <button type="button" class="btn btn-outline-warning mb-2 mt-2" onclick="hideProduct(<?php echo $itemmproduct['id']; ?>)">ẨN</button>
+                    <?php } 
+                ?>
+                <?php if ($itemmproduct['isHidden'] == 1) { ?>
+                    <button type="button" class="btn btn-outline-warning mb-2 mt-2" onclick="showProduct(<?php echo $itemmproduct['id']; ?>)">ĐĂNG BÁN</button>
+                    <?php } 
+                ?>
+                <button type="button" class="btn btn-outline-warning mb-2 mt-2" style="color: red" onclick="deleteProduct(<?php echo $itemmproduct['id']; ?>)">XÓA</button>
             </div>
             </div>
+            <?php
+                }
+            ?>
         </div>
+        <?php
+            }
+        ?>
         </div>
     </div>
     </div>
@@ -279,29 +221,77 @@
         }
         return confirmation;
     }
-    function deleteProduct() {
-        var confirmation = confirm(
-        "Bạn có chắc chắn muôn xóa sản phẩm 'ABC'?"
-        );
+    function deleteProduct(productID) {
+        console.log("Product ID:", productID);
+        var confirmation = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
         if (!confirmation) {
-        event.preventDefault();
+            return; 
         }
+        fetch('../../controller/seller/deleteProduct.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productID: productID }),
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = "?page=product";
+            } else {
+                console.error('Error:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
-    function hideProduct() {
-        var confirmation = confirm(
-        "Bạn có chắc chắn muôn ẩn sản phẩm 'ABC'?"
-        );
+    function hideProduct(productID) {
+        console.log("Product ID:", productID);
+        var confirmation = confirm("Bạn có chắc chắn muốn gỡ bán sản phẩm này?");
         if (!confirmation) {
-        event.preventDefault();
+            return; 
         }
+        fetch('../../controller/seller/hideProduct.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productID: productID }),
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = "?page=product";
+            } else {
+                console.error('Error:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
-    function showProduct() {
-        var confirmation = confirm(
-        "Bạn có chắc chắn muôn đăng bán lại sản phẩm 'ABC'?"
-        );
+    function showProduct(productID) {
+        console.log("Product ID:", productID);
+        var confirmation = confirm("Bạn có chắc chắn muốn đăng bán lại sản phẩm này?");
         if (!confirmation) {
-        event.preventDefault();
+            return; 
         }
+        fetch('../../controller/seller/showProduct.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productID: productID }),
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = "?page=product";
+            } else {
+                console.error('Error:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
     </script>
 </div>
