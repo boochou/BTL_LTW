@@ -32,7 +32,7 @@
     tabindex="-1"
     id="offcanvasScrolling"
     aria-labelledby="offcanvasScrollingLabel"
-    style= "height: 100vh"
+    style="height:100vh;"
   >
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasExampleLabel">
@@ -48,7 +48,7 @@
     <div class="container-fluid" style="margin-bottom: 50px">
       <div class="row">
         <div class="col">
-          <div class="overflow-auto" style="max-height: 650px">
+          <div class="overflow-auto" style="max-height: 100vh">
             <div class="accordion" id="accordionPanelsStayOpenExample">
               <div class="accordion-item border-top-0">
                 <h2 class="accordion-header">

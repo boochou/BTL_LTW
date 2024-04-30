@@ -27,7 +27,7 @@
         </ol>
     </nav>
     <div>
-        <div class="justify-content-center mt-4">
+        <div class="justify-content-center mt-4 me-5 ms-5 mb-4">
         <div class="row border rounded-4">
             <div
             class="col-lg-3 d-none d-md-none d-lg-flex mt-2 mb-2 d-flex justify-content-center align-items-center"

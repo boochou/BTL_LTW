@@ -27,7 +27,7 @@
         </ol>
     </nav>
     <div>
-        <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-row align-items-center ms-5">
         <button
             type="button"
             class="btn btn-outline-warning"
@@ -64,7 +64,15 @@
                 aria-label="Close"
                 ></button>
             </div>
-            <form onsubmit="confirmAddCategory(event)">
+            <?php
+                include_once("../../model/connectdb.php");
+                $query = "SELECT MAX(id) AS max_id FROM category";
+                $result = mysqli_query($mysqli, $query);
+                $row = mysqli_fetch_assoc($result);
+                $next_id = $row['max_id'] + 1;
+                mysqli_close($mysqli);
+            ?>
+            <form action="../../controller/seller/addCategory.php" method="post" onsubmit= "return confirmAddCategory()">
                 <div class="modal-body">
                 <div class="mb-3">
                     <label class="form-label" for="idcategory"
@@ -75,7 +83,7 @@
                     id="idcategory"
                     name="idcategory"
                     type="text"
-                    value="12"
+                    value="<?php echo $next_id; ?>"
                     required
                     readonly
                     style="width: 100%"
@@ -114,7 +122,7 @@
             </div>
         </div>
         </div>
-        <div class="justify-content-center mt-4">
+        <div class="justify-content-center mt-4 ms-5 me-5 mb-4" >
         <div>
             <p class="fs-4 fw-bold">Best Seller</p>
             <div class="row border rounded-4">
@@ -161,7 +169,7 @@
                     </button>
                     <ul class="dropdown-menu">
                     <li>
-                        <a class="dropdown-item" href="?page=productdetail"
+                        <a class="dropdown-item" onclick="redirectToProductDetail()"
                         >THÔNG TIN</a
                         >
                     </li>
@@ -196,9 +204,6 @@
                 <span>4.7</span>
                 </a>
                 <a class="mb-2 mt-2 text-decoration-none" style="color: black"
-                >Ngành hàng: <span>Trà sữa, Ăn vặt</span></a
-                >
-                <a class="mb-2 mt-2 text-decoration-none" style="color: black"
                 >Danh mục: <span>Best Seller, Trà sữa</span></a
                 >
                 <a
@@ -228,7 +233,7 @@
             >
                 <button
                 type="button"
-                class="btn btn-outline-warning border-black mb-2 mt-2"
+                class="btn btn-outline-warning mb-2 mt-2"
                 onclick="redirectToProductDetail()"
                 >
                 THÔNG TIN
@@ -272,6 +277,7 @@
         if (!confirmation) {
         event.preventDefault();
         }
+        return confirmation;
     }
     function deleteProduct() {
         var confirmation = confirm(
