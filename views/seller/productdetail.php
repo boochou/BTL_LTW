@@ -4,7 +4,7 @@
     <nav aria-label="breadcrumb" class="d-none d-md-flex d-lg-flex ms-5">
         <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#" class="text-decoration-none" style="color: black"
+            <a href="?page=mainpage" class="text-decoration-none" style="color: black"
             >Trang chủ</a
             >
         </li>
@@ -26,7 +26,16 @@
         </li>
         </ol>
     </nav>
-    <form class="ms-5 me-5" onsubmit="logFormData(event)">
+    <?php
+        include_once("../../controller/seller/getProductdetail.php");
+        $productID = isset($_GET['productID']) ? $_GET['productID'] : null;
+        if (!$productID) {
+            echo "Product ID is missing!";
+            exit;
+        }
+        $itemm = fetchProductDetailById($productID);
+    ?>
+    <form class="ms-5 me-5" enctype="multipart/form-data" onsubmit="logFormData(event)">
         <div class="mb-3">
         <label class="form-label" for="idsp">Mã sản phẩm</label>
         <input
@@ -34,7 +43,7 @@
             id="idsp"
             name="idsp"
             type="text"
-            value="TS1005"
+            value="<?php echo $itemm['id']; ?>"
             readonly
             required
             style="width: 100%"
@@ -47,24 +56,11 @@
             id="tensp"
             name="tensp"
             type="text"
-            value="Trà sữa trân châu đường đen"
+            value="<?php echo $itemm['name']; ?>"
             required
             style="width: 100%"
         />
-        </div>
-        <div class="mb-3">
-        <label class="form-label" for="industry">Ngành hàng</label>
-        <select
-            class="form-select"
-            id="industry"
-            name="industry"
-            aria-label="Default select example"
-        >
-            <option value="Thức uống">Thức uống</option>
-            <option value="Cơm-Bún-Cháo">Cơm-Bún-Cháo</option>
-            <option value="Bánh mì">Bánh mì</option>
-        </select>
-        </div>
+        </div>  
         <div class="mb-3">
         <label class="form-label" for="category">Danh mục</label>
         <select
@@ -73,9 +69,19 @@
             name="category"
             aria-label="Default select example"
         >
-            <option value="Best Seller">Best Seller</option>
-            <option value="Trà sữa">Trà sữa</option>
-            <option value="Sữa tươi">Sữa tươi</option>
+            <?php
+                include_once("../../model/connectdb.php");
+                $query = "SELECT id, typeName FROM category;";
+                $result = mysqli_query($mysqli,$query);
+                $preselectedCategory = $itemm['idCategory'];
+                while ($row = mysqli_fetch_assoc($result)) {
+                    if ($row['id'] == $preselectedCategory) {
+                        echo "<option value='" . $row['id'] . "' selected>" . $row['typeName'] . "</option>";
+                    } else {
+                        echo "<option value='" . $row['id'] . "'>" . $row['typeName'] . "</option>";
+                    }
+                }
+            ?>
         </select>
         </div>
         <div class="mb-3">
@@ -85,7 +91,7 @@
             id="price"
             name="price"
             type="number"
-            value="412000"
+            value="<?php echo $itemm['price']; ?>"
             required
             style="width: 100%"
         />
@@ -96,7 +102,7 @@
             class="form-control"
             id="soluong"
             name="soluong"
-            value="50"
+            value="<?php echo $itemm['quantity']; ?>"
             type="number"
             required
             style="width: 100%"
@@ -110,8 +116,8 @@
             name="status"
             aria-label="Default select example"
         >
-            <option value="1">Đang bán</option>
-            <option value="0">Ẩn</option>
+            <option value='1' <?php echo ($itemm['isHidden'] == '1') ? 'selected' : ''; ?>>Đã ẩn</option>
+            <option value='0' <?php echo ($itemm['isHidden'] == '0') ? 'selected' : ''; ?>>Đang bán</option>
         </select>
         </div>
         <div class="mb-3">
@@ -133,15 +139,16 @@
         </div>
         <div class="mb-3">
         <label class="form-label" for="description">Mô tả</label>
-        <textarea
+        <input
             class="form-control"
             id="description"
             name="description"
-            placeholder="Nhập mô tả cho sản phẩm"
+            type="text"
+            value="<?php echo $itemm['description']; ?>"
             required
             style="width: 100%"
             rows="5"
-        ></textarea>
+        ></input>
         </div>
         <div class="mb-5">
         <label class="form-label" for="image"
@@ -151,11 +158,15 @@
             class="form-control"
             type="file"
             id="image"
-            required
-            onchange="previewImage(event)"
+            onchange="previewImage(this)"
         />
-        <div id="image-preview" class="mt-2"></div>
-        </div>
+        <img src="<?php echo $itemm['image']; ?>" alt="Product Image" id="image-preview" class="img-fluid mt-2 mb-3" style="max-width:200px; max-height:200px">
+        <!-- <div id="image-preview" class="mt-2"></div>
+        </div> -->
+            <script>
+                // Update the image source
+                document.getElementById('image-preview').src = "<?php echo $itemm['image']; ?>";
+            </script>
         <div class="mb-5 d-flex flex-row justify-content-center">
         <button
             type="reset"
@@ -172,37 +183,104 @@
     </div>
     <!-- content -->
     <script>
-    function previewImage(event) {
-        const input = event.target;
-        const preview = document.getElementById("image-preview");
+        function previewImage(input) {
+                var uploadedImage = document.getElementById('image-preview');
+                var reader = new FileReader();
 
-        if (input.files && input.files[0]) {
-        const reader = new FileReader();
+                reader.onload = function (e) {
+                    uploadedImage.src = e.target.result;
+                };
 
-        reader.onload = function (e) {
-            const img = document.createElement("img");
-            img.src = e.target.result;
-            img.classList.add("img-fluid");
-            preview.innerHTML = "";
-            preview.appendChild(img);
-        };
+                if (input.files && input.files[0]) {
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+    // function previewImage(event) {
+    //     const input = event.target;
+    //     const preview = document.getElementById("image-preview");
 
-        reader.readAsDataURL(input.files[0]);
-        } else {
-        preview.innerHTML = "";
-        }
-    }
+    //     if (input.files && input.files[0]) {
+    //     const reader = new FileReader();
+
+    //     reader.onload = function (e) {
+    //         const img = document.createElement("img");
+    //         img.src = e.target.result;
+    //         img.classList.add("img-fluid");
+    //         preview.innerHTML = "";
+    //         preview.appendChild(img);
+    //     };
+
+    //     reader.readAsDataURL(input.files[0]);
+    //     } else {
+    //     preview.innerHTML = "";
+    //     }
+    // }
     function logFormData(event) {
         event.preventDefault();
-        const form = event.target;
-        const formData = new FormData(form);
-        var confirmation = confirm("Lưu thay đổi?");
-        if (confirmation) {
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ": " + pair[1]);
-        }
-        console.log("Form data will be sent to the server...");
-        }
+            if (!confirm("Lưu thay đổi?")) {
+                return;
+            }
+            const form = event.target;
+
+            if (!validateForm(form)) {
+                return;
+            }
+            
+            const formData = new FormData(form);
+
+            const imageInput = form.elements["image"];
+            formData.append('image', imageInput.files[0]);
+
+            fetch('../../controller/seller/updateProductdetail.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    // window.location.href = "?page=product";
+                    console.log("success");
+                } else {
+                    console.error('Error:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
+    function validateForm(form) {
+            var price = form.elements["price"].value;
+            var description = form.elements["description"].value;
+            var imageInput = form.elements["image"];
+            var imageFile = imageInput.files[0];
+
+            if (description.length > 2500) {
+                alert('Please limit description (2500 characters)');
+                return false;
+            }
+            if (price < 1000){
+                alert('Please enter a valid price (>= 1000)');
+                return false;
+            }
+            if (imageFile) {
+                var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                var maxFileSize = 5 * 1024 * 1024; // 5 MB
+
+                var extension = imageFile.name.split('.').pop().toLowerCase();
+
+                if (!allowedExtensions.includes(extension)) {
+                    alert('Please upload an image file (jpg, jpeg, png, gif)');
+                    return false;
+                }
+
+                if (imageFile.size > maxFileSize) {
+                    alert('Maximum file size allowed is 5MB');
+                    return false;
+                }
+            } else {
+                // alert('Please select an image file');
+                // return false;
+            }
+            return true;
+        }
     </script>
 </div>

@@ -61,6 +61,7 @@
             placeholder="Nhập tên tài khoản"
             required
             style="width: 100%"
+            autocomplete="username"
         />
         </div>
         <div class="mb-3">
@@ -74,6 +75,7 @@
             placeholder="Nhập mật khẩu"
             required
             style="width: 100%"
+            autocomplete="current-password"
         />
         </div>
         <div class="mb-3">

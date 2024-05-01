@@ -43,6 +43,7 @@
                 src="<?php echo $itemmreport['image']; ?>"
                 class="img-fluid"
                 alt="product image"
+                style="max-width:200px; max-height:200px"
                 />
             </div>
             </div>
@@ -56,42 +57,6 @@
                 ><span><?php echo $itemmreport['name']; ?></span> -
                 <span><?php echo $itemmreport['product_id']; ?></span></a
                 >
-                <div class="dropdown d-md-none d-flex ms-1">
-                <button
-                    type="button"
-                    class="dropdown-toggle border-0 bg-transparent"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                >
-                    <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    fill="#FCC700"
-                    class="bi bi-three-dots"
-                    viewBox="0 0 16 16"
-                    >
-                    <path
-                        d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"
-                    />
-                    </svg>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                    <a class="dropdown-item" href="#">LIÊN HỆ XỬ LÝ</a>
-                    </li>
-                    <li>
-                    <a class="dropdown-item" href="?page=productdetail"
-                        >SỬA THÔNG TIN</a
-                    >
-                    </li>
-                    <li>
-                    <a class="dropdown-item" onclick="deleteProduct()"
-                        >XÓA</a
-                    >
-                    </li>
-                </ul>
-                </div>
             </div>
             <a class="mb-2 mt-2 text-decoration-none" style="color: #aba9a9"><?php echo $itemmreport['timeReport']; ?></a>
             <a class="mb-2 mt-2 text-decoration-none" style="color: black"
@@ -108,7 +73,7 @@
             >
             </div>
             <div
-            class="col-lg-3 col-md-4 d-none d-md-flex d-lg-flex flex-column justify-content-center mt-2 mb-2"
+            class="col-lg-3 col-md-4 d-flex d-lg-flex flex-column justify-content-center mt-2 mb-2"
             >
             <?php if ($itemmreport['isHidden'] == 0) { ?>
                     <button type="button" class="btn btn-outline-warning mb-2 mt-2" onclick="hideProduct(<?php echo $itemmreport['product_id']; ?>)">ẨN SẢN PHẨM</button>

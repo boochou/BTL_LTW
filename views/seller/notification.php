@@ -18,7 +18,7 @@
         ?>
         <div class="border rounded-4 mb-3">
             <div class="row">
-                <div class="col-3 d-flex justify-content-center align-items-center">
+                <div class="col-md-3 d-none d-md-flex justify-content-center align-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#FFC700"
                         class="bi bi-cup-hot-fill" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -28,8 +28,8 @@
                     </svg>
                 </div>
                 
-                <div class="col-9 d-flex flex-column justify-content-center mt-2 mb-2">
-                    <a class="fw-bold text-decoration-none mt-2 mb-2" style="color: black;">
+                <div class="col-12 col-md-9 d-flex flex-column justify-content-center mt-2 mb-2">
+                    <a class="fw-bold text-decoration-none mt-2 mb-2 ms-3" style="color: black;">
                         <span>
                             <?php if ($itemm['isRead'] == 0) { ?>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#FFC700"
@@ -41,9 +41,9 @@
                             
                         </span>
                         <?php echo $itemm['title']; ?></a>
-                    <a class="text-decoration-none mt-2 mb-2" style="color: black;"><?php echo $itemm['message']; ?></a>
-                    <a class="text-decoration-none mt-2 mb-2" style="font-size: 13px; color:#A29D9D"><?php echo $itemm['timeNoti']; ?></a>
-                    <div class="d-flex flex-row justify-content-center mt-2 mb-2 me-5">
+                    <a class="text-decoration-none mt-2 mb-2 ms-3 me-3" style="color: black;"><?php echo $itemm['message']; ?></a>
+                    <a class="text-decoration-none mt-2 mb-2 ms-3 me-3" style="font-size: 13px; color:#A29D9D"><?php echo $itemm['timeNoti']; ?></a>
+                    <div class="d-flex flex-row justify-content-center mt-2 mb-2 ms-3 me-3">
                         <?php if ($itemm['isRead'] == 0) { ?>
                             <button type="button" class="btn btn-outline-warning mt-2 mb-2 me-5" onclick="readNotification(<?php echo $itemm['id']; ?>)">ĐÃ ĐỌC</button>
                             <?php } 
