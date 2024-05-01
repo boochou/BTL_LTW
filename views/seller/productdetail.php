@@ -249,6 +249,7 @@
     }
     function validateForm(form) {
             var price = form.elements["price"].value;
+            var quantity = form.elements["soluong"].value;
             var description = form.elements["description"].value;
             var imageInput = form.elements["image"];
             var imageFile = imageInput.files[0];
@@ -259,6 +260,10 @@
             }
             if (price < 1000){
                 alert('Please enter a valid price (>= 1000)');
+                return false;
+            }
+            if (quantity < 0){
+                alert('Please enter a valide quantity (>= 0)');
                 return false;
             }
             if (imageFile) {
