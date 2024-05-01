@@ -17,7 +17,8 @@ $url_pages = [
     'voucherdetail' => 'voucherdetail.php',
     'addvoucher' => 'addvoucher.php',
     'community' => 'community.php',
-    'notification' => 'notification.php'
+    'notification' => 'notification.php',
+    'listreporteduser' => 'listreporteduser.php'
 ];
 $load_page = $url_pages[$page];
 

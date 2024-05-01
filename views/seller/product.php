@@ -127,7 +127,6 @@
             include_once("../../controller/seller/getProduct.php");
             $categorylist = fetchCategory();
             foreach ($categorylist as $itemmcategory) {
-                
         ?>
         <div>
             <p class="fs-4 fw-bold"><?php echo $itemmcategory['typeName']; ?></p>

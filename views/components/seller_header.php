@@ -333,6 +333,11 @@
                         class="list-group-item list-group-item-action border-0"
                         >Thông báo</a
                       >
+                      <a
+                        href="?page=listreporteduser"
+                        class="list-group-item list-group-item-action border-0"
+                        >Danh sách khách hàng bị chặn</a
+                      >
                     </div>
                   </div>
                 </div>

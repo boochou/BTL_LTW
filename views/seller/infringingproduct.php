@@ -50,27 +50,36 @@
             <div
             class="col-lg-6 col-md-8 d-flex flex-column justify-content-center mt-2 mb-2"
             >
-            <div class="d-flex flex-row">
-                <a
-                class="mb-2 mt-2 text-decoration-none fw-bold"
-                style="color: black"
-                ><span><?php echo $itemmreport['name']; ?></span> -
-                <span><?php echo $itemmreport['product_id']; ?></span></a
+                <div class="d-flex flex-row">
+                    <a
+                    class="mb-2 mt-2 text-decoration-none fw-bold"
+                    style="color: black"
+                    ><span><?php echo $itemmreport['name']; ?></span> -
+                    <span><?php echo $itemmreport['product_id']; ?></span></a
+                    >
+                </div>
+                <a class="mb-2 mt-2 text-decoration-none" style="color: #aba9a9"><?php echo $itemmreport['timeReport']; ?></a>
+                <a class="mb-2 mt-2 text-decoration-none" style="color: black"
+                    >Tình trạng: <span><?php echo $itemmreport['isHidden'] == 0 ? "Đang bán" : "Đã ẩn";?></span></a
                 >
-            </div>
-            <a class="mb-2 mt-2 text-decoration-none" style="color: #aba9a9"><?php echo $itemmreport['timeReport']; ?></a>
-            <a class="mb-2 mt-2 text-decoration-none" style="color: black"
-                >Tình trạng: <span><?php echo $itemmreport['isHidden'] == 0 ? "Đang bán" : "Đã ẩn";?></span></a
-            >
-            <a class="mb-2 mt-2 text-decoration-none" style="color: red"
-                >Lý do vi phạm:
-                <span style="color: black"
-                ><?php echo $itemmreport['content']; ?></span
-                ></a
-            >
-            <a class="mb-2 mt-2 text-decoration-none" style="color: black"
-                >Người báo cáo: <span><?php echo $itemmreport['userName']; ?></span> - (<span><?php echo $itemmreport['account_id']; ?></span>)</a
-            >
+                <a class="mb-2 mt-2 text-decoration-none" style="color: red"
+                    >Lý do vi phạm:
+                    <span style="color: black"
+                    ><?php echo $itemmreport['content']; ?></span
+                    ></a
+                >
+                <a class="mb-2 mt-2 text-decoration-none" style="color: black" id="user">
+                    Người báo cáo: <span><?php echo $itemmreport['userName']; ?></span> - (<span><?php echo $itemmreport['account_id']; ?></span>)
+                    <span class="me-5 ms-5 text-decoration-underline fw-light">Trò chuyện</span>
+                    <?php if ($itemmreport['isReported'] == 0) { ?>
+                        <span class="text-decoration-underline fw-light" style="color:red" onclick="reportUser(<?php echo $itemmreport['account_id']; ?>)">Chặn</span>
+                        <?php } 
+                    ?>
+                    <?php if ($itemmreport['isReported'] == 1) { ?>
+                        <span class="text-decoration-underline fw-light" style="color:red" onclick="unblockUser(<?php echo $itemmreport['account_id']; ?>)">Gỡ chặn</span>
+                        <?php } 
+                    ?>
+                </a>
             </div>
             <div
             class="col-lg-3 col-md-4 d-flex d-lg-flex flex-column justify-content-center mt-2 mb-2"
@@ -86,7 +95,7 @@
             <button
                 type="button"
                 class="btn btn-outline-warning mb-2 mt-2"
-                onclick="redirectToProductDetail()"
+                onclick="redirectToProductDetail(<?php echo $itemmreport['product_id']; ?>)"
             >
                 SỬA THÔNG TIN
             </button>
@@ -108,8 +117,8 @@
     </div>
     <!-- content -->
     <script>
-        function redirectToProductDetail() {
-            window.location.href = "?page=productdetail";
+        function redirectToProductDetail(productID) {
+            window.location.href = "?page=productdetail&productID=" + productID;
         }
         function deleteProduct(productID) {
             console.log("Product ID:", productID);
@@ -182,6 +191,56 @@
             .catch(error => {
                 console.error('Error:', error);
             });
+        }
+        function reportUser(userID){
+            console.log("User ID:", userID);
+            var confirmation = confirm("Xác nhận chặn khách hàng này?");
+            if(!confirmation){
+                return;
+            }
+            fetch('../../controller/seller/reportUser.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userID: userID }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "?page=infringingproduct";
+                } else {
+                    console.error('Error:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        }
+        function unblockUser(userID){
+            console.log("User ID:", userID);
+            var confirmation = confirm("Xác nhận gỡ chặn khách hàng này?");
+            if(!confirmation){
+                return;
+            }
+            fetch('../../controller/seller/unblockUser.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userID: userID }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "?page=infringingproduct";
+                } else {
+                    console.error('Error:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
         }
     </script>
 </div>
