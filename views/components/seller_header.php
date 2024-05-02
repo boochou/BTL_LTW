@@ -1,3 +1,19 @@
+<?php
+    include_once("../../model/connectdb.php");
+    $query = "SELECT sellers.tiktok, sellers.instagram, sellers.facebook, sellers.nameStore, sellers.address,
+                    accounts.phone, accounts.email
+            FROM accounts
+            INNER JOIN sellers ON accounts.id = sellers.idAccount
+            WHERE sellers.idAccount = 1";
+    $result = mysqli_query($mysqli, $query);
+    $info = mysqli_fetch_assoc($result);   
+    
+      $query1 = "SELECT COUNT(*) as unreadnoti FROM notify 
+                  WHERE idAccount = 1 AND isRead = 0";
+      $result1 = mysqli_query($mysqli, $query1);
+      $unreadnoti = mysqli_fetch_assoc($result1);
+?>
+
 <header id="header" class="container-fluid shadow p-3">
   <div class="row d-flex align-items-center justify-content-center mt-2">
       <div class="col-3 col-md-5 col-lg-4 align-items-center justify-content-center d-lg-flex d-md-flex">
@@ -6,23 +22,28 @@
                   <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
               </svg>
           </button>
-          <a href="?page=mainpage" class="fs-2 fw-bold text-decoration-none d-none d-md-block d-lg-block" style="color: #FFC700;">UniEat <span style="color: red;">For Seller</span></a>
+          <a href="?page=mainpage" class="fs-2 fw-bold text-decoration-none d-none d-md-block d-lg-block" style="color: #FFC700;"><?php echo $info['nameStore']?> <span style="color: red;">For Seller</span></a>
       </div>
       <div class="col-6 col-md-6 col-lg-4 align-items-center justify-content-center d-lg-flex">
           <input class="form-control" type="text" placeholder="Tìm kiếm sản phẩm/đơn hàng">
       </div>
       <div class="col-lg-3 align-items-center justify-content-center d-md-none d-none d-lg-flex">
-          <a href="?page=account" class="fw-bold text-decoration-none text-center" style="color: black;">Xin chào, <span class="fs-4" style="color:#FFC700">Trà Sữa Tocotoco</span></a>
+          <a href="?page=account" class="fw-bold text-decoration-none text-center" style="color: black;">Xin chào, <span class="fs-4" style="color:#FFC700"><?php echo $info['nameStore']?></span></a>
       </div>
       <div class="col-3 col-md-1 col-lg-1 align-items-center justify-content-center d-flex">
-          <button type="button" class="border-0 bg-transparent position-relative">
+          <button type="button" class="border-0 bg-transparent position-relative" onclick="redirectToNofications()">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#FFC700" class="bi bi-bell-fill" viewBox="0 0 16 16">
                   <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901"/>
               </svg>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">
-                  5
+              <?php echo $unreadnoti['unreadnoti']?>
               </span>
           </button>
+          <script>
+              function redirectToNofications(){
+                window.location.href = "?page=notification";
+              }
+          </script>
       </div>
   </div>
   <div
