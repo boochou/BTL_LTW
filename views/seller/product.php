@@ -125,6 +125,7 @@
         <?php
             include_once("../../controller/seller/getCategory.php");
             include_once("../../controller/seller/getProduct.php");
+            
             $categorylist = fetchCategory();
             foreach ($categorylist as $itemmcategory) {
         ?>
@@ -148,19 +149,40 @@
                         <span><?php echo $itemmproduct['name']; ?></span> - <span><?php echo $itemmproduct['id']; ?></span></a>
             
                 </div>
+                <?php
+                include_once("../../controller/seller/averageRatingProduct.php");
+                $averageStars = getAverageStarsForProduct($itemmproduct['id']);
+                ?>
                     <a class="mb-2 mt-2 text-decoration-none" style="color: black"><span><?php echo $itemmproduct['price']; ?></span> đồng -
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFC700" class="bi bi-star-fill" viewBox="0 0 16 16">
                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
                         </svg>
-                        <span><?php echo $itemmproduct['rate']; ?></span>
+                        <span><?php echo $averageStars !== null ? $averageStars : '0.0'; ?></span>
                     </a>
                     <a class="mb-2 mt-2 text-decoration-none" style="color: black">Danh mục: <span><?php echo $itemmproduct['typeName']; ?></span></a>
                     <a class="mb-2 mt-2 text-decoration-none" style="color: #aba9a9">Mô tả: <span><?php echo $itemmproduct['description']; ?></span></a>
             </div>
+            <?php
+                // Calculate the total number of product sales 
+                $query_total = "SELECT SUM(quantity) AS total_sold 
+                                FROM product_in_order 
+                                INNER JOIN orders ON product_in_order.idOrder = orders.id
+                                WHERE idProduct = ? AND orders.statusOrder = 'Đã hoàn thành'";
+                $stmt = mysqli_prepare($mysqli, $query_total);
+                mysqli_stmt_bind_param($stmt, "i", $itemmproduct['id']);
+                mysqli_stmt_execute($stmt);
+                $result_total = mysqli_stmt_get_result($stmt);
+                $sold_total = mysqli_fetch_assoc($result_total);
+                $totalsold = $sold_total['total_sold'];
+
+                include_once("../../controller/seller/totalRatingProduct.php");
+                $totalrating = getTotalRatingProduct($itemmproduct['id']) ;
+
+            ?>
             <div class="col-12 col-md-5 col-lg-3 d-flex flex-column justify-content-center mt-2 mb-2">
-                <a class="mb-2 mt-2 text-decoration-none" style="color: black">Đã bán: <span>200</span></a>
+                <a class="mb-2 mt-2 text-decoration-none" style="color: black">Đã bán: <span><?php echo $totalsold !== null ? $totalsold : '0'; ?></span></a>
                 <a class="mb-2 mt-2 text-decoration-none" style="color: black">Số lượng còn lại: <span><?php echo $itemmproduct['quantity']; ?></span></a>
-                <a class="mb-2 mt-2 text-decoration-none" style="color: black">Số đánh giá: <span>200</span></a>
+                <a class="mb-2 mt-2 text-decoration-none" style="color: black">Số đánh giá: <span><?php echo $totalrating ?></span></a>
                 <a class="mb-2 mt-2 text-decoration-none" style="color: black">Trạng thái: 
                     <span><?php echo $itemmproduct['isHidden'] == 0 ? "Đang bán" : "Đã ẩn";?></span>
                 </a>

@@ -1,6 +1,3 @@
 - truyền idaccount cho trang (trang account, notification) => này chắc mặc định là 1
-- hàm tính sl còn lại của sp (trang product)
-- hàm lấy số đánh giá của sp (trang product)
-- hàm lấy tính sao trung bình của product dựa theo đơn hàng (trang product)
-- trang đánh giá
+
 - sửa header footer theo php
