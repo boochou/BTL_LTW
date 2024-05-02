@@ -53,71 +53,71 @@
         >
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="addCategoryLabel">
-                Thêm danh mục mới
-                </h1>
-                <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-                ></button>
-            </div>
-            <?php
-                include_once("../../model/connectdb.php");
-                $query = "SELECT MAX(id) AS max_id FROM category";
-                $result = mysqli_query($mysqli, $query);
-                $row = mysqli_fetch_assoc($result);
-                $next_id = $row['max_id'] + 1;
-            ?>
-            <form action="../../controller/seller/addCategory.php" method="post" onsubmit= "return confirmAddCategory()">
-                <div class="modal-body">
-                <div class="mb-3">
-                    <label class="form-label" for="idcategory"
-                    >Mã danh mục</label
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addCategoryLabel">
+                    Thêm danh mục mới
+                    </h1>
+                    <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    ></button>
+                </div>
+                <?php
+                    include_once("../../model/connectdb.php");
+                    $query = "SELECT MAX(id) AS max_id FROM category";
+                    $result = mysqli_query($mysqli, $query);
+                    $row = mysqli_fetch_assoc($result);
+                    $next_id = $row['max_id'] + 1;
+                ?>
+                <form action="../../controller/seller/addCategory.php" method="post" onsubmit= "return confirmAddCategory()">
+                    <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label" for="idcategory"
+                        >Mã danh mục</label
+                        >
+                        <input
+                        class="form-control"
+                        id="idcategory"
+                        name="idcategory"
+                        type="text"
+                        value="<?php echo $next_id; ?>"
+                        required
+                        readonly
+                        style="width: 100%"
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="namecategory"
+                        >Tên danh mục</label
+                        >
+                        <input
+                        class="form-control"
+                        id="namecategory"
+                        name="namecategory"
+                        type="text"
+                        placeholder="Nhập tên danh mục"
+                        required
+                        style="width: 100%"
+                        />
+                    </div>
+                    </div>
+                    <div
+                    class="modal-footer d-flex flex-row justify-content-center"
                     >
-                    <input
-                    class="form-control"
-                    id="idcategory"
-                    name="idcategory"
-                    type="text"
-                    value="<?php echo $next_id; ?>"
-                    required
-                    readonly
-                    style="width: 100%"
-                    />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="namecategory"
-                    >Tên danh mục</label
+                    <button
+                        type="reset"
+                        class="btn btn-outline-warning me-5"
+                        style="color: red"
                     >
-                    <input
-                    class="form-control"
-                    id="namecategory"
-                    name="namecategory"
-                    type="text"
-                    placeholder="Nhập tên danh mục"
-                    required
-                    style="width: 100%"
-                    />
-                </div>
-                </div>
-                <div
-                class="modal-footer d-flex flex-row justify-content-center"
-                >
-                <button
-                    type="reset"
-                    class="btn btn-outline-warning me-5"
-                    style="color: red"
-                >
-                    HỦY
-                </button>
-                <button type="submit" class="btn btn-outline-warning ms-5">
-                    THÊM DANH MỤC
-                </button>
-                </div>
-            </form>
+                        HỦY
+                    </button>
+                    <button type="submit" class="btn btn-outline-warning ms-5">
+                        THÊM DANH MỤC
+                    </button>
+                    </div>
+                </form>
             </div>
         </div>
         </div>
@@ -128,14 +128,15 @@
             $categorylist = fetchCategory();
             foreach ($categorylist as $itemmcategory) {
         ?>
-        <div>
+        <div> 
             <p class="fs-4 fw-bold"><?php echo $itemmcategory['typeName']; ?></p>
+            <div  style="max-height: 700px; overflow-y: auto; overflow-x: hidden;">
             <?php
                 $categoryId = $itemmcategory['id'];
                 $productslist = fetchProductsByCategory($categoryId);
                 foreach ($productslist as $itemmproduct) {
             ?>
-            <div class="row border rounded-4 mb-3">
+            <div class="row border rounded-4 mb-3" >
             <div class="col-lg-3 d-none mt-2 mb-2 d-lg-flex justify-content-center align-items-center">
                 <div class="container">
                     <img src="<?php echo $itemmproduct['image']; ?>" class="img-fluid" alt="product image" style="max-height:200px; max-width:200px"/>
@@ -180,6 +181,7 @@
             <?php
                 }
             ?>
+            </div>
         </div>
         <?php
             }
@@ -200,7 +202,7 @@
     }
     function confirmAddCategory(event) {
         var confirmation = confirm(
-        "Bạn có chắc chắn muôn thêm danh mục mới 'ABC'?"
+        "Bạn có chắc chắn muôn thêm danh mục mới?"
         );
         if (!confirmation) {
         event.preventDefault();

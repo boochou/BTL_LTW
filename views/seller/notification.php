@@ -10,6 +10,7 @@
         </ol>
     </nav>
     <div class="justify-content-center mt-2 ms-5 me-5 mb-3">
+        <div  style="max-height: 700px; overflow-y: auto; overflow-x: hidden;">
         <?php
             include_once("../../controller/seller/getNotification.php");
             $accountID = "1";
@@ -59,6 +60,7 @@
         <?php
             }
         ?>
+        </div>
     </div>
 </div>
 <!-- content -->

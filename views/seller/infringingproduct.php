@@ -28,6 +28,7 @@
     </nav>
     <div>
         <div class="justify-content-center mt-4 me-5 ms-5 mb-4">
+        <div  style="max-height: 700px; overflow-y: auto; overflow-x: hidden;">
         <?php
             include_once("../../controller/seller/getReportedProduct.php");
             $reportlist = fetchReportedProduct();
@@ -112,6 +113,7 @@
         <?php
             }
         ?>
+        </div>
         </div>
     </div>
     </div>
