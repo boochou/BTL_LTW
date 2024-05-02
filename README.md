@@ -3,6 +3,7 @@
 Đây là repository chính thức cho Bài tập lớn môn Lập trình Web.
 
 **_(Cập nhật đầu tiên 26/04/2024: Setup các trang dành cho user)_**
+
 **_(Cập nhật 27/04/2024: Cập nhật đầy đủ front-end dành cho seller, thêm database)_**
 
 ## Getting Start
