@@ -125,11 +125,11 @@
                         class="list-group-item list-group-item-action border-0"
                         >Đơn đã hủy</a
                       >
-                      <a
+                      <!-- <a
                         href="?page=order_repay"
                         class="list-group-item list-group-item-action border-0"
                         >Đơn hoàn tiền/trả lại</a
-                      >
+                      > -->
                     </div>
                   </div>
                 </div>
