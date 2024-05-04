@@ -1,0 +1,3 @@
+- truyền idaccount cho trang (trang account, notification) => này chắc mặc định là 1
+
+- sửa header footer theo php

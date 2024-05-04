@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Apr 30, 2024 at 07:45 PM
+-- Generation Time: May 02, 2024 at 03:19 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -41,7 +41,8 @@ CREATE TABLE `accounts` (
 
 INSERT INTO `accounts` (`id`, `email`, `pass`, `phone`, `userName`) VALUES
 (1, 'unieat@gmail.com', 'unieat', '0765710073', 'unieat'),
-(2, 'test1', 'test1', '0123456789', 'test1');
+(2, 'test1', 'test1', '0123456789', 'test1'),
+(3, 'test2', 'test2', '0123456789', 'test2');
 
 -- --------------------------------------------------------
 
@@ -98,12 +99,11 @@ INSERT INTO `category` (`id`, `typeName`) VALUES
 (2, 'Trà Sữa'),
 (3, 'Trà trái cây'),
 (4, 'Sữa tươi'),
-(5, 'Nước giải khát'),
-(6, 'Sinh tố'),
-(7, 'Đá bào'),
-(8, 'Milk Shake'),
-(9, 'Nước ngọt'),
-(10, 'Ăn vặt');
+(5, 'Sinh tố'),
+(6, 'Nước ngọt'),
+(7, 'Ăn vặt'),
+(8, 'Cơm-Mì-Bún'),
+(9, 'Đồ ăn Hàn Quốc');
 
 -- --------------------------------------------------------
 
@@ -214,6 +214,16 @@ CREATE TABLE `orders` (
   `isCanceled` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `idUser`, `payment`, `statusOrder`, `note`, `dateCreated`, `total`, `isRepay`, `address`, `isCanceled`) VALUES
+(1, 2, 'Ship COD', 'Đã hoàn thành', 'Giao rào A9 giúp em', '2024-04-08 10:30:32', 109000.00, NULL, 'Kí túc xá khu A làng đại học quốc gia TPHCM', NULL),
+(2, 2, 'Ship COD', 'Đã hoàn thành', 'Giao rào A9 giúp em', '2024-03-04 10:31:56', 200000.00, NULL, 'Kí túc xá khu A làng đại học quốc gia TPHCM', NULL),
+(3, 3, 'MOMO', 'Đã hoàn thành', 'Giao cổng KTX ạ', NULL, 68000.00, NULL, 'Kí túc xá khu A làng đại học quốc gia TPHCM', NULL),
+(4, 3, 'MOMO', 'Đã hoàn thành', NULL, '2024-03-11 17:39:18', 240000.00, NULL, 'Kí túc xá khu B làng đại học quốc gia TPHCM', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -240,9 +250,18 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `quantity`, `description`, `isDeleted`, `isHidden`, `isReported`, `price`, `idCategory`, `deliveryType`, `image`, `rate`) VALUES
-(1, 'Trà sữa ba anh em', 100, 'Có 3 loại topping', 0, 1, 1, 45000.00, 1, '0', 'https://product.hstatic.net/1000360860/product/tra_sua_toco_517ae6b8d48942a3b0ff7f40fbe2fcc2_master.jpg', 0.0),
-(2, 'Trà sữa trân châu đường đen', 50, 'Đã có sẵn trân châu', 0, 0, 1, 40000.00, 2, '0', 'https://feelingteaonline.com/wp-content/uploads/2020/08/s%C6%B0a-tuoi-tc-%C4%91%C6%B0%E1%BB%9Dng-%C4%91en.jpg', 0.0),
-(3, 'Trà trái cây nhiệt đới', 50, 'Trái cây bao gồm: dâu, cam, dưa lưới, xoài', 0, 0, 0, 40000.00, 3, '0', 'https://abar.vn/wp-content/uploads/2021/08/I0615bu8D0OY_tra-trai-cay-nhiet-doi.jpg', 0.0);
+(1, 'Trà sữa ba anh em', 100, 'Có 3 loại topping: thạch, trân châu, bánh flan', 0, 0, 1, 45000.00, 1, 'Cửa hàng tự vận chuyển', 'https://product.hstatic.net/1000360860/product/tra_sua_toco_517ae6b8d48942a3b0ff7f40fbe2fcc2_master.jpg', 0.0),
+(2, 'Sữa tươi trân châu đường đen', 90, 'Cửa hàng tự vận chuyển', 0, 0, 1, 40000.00, 4, 'Cửa hàng tự vận chuyển', 'https://feelingteaonline.com/wp-content/uploads/2020/08/s%C6%B0a-tuoi-tc-%C4%91%C6%B0%E1%BB%9Dng-%C4%91en.jpg', 0.0),
+(3, 'Trà trái cây nhiệt đới', 200, 'Trái cây bao gồm: dâu, cam, dưa lưới, xoài, ổi', 0, 0, 1, 1000.00, 3, 'Cửa hàng tự vận chuyển', 'https://congthucphache.com/wp-content/uploads/2022/11/tra-trai-cay-nhiet-doi.jpg', 0.0),
+(4, 'Trà bí đao hạt chia', 50, 'Trà bí đao hạt chia giải nhiệt, thích hợp cho mùa hè nóng bức!!! <3', 0, 0, 1, 20000.00, 3, 'Cửa hàng tự vận chuyển', 'https://images.foody.vn/res/g79/781003/s800/foody-tra-bi-dao-hat-chia-ba-trieu-252-636746014125974092.jpg', 0.0),
+(5, 'Trà sữa ô long', 85, 'Trà ô long tự nhiên, thanh nhiệt!', 0, 0, 0, 48000.00, 2, 'Cửa hàng tự vận chuyển', 'https://feelingteaonline.com/wp-content/uploads/2020/08/Tr%C3%A0-Olong-s%E1%BB%AFa.jpg', 0.0),
+(6, 'Sinh tố dâu', 43, 'Dâu tây từ Đà Lạt. Mùa này dâu hơi mắc, quý khách cân nhắc khi mua', 0, 0, 0, 50000.00, 5, 'Cửa hàng tự vận chuyển', 'https://www.hoidaubepaau.com/wp-content/uploads/2015/12/sinh-to-dau.jpg', 0.0),
+(7, 'Coca-Pepsi-7up', 100, 'Quý khách chọn 1 trong 3', 0, 0, 0, 15000.00, 6, 'Cửa hàng tự vận chuyển', 'https://cdn.tgdd.vn/Files/2017/04/12/971458/cach-lua-chon-va-su-dung-nuoc-ngot-khong-gay-hai-suc-khoe-2_760x506.jpg', 0.0),
+(8, 'Trà sữa truyền thống', 190, 'Trà sữa thương hiệu của quán <3', 0, 0, 0, 35000.00, 1, 'Cửa hàng tự vận chuyển', 'https://kiwixanh.com/wp-content/uploads/2021/12/tra-sua-truyen-thong-1.jpg', 0.0),
+(9, 'Cơm chiên dương châu', 40, 'Cơm chiên dương châu luôn là sự lựa chọn của bạn ^^', 0, 0, 0, 30000.00, 8, 'Cửa hàng tự vận chuyển', 'https://4.bp.blogspot.com/-F5b2m7upMiw/WkSt1qhi7_I/AAAAAAAAADY/doli22ApRcU6IJIKo35JjH8LHhjgDSRmACLcBGAs/s1600/com-chien-duong-chau-2018.jpg', 0.0),
+(10, 'Mì ý sốt thịt bò bằm', 40, '89% là thịt :>', 0, 0, 0, 30000.00, 8, 'Cửa hàng tự vận chuyển', 'https://forza.com.vn/wp-content/uploads/2021/07/cach-lam-mi-y-thom-ngon-chuan-vi-tai-nha-6.jpeg', 0.0),
+(11, 'Tokbokki phô mai', 40, 'Có kèm 1 trứng lòng đào ^^', 0, 0, 0, 35000.00, 9, 'Cừa hàng tự vận chuyển', 'https://cdn.shopify.com/s/files/1/0617/2497/files/cach-lam-tokbokki_a2179426-f894-4dda-a709-52fe9f07d6ab.jpg', 0.0),
+(12, 'Bánh tráng trộn', 40, 'Bánh tráng trộn tại gia :))', 0, 0, 0, 20000.00, 7, 'Cừa hàng tự vận chuyển', 'https://media.cooky.vn/recipe/g1/1615/s800x500/recipe-cover-r1615.jpg', 0.0);
 
 -- --------------------------------------------------------
 
@@ -270,6 +289,21 @@ CREATE TABLE `product_in_order` (
   `note` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `product_in_order`
+--
+
+INSERT INTO `product_in_order` (`idProduct`, `idOrder`, `price`, `quantity`, `note`) VALUES
+(1, 3, 48000.00, 1, 'Ít đá'),
+(6, 1, 50000.00, 1, NULL),
+(7, 4, 35000.00, 4, NULL),
+(8, 3, 35000.00, 1, 'Ít đá\r\n'),
+(9, 1, 30000.00, 1, NULL),
+(9, 3, 60000.00, 2, NULL),
+(10, 2, 30000.00, 2, NULL),
+(11, 2, 30000.00, 2, 'Có thể làm ít cay không ạ'),
+(12, 1, 20000.00, 1, 'Không cay ạ');
+
 -- --------------------------------------------------------
 
 --
@@ -286,6 +320,15 @@ CREATE TABLE `ratings` (
   `stars` int(11) DEFAULT NULL,
   `timeRating` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ratings`
+--
+
+INSERT INTO `ratings` (`ID`, `isHidden`, `idOrder`, `idUser`, `respone`, `content`, `stars`, `timeRating`) VALUES
+(1, 0, 1, 2, 'Cảm ơn em nhé! Lần sau ủng hộ quán tiếp nhé', 'Mới ăn lần đầu nhưng ngon lắm mn ạ ^^ ', 4, '2024-04-09 10:37:29'),
+(2, 0, 2, 2, NULL, 'Em quay lại rồi đây và đồ ăn vẫn ngon như ngày nàoooo', 2, '2024-04-16 10:38:30'),
+(3, 0, 3, 3, 'Cảm ơn em nhá <3', 'Ăn biết bao lần ròi, lần nào cũng hợp khẩu vị', 3, '2024-05-01 10:39:12');
 
 -- --------------------------------------------------------
 
@@ -305,8 +348,10 @@ CREATE TABLE `report` (
 --
 
 INSERT INTO `report` (`idAccount`, `idProduct`, `timeReport`, `content`) VALUES
-(1, 1, '2024-05-22 00:09:43', 'Sản phẩm được báo cáo chứa quá nhiều trân châu có nghi ngờ xuất xứ không rõ ràng, cần được kiểm tra trước khi kinh doanh trở lại.'),
-(2, 2, '2024-05-13 00:21:02', 'Hong có ngon :>');
+(2, 2, '2024-05-13 00:21:02', 'Hong có ngon :>'),
+(2, 3, '2024-04-02 10:23:30', 'Test thử'),
+(2, 4, '2024-03-11 10:24:01', 'Test thử\r\n'),
+(3, 1, '2024-05-22 00:09:43', 'Sản phẩm được báo cáo chứa quá nhiều trân châu có nghi ngờ xuất xứ không rõ ràng, cần được kiểm tra trước khi kinh doanh trở lại.');
 
 -- --------------------------------------------------------
 
@@ -330,7 +375,7 @@ CREATE TABLE `sellers` (
 --
 
 INSERT INTO `sellers` (`idAccount`, `money`, `nameStore`, `address`, `tiktok`, `instagram`, `facebook`, `isClose`) VALUES
-(1, 50000000.00, 'UniEat', 'Làng Đại học', 'unieat.tiktok.comm', 'unieat.insta.com', 'unieat.fb.com', 1);
+(1, 50000000.00, 'UniEat', 'Làng Đại Học', 'https://www.tiktok.com/@t1', 'https://www.instagram.com/t1lol/?igsh=aWFudmQ0Y2kzemVk', 'https://www.facebook.com/T1LoL', 1);
 
 -- --------------------------------------------------------
 
@@ -348,7 +393,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idAccount`, `isReported`) VALUES
-(2, 0);
+(2, 1),
+(3, 0);
 
 --
 -- Indexes for dumped tables
@@ -486,7 +532,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `blog`
@@ -528,19 +574,19 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
