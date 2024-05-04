@@ -1,11 +1,10 @@
 <?php
-function getProductInOrder($mysqli, $orderID) {
+function getCommentList($mysqli, $blogID) {
 
     $sql_get_product_in_order = mysqli_query($mysqli,
-        "SELECT product.name, product_in_order.quantity, product.price
-        FROM product_in_order   
-        INNER JOIN product ON product_in_order.idProduct = product.id
-        WHERE product_in_order.idOrder = $orderID");
+        "SELECT *
+        FROM comments, accounts
+        WHERE idBlog = $blogID AND idAccount = accounts.id");
 
     $product = array();
 
@@ -18,3 +17,4 @@ function getProductInOrder($mysqli, $orderID) {
     return $product;
 }
 ?>
+
