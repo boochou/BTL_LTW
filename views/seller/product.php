@@ -125,7 +125,6 @@
         <?php
             include_once("../../controller/seller/getCategory.php");
             include_once("../../controller/seller/getProduct.php");
-            
             $categorylist = fetchCategory();
             foreach ($categorylist as $itemmcategory) {
         ?>
