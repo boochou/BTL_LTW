@@ -171,6 +171,26 @@
     <?php } ?>
 </div>
 <script>
+    function previewImage() {
+                    const input = event.target;
+                    const preview = document.getElementById("fileNames");
+
+                    if (input.files && input.files[0]) {
+                        const reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            const img = document.createElement("img");
+                            img.src = e.target.result;
+                            img.classList.add("img-fluid");
+                            preview.innerHTML = "";
+                            preview.appendChild(img);
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+                    } else {
+                        preview.innerHTML = "";
+                    }
+                }
     function previewEditImage(event) {
         const input = event.target;
         const preview = document.getElementById("editfileNames");
