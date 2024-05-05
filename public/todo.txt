@@ -1,5 +1,4 @@
 - xem chi tiết hóa đơn
-- load danh sách hóa đơn theo thời gian
 - làm search, phân loại bên tất cả hóa đơn
-- responsive 2 nút kia
 - edit blog hình ảnh
+- làm comment

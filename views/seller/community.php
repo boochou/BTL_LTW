@@ -21,77 +21,41 @@
         </div>
     </div>
     <div id="editModal" class="popup">
-        <div class="popup-content">
+        <div class="popup-content"
+            style="display: flex; flex-direction: column; align-items: flex-start; min-width: 60vh;  max-height: 80vh; overflow-y: auto;">
             <span class="close" onclick="closeEditModal()">&times;</span>
-            <h5>Edit Blog Post</h5>
+            <h5>Chỉnh sửa bài viết</h5>
             <form id="editBlogForm" style="width: 100%;">
                 <input type="hidden" id="editBlogID">
                 <input type="text" placeholder="Tiêu đề" class="mb-3" style="width: 100%;" id="editTitleInput">
                 <textarea placeholder="Nội dung bài đăng" class="mb-3" style="width: 100%;"
                     id="editContentInput"></textarea>
-                <input type="file" accept="image/*" style="margin-bottom: 10px;" id="editFileInput" name="editFileInput" onchange="previewEditImage(event)" multiple>
+                <input type="file" accept="image/*" style="margin-bottom: 10px;" id="editFileInput" name="editFileInput"
+                    onchange="previewEditImage(event)" multiple>
+                <div id="editPreviewImage" class="mt-3 mb-3"></div>
                 <div id="editfileNames"></div>
                 <button type="button" onclick="submitEditForm()" style="background-color:#ffd700;"
                     class="btn btn-primary text-dark">Lưu</button>
             </form>
         </div>
     </div>
+
     <div class="popup" id="popup">
-        <div class="popup-content" style="display: flex; flex-direction: column; align-items: flex-start;">
+        <div class="popup-content"
+            style="display: flex; flex-direction: column; align-items: flex-start; min-width: 60vh;  max-height: 80vh; overflow-y: auto;">
             <span class="close" onclick="closePopup()">&times;</span>
             <h5>Hãy chia sẻ suy nghĩ của bạn</h5>
             <form id="blogForm" enctype="multipart/form-data" style="width: 100%;">
                 <input type="text" placeholder="Tiêu đề" class="mb-3" style="width: 100%;" id="titleInput">
                 <textarea placeholder="Nội dung bài đăng" class="mb-3" style="width: 100%;"
                     id="contentInput"></textarea>
-                <input type="file" accept="image/*" style="margin-bottom: 10px;" id="fileInput" name="fileInput" onchange="previewImage(event)" multiple>
+                <input type="file" accept="image/*" style="margin-bottom: 10px;" id="fileInput" name="fileInput"
+                    onchange="previewImage(event)" multiple>
                 <div id="fileNames"></div>
                 <button type="button" onclick="submitForm()" style="background-color:#ffd700;"
                     class="btn btn-primary text-dark">Đăng
                     bài</button>
             </form>
-            <script>
-                function previewImage(){
-                    const input = event.target;
-                    const preview = document.getElementById("fileNames");
-
-                    if (input.files && input.files[0]) {
-                    const reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        const img = document.createElement("img");
-                        img.src = e.target.result;
-                        img.classList.add("img-fluid");
-                        preview.innerHTML = "";
-                        preview.appendChild(img);
-                    };
-
-                    reader.readAsDataURL(input.files[0]);
-                    } else {
-                    preview.innerHTML = "";
-                    }
-                }
-                function previewEditImage(){
-                    const input = event.target;
-                    const preview = document.getElementById("editfileNames");
-
-                    if (input.files && input.files[0]) {
-                    const reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        const img = document.createElement("img");
-                        img.src = e.target.result;
-                        img.classList.add("img-fluid");
-                        preview.innerHTML = "";
-                        preview.appendChild(img);
-                    };
-
-                    reader.readAsDataURL(input.files[0]);
-                    } else {
-                    preview.innerHTML = "";
-                    }
-                }
-            </script>
         </div>
     </div>
     <?php
@@ -116,14 +80,15 @@
                             </div>
 
                         </div>
-                        <div class="dropdown">
-    <i class="fas fa-ellipsis-v" id="dropdownMenuButton" onclick="toggleMenu(this)"></i>
-    <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" id="dropdownMenu" style="display: none;">
-        <a class="dropdown-item" href="#" onclick="openEditModal(<?php echo $blog['id']; ?>, '<?php echo $blog['header']; ?>', '<?php echo $blog['content']; ?>')">Modify</a>
-        <a class="dropdown-item" href="#" onclick="confirmDelete(<?php echo $blog['id']; ?>)">Delete</a>
-    </div>
-</div>
 
+                        <div class="d-flex">
+                            <a class="ms-4" href="#"
+                                onclick="openEditModal(<?php echo $blog['id']; ?>, '<?php echo $blog['header']; ?>', '<?php echo $blog['content']; ?>','(<?php echo $blog['image']; ?>')"
+                                style="text-decoration: none;">Chỉnh sửa</a>
+                            <a class="ms-4" href="#" onclick="confirmDelete(<?php echo $blog['id']; ?>)"
+                                style="text-decoration: none; color: red;">Xóa bài</a>
+
+                        </div>
 
                     </div>
                     <div>
@@ -137,7 +102,8 @@
                     $blog_content = $blog['content'];
                     $cleaned_content = str_replace(array("\\r", "\\n", "\\r\\n"), '', $blog_content);
                     echo "<div>$cleaned_content</div>"; ?>
-                    <img src="..\..\public\images\fork2.png" alt="" class="mt-3" />
+                    <img src="<?php echo $blog['image']; ?>" alt="" class="mt-3"
+                        style="max-height: 400px; max-width: 70%;" />
                 </div>
                 <?php
                 include_once ("../../controller/seller/fetchCommentList.php");
@@ -205,34 +171,37 @@
     <?php } ?>
 </div>
 <script>
-    // Add event listener to listen for clicks on the document
-    document.addEventListener('click', function (event) {
-        // Get the dropdown menu
-        var menu = document.getElementById('dropdownMenu');
+    function previewEditImage(event) {
+        const input = event.target;
+        const preview = document.getElementById("editfileNames");
+        const editPreviewImage = document.getElementById("editPreviewImage");
+        console.log("ahihi: ", editPreviewImage)
+        editPreviewImage.innerHTML = "";
+        console.log("ahihi: ", editPreviewImage)
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
 
-        // Check if the clicked element is inside the dropdown menu
-        var isClickInsideMenu = menu.contains(event.target);
+            reader.onload = function (e) {
+                const img = document.createElement("img");
+                img.src = e.target.result;
+                img.classList.add("img-fluid");
+                preview.innerHTML = "";
+                preview.appendChild(img);
+            };
 
-        // Get the dropdown menu icon
-        var menuIcon = document.getElementById('dropdownMenuButton');
-
-        // Check if the clicked element is the dropdown menu icon
-        var isClickOnMenuIcon = menuIcon.contains(event.target);
-
-        // If the click is outside the menu and not on the menu icon, close the menu
-        if (!isClickInsideMenu && !isClickOnMenuIcon) {
-            menu.style.display = 'none';
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.innerHTML = "";
         }
-    });
+    }
 
-    // Function to open the edit modal and populate fields with data
-    function openEditModal(blogID, title, content) {
+    function openEditModal(blogID, title, content, imageUrl) {
         var editModal = document.getElementById('editModal');
         var editBlogIDInput = document.getElementById('editBlogID');
         var editTitleInput = document.getElementById('editTitleInput');
         var editContentInput = document.getElementById('editContentInput');
+        var editPreviewImage = document.getElementById('editPreviewImage');
 
-        // Populate fields with data
         editBlogIDInput.value = blogID;
         editTitleInput.value = title;
         editContentInput.textContent = content
@@ -242,17 +211,27 @@
             .replace(/^\s+|\s+$/g, '')
             .replace(/[\r\n]+/g, '\n');
 
-        // Display the modal
+        if (imageUrl) {
+            var absoluteImageUrl = window.location.origin + "/BTL/" + imageUrl;
+            editPreviewImage.innerHTML = '<img src="' + absoluteImageUrl + '" class="img-fluid" style="max-width: 100%; max-height: 200px;" />';
+        } else {
+            console.log("khong")
+            editPreviewImage.innerHTML = '';
+        }
+
         editModal.style.display = 'block';
     }
 
-
-    // Function to close the edit modal
     function closeEditModal() {
-        document.getElementById('editModal').style.display = 'none';
+        document.getElementById("editfileNames").innerHTML = "";
+
+        // Clear the content of the editPreviewImage div
+        document.getElementById("editPreviewImage").innerHTML = "";
+
+        // Hide the edit modal
+        document.getElementById("editModal").style.display = "none";
     }
 
-    // Function to submit the edit form
     function submitEditForm() {
         var blogID = document.getElementById('editBlogID').value;
         var title = document.getElementById('editTitleInput').value.trim();
@@ -287,7 +266,7 @@
             console.log("Submit")
             var title = document.getElementById('titleInput').value.trim();
             var content = document.getElementById('contentInput').value.trim();
-            
+
             // Read and encode files to base64
             var files = document.getElementById('fileInput').files;
             var images = [];
@@ -296,7 +275,7 @@
 
             for (var i = 0; i < files.length; i++) {
                 reader = new FileReader();
-                reader.onload = function(event) {
+                reader.onload = function (event) {
                     images.push(event.target.result);
                     counter++;
                     if (counter === files.length) {
@@ -314,25 +293,25 @@
                             },
                             body: JSON.stringify(requestBody)
                         })
-                        .then(response => {
-                            if (response.ok) {
-                                return response.text();
-                            } else {
-                                throw new Error('Network response was not ok');
-                            }
-                        })
-                        .then(data => {
-                            if (data === 'success') {
-                                window.location.href = "?page=community";
-                                console.log("success");
-                            } else {
-                                console.error('Error:', data);
-                            }
-                        })
-                        .catch(error => {
-                            // Catch any fetch errors
-                            console.error('Error:', error);
-                        });
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.text();
+                                } else {
+                                    throw new Error('Network response was not ok');
+                                }
+                            })
+                            .then(data => {
+                                if (data === 'success') {
+                                    window.location.href = "?page=community";
+                                    console.log("success");
+                                } else {
+                                    console.error('Error:', data);
+                                }
+                            })
+                            .catch(error => {
+                                // Catch any fetch errors
+                                console.error('Error:', error);
+                            });
 
                         closePopup();
                     }
@@ -381,25 +360,21 @@
             console.log("Delete action canceled");
         }
     }
-
-    function toggleMenu(icon) {
-        // Get the dropdown menu
-        var menu = icon.nextElementSibling;
-
-        // Toggle the display property
-        if (menu.style.display === "none") {
-            menu.style.display = "block";
-        } else {
-            menu.style.display = "none";
-        }
-    }
     function openPopup() {
         document.getElementById("popup").style.display = "block";
     }
 
     function closePopup() {
+        // Clear input fields
+        document.getElementById("titleInput").value = "";
+        document.getElementById("contentInput").value = "";
+        document.getElementById("fileInput").value = "";
+        document.getElementById("fileNames").innerHTML = "";
+
+        // Hide the popup
         document.getElementById("popup").style.display = "none";
     }
+
     document.getElementById('fileInput').addEventListener('change', function () {
         var fileNamesDiv = document.getElementById('fileNames');
         fileNamesDiv.innerHTML = ''; // Clear previous content
