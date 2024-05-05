@@ -22,7 +22,7 @@ function getListOrderFromTo($mysqli, $startDate, $endDate) {
     $sql_get_list_reported_user = mysqli_prepare($mysqli,
         "SELECT orders.id as idOrder, statusOrder, total, payment
         FROM orders
-        WHERE dateCreated >= ? AND dateCreated <= ? AND isPaid = 1
+        WHERE dateCreated >= ? AND dateCreated <= ? AND payment = 'Ship COD'
         ORDER BY dateCreated ASC;");
 
     mysqli_stmt_bind_param($sql_get_list_reported_user, 'ss', $startDate, $endDate);
@@ -44,7 +44,7 @@ function getListOrderFromToNotPaid($mysqli, $startDate, $endDate) {
     $sql_get_list_reported_user = mysqli_prepare($mysqli,
         "SELECT orders.id as idOrder, statusOrder, total, payment
         FROM orders
-        WHERE dateCreated >= ? AND dateCreated <= ? AND isPaid = 0
+        WHERE dateCreated >= ? AND dateCreated <= ? AND payment='MOMO'
         ORDER BY dateCreated ASC;");
 
     mysqli_stmt_bind_param($sql_get_list_reported_user, 'ss', $startDate, $endDate);
