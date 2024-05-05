@@ -6,7 +6,7 @@ function getNotification($mysqli, $accountID) {
         FROM notifications
         INNER JOIN notify ON notifications.id = notify.idNotifications
         WHERE notify.idAccount = $accountID AND notify.isDeleted = 0
-        ORDER BY timeNoti");
+        ORDER BY timeNoti DESC" );
 
     $notifications = array();
 

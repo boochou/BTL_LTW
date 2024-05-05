@@ -7,10 +7,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $blogID = mysqli_real_escape_string($mysqli, $data->blogID); // Escape input
     $content = mysqli_real_escape_string($mysqli, $data->content);
     $title = mysqli_real_escape_string($mysqli, $data->title);
+    $images = $data->images;
+
+    $uploadDirectory = '../../public/BlogImage/';
+    $imagePaths = array();
+
+    foreach ($images as $base64Image) {
+        $imageName = uniqid() . '.png'; // Generate unique filename
+        $imagePath = $uploadDirectory . $imageName;
+        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64Image));
+        file_put_contents($imagePath, $imageData);
+        $imagePaths[] = $imagePath;
+    }
+
     // Include the file containing the function to add a blog
     include_once '../../model/seller/editBlog.php';
     // Call the function to add the blog post
-    $success = editBlog($mysqli, $blogID,$title,$content);
+    $success = editBlog($mysqli, $blogID,$title,$content,$imagePaths);
 
     // Check if the addition was successful
     if ($success) {

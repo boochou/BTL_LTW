@@ -191,7 +191,7 @@
                   </div>
                 </div>
               </div>
-              <div class="accordion-item">
+              <!-- <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button
                     class="accordion-button bg-transparent"
@@ -236,8 +236,8 @@
                       >
                     </div>
                   </div>
-                </div>
-              </div>
+                </div> 
+              </div>-->
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button
@@ -289,7 +289,7 @@
                         class="list-group-item list-group-item-action border-0"
                         >Đánh giá và nhận xét</a
                       >
-                      <a
+                      <!-- <a
                         href="?page=voucher"
                         class="list-group-item list-group-item-action border-0"
                         >Voucher/Khuyến mãi</a
@@ -298,7 +298,7 @@
                         href="?page=addvoucher"
                         class="list-group-item list-group-item-action border-0"
                         >Thêm Voucher/Khuyến mãi</a
-                      >
+                      > -->
                     </div>
                   </div>
                 </div>

@@ -136,16 +136,21 @@
             </div>
         </div>
         </div>
-        <div class="justify-content-center mt-4 ms-5 me-5 mb-4" >
+        <div class="justify-content-center mt-3 ms-5 me-5 mb-4" >
+        <form method="post" action="">
+            <label class="form-label" for="searchproduct">Tìm kiếm sản phẩm</label>
+            <input class="form-control" id="searchproduct" name="searchproduct" type="text" placeholder="Nhập tên sản phẩm" style="width: 100%;">
+        </form>
+
         <?php
             include_once("../../controller/seller/getCategory.php");
-            include_once("../../controller/seller/getProduct.php");
+            
             $categorylist = fetchCategory();
             foreach ($categorylist as $index => $itemmcategory) {
                     $modalId = 'updateCategory_' . $index;
         ?>
         <div> 
-            <p class="fs-4 fw-bold" data-bs-toggle="modal" data-bs-target="#<?php echo $modalId; ?>">
+            <p class="fs-4 fw-bold mt-3" data-bs-toggle="modal" data-bs-target="#<?php echo $modalId; ?>">
                 <span><?php echo $itemmcategory['id']?></span>. <span><?php echo $itemmcategory['typeName']; ?></span>
             </p>
             <div class="modal fade" id="<?php echo $modalId; ?>" tabindex="-1" aria-labelledby="updateCategoryLabel" aria-hidden="true">
@@ -246,8 +251,14 @@
             </script>
             <div  style="max-height: 700px; overflow-y: auto; overflow-x: hidden;">
             <?php
+                include_once("../../controller/seller/getProduct.php");
                 $categoryId = $itemmcategory['id'];
-                $productslist = fetchProductsByCategory($categoryId);
+                if(isset($_POST['searchproduct'])) {
+                    $searchQuery = $_POST['searchproduct'];
+                } else {
+                    $searchQuery = null;
+                }
+                $productslist = fetchProductsByCategory($categoryId, $searchQuery);
                 foreach ($productslist as $itemmproduct) {
             ?>
             <div class="row border rounded-4 mb-3" >
