@@ -71,7 +71,7 @@
                     $row = mysqli_fetch_assoc($result);
                     $next_id = $row['max_id'] + 1;
                 ?>
-                <form action="../../controller/seller/addCategory.php" method="post" onsubmit= "return confirmAddCategory()">
+                <form enctype="multipart/form-data" onsubmit= "confirmAddCategory(event)">
                     <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label" for="idcategory"
@@ -102,6 +102,21 @@
                         style="width: 100%"
                         />
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="imagecategory"
+                        >Hình ảnh minh họa</label
+                        >
+                        <input
+                        class="form-control"
+                        id="imagecategory"
+                        name="imagecategory"
+                        type="file"
+                        required
+                        style="width: 100%"
+                        onchange="previewImage(event)"
+                        />
+                    </div>
+                    <div id="image-preview" class="mt-2" style="max-height:200px; max-width:200px"></div>
                     </div>
                     <div
                     class="modal-footer d-flex flex-row justify-content-center"
@@ -126,10 +141,109 @@
             include_once("../../controller/seller/getCategory.php");
             include_once("../../controller/seller/getProduct.php");
             $categorylist = fetchCategory();
-            foreach ($categorylist as $itemmcategory) {
+            foreach ($categorylist as $index => $itemmcategory) {
+                    $modalId = 'updateCategory_' . $index;
         ?>
         <div> 
-            <p class="fs-4 fw-bold"><?php echo $itemmcategory['typeName']; ?></p>
+            <p class="fs-4 fw-bold" data-bs-toggle="modal" data-bs-target="#<?php echo $modalId; ?>">
+                <span><?php echo $itemmcategory['id']?></span>. <span><?php echo $itemmcategory['typeName']; ?></span>
+            </p>
+            <div class="modal fade" id="<?php echo $modalId; ?>" tabindex="-1" aria-labelledby="updateCategoryLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="updateCategoryLabel">
+                            Chỉnh sửa danh mục
+                            </h1>
+                            <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                            ></button>
+                        </div>
+                        <form enctype="multipart/form-data" onsubmit= "confirmupdateCategory(event)">
+                            <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label" for="idcategory"
+                                >Mã danh mục</label
+                                >
+                                <input
+                                class="form-control"
+                                id="idcategory"
+                                name="idcategory"
+                                type="text"
+                                value="<?php echo $itemmcategory['id']?>"
+                                required
+                                readonly
+                                style="width: 100%"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="namecategory"
+                                >Tên danh mục</label
+                                >
+                                <input
+                                class="form-control"
+                                id="namecategory"
+                                name="namecategory"
+                                type="text"
+                                value="<?php echo $itemmcategory['typeName']; ?>"
+                                placeholder="Nhập tên danh mục"
+                                required
+                                style="width: 100%"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="imagecategory"
+                                >Hình ảnh minh họa</label
+                                >
+                                <input
+                                class="form-control"
+                                id="imagecategory"
+                                name="imagecategory"
+                                type="file"
+                                style="width: 100%"
+                                onchange="previewImageUpdate<?php echo $itemmcategory['id']?>(this)"
+                                />
+                            </div>
+                            <img src="<?php echo $itemmcategory['image']; ?>" alt="Category Image" id="image-preview<?php echo $itemmcategory['id']?>" class="img-fluid mt-2 mb-3" style="max-width:200px; max-height:200px">
+                            
+                            </div>
+                            <div
+                            class="modal-footer d-flex flex-row justify-content-center"
+                            >
+                            <button
+                                type="reset"
+                                class="btn btn-outline-warning me-5"
+                                style="color: red"
+                            >
+                                HỦY
+                            </button>
+                            <button type="submit" class="btn btn-outline-warning ms-5">
+                                LƯU
+                            </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <script>
+                // Update the image source
+                document.getElementById('image-preview<?php echo $itemmcategory['id']?>').src = "<?php echo $itemmcategory['image']; ?>";
+                function previewImageUpdate<?php echo $itemmcategory['id']?>(input) {
+                    var uploadedImage = document.getElementById('image-preview<?php echo $itemmcategory['id']?>');
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        uploadedImage.src = e.target.result;
+                    };
+
+                    if (input.files && input.files[0]) {
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+            </script>
             <div  style="max-height: 700px; overflow-y: auto; overflow-x: hidden;">
             <?php
                 $categoryId = $itemmcategory['id'];
@@ -221,15 +335,137 @@
     function redirectToProductRate() {
         window.location.href = "./productrate.html";
     }
-    function confirmAddCategory(event) {
-        var confirmation = confirm(
-        "Bạn có chắc chắn muôn thêm danh mục mới?"
-        );
-        if (!confirmation) {
-        event.preventDefault();
+    function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById("image-preview");
+
+            if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const img = document.createElement("img");
+                img.src = e.target.result;
+                img.classList.add("img-fluid");
+                preview.innerHTML = "";
+                preview.appendChild(img);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+            } else {
+            preview.innerHTML = "";
+            }
         }
-        return confirmation;
+    function confirmAddCategory(event) {
+        event.preventDefault();
+            if (!confirm("Bạn có chắc chắn muốn thêm danh mục mới?")) {
+                return;
+            }
+            const form = event.target;
+
+            if (!validateForm(form)) {
+                return;
+            }
+
+            const formData = new FormData(form);
+
+            fetch('../../controller/seller/addCategory.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "?page=product";
+                    console.log("success");
+                } else {
+                    console.error('Error:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
+    function confirmupdateCategory(event) {
+        event.preventDefault();
+            if (!confirm("Lưu thay đổi?")) {
+                return;
+            }
+            const form = event.target;
+
+            if (!validateForm2(form)) {
+                return;
+            }
+            
+            const formData = new FormData(form);
+
+            const imageInput = form.elements["imagecategory"];
+            formData.append('imagecategory', imageInput.files[0]);
+
+            fetch('../../controller/seller/updateCategory.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "?page=product";
+                    console.log("success");
+                } else {
+                    console.error('Error:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+    function validateForm(form) {
+            
+            var imageInput = form.elements["imagecategory"];
+            var imageFile = imageInput.files[0];
+
+            if (imageFile) {
+                var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                var maxFileSize = 5 * 1024 * 1024; // 5 MB
+
+                var extension = imageFile.name.split('.').pop().toLowerCase();
+
+                if (!allowedExtensions.includes(extension)) {
+                    alert('Please upload an image file (jpg, jpeg, png, gif)');
+                    return false;
+                }
+
+                if (imageFile.size > maxFileSize) {
+                    alert('Maximum file size allowed is 5MB');
+                    return false;
+                }
+            } else {
+                alert('Please select an image file');
+                return false;
+            }
+            return true;
+        }
+        function validateForm2(form) {
+            
+            var imageInput = form.elements["imagecategory"];
+            var imageFile = imageInput.files[0];
+
+            if (imageFile) {
+                var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                var maxFileSize = 5 * 1024 * 1024; // 5 MB
+
+                var extension = imageFile.name.split('.').pop().toLowerCase();
+
+                if (!allowedExtensions.includes(extension)) {
+                    alert('Please upload an image file (jpg, jpeg, png, gif)');
+                    return false;
+                }
+
+                if (imageFile.size > maxFileSize) {
+                    alert('Maximum file size allowed is 5MB');
+                    return false;
+                }
+            } else {
+            }
+            return true;
+        }
     function deleteProduct(productID) {
         console.log("Product ID:", productID);
         var confirmation = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");

@@ -29,6 +29,8 @@
                 <input type="text" placeholder="Tiêu đề" class="mb-3" style="width: 100%;" id="editTitleInput">
                 <textarea placeholder="Nội dung bài đăng" class="mb-3" style="width: 100%;"
                     id="editContentInput"></textarea>
+                <input type="file" accept="image/*" style="margin-bottom: 10px;" id="editFileInput" name="editFileInput" onchange="previewEditImage(event)" multiple>
+                <div id="editfileNames"></div>
                 <button type="button" onclick="submitEditForm()" style="background-color:#ffd700;"
                     class="btn btn-primary text-dark">Lưu</button>
             </form>
@@ -38,16 +40,58 @@
         <div class="popup-content" style="display: flex; flex-direction: column; align-items: flex-start;">
             <span class="close" onclick="closePopup()">&times;</span>
             <h5>Hãy chia sẻ suy nghĩ của bạn</h5>
-            <form id="blogForm" style="width: 100%;">
+            <form id="blogForm" enctype="multipart/form-data" style="width: 100%;">
                 <input type="text" placeholder="Tiêu đề" class="mb-3" style="width: 100%;" id="titleInput">
                 <textarea placeholder="Nội dung bài đăng" class="mb-3" style="width: 100%;"
                     id="contentInput"></textarea>
-                <input type="file" accept="image/*" style="margin-bottom: 10px;" id="fileInput" multiple>
+                <input type="file" accept="image/*" style="margin-bottom: 10px;" id="fileInput" name="fileInput" onchange="previewImage(event)" multiple>
                 <div id="fileNames"></div>
                 <button type="button" onclick="submitForm()" style="background-color:#ffd700;"
                     class="btn btn-primary text-dark">Đăng
                     bài</button>
             </form>
+            <script>
+                function previewImage(){
+                    const input = event.target;
+                    const preview = document.getElementById("fileNames");
+
+                    if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        const img = document.createElement("img");
+                        img.src = e.target.result;
+                        img.classList.add("img-fluid");
+                        preview.innerHTML = "";
+                        preview.appendChild(img);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                    } else {
+                    preview.innerHTML = "";
+                    }
+                }
+                function previewEditImage(){
+                    const input = event.target;
+                    const preview = document.getElementById("editfileNames");
+
+                    if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        const img = document.createElement("img");
+                        img.src = e.target.result;
+                        img.classList.add("img-fluid");
+                        preview.innerHTML = "";
+                        preview.appendChild(img);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                    } else {
+                    preview.innerHTML = "";
+                    }
+                }
+            </script>
         </div>
     </div>
     <?php
@@ -243,45 +287,66 @@
             console.log("Submit")
             var title = document.getElementById('titleInput').value.trim();
             var content = document.getElementById('contentInput').value.trim();
-            var requestBody = {
-                title: title,
-                content: content
-            };
-            console.log(JSON.stringify(requestBody));
-            fetch('../../controller/seller/addBlog.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ title: title, content: content })
-            })
-                .then(response => {
-                    if (response.ok) {
-                        return response.text();
-                    } else {
-                        throw new Error('Network response was not ok');
-                    }
-                })
-                .then(data => {
-                    if (data === 'success') {
-                        window.location.href = "?page=community";
-                        console.log("success");
-                    } else {
-                        console.error('Error:', data);
-                    }
-                })
-                .catch(error => {
-                    // Catch any fetch errors
-                    console.error('Error:', error);
-                });
+            
+            // Read and encode files to base64
+            var files = document.getElementById('fileInput').files;
+            var images = [];
+            var reader;
+            var counter = 0;
 
-            closePopup();
+            for (var i = 0; i < files.length; i++) {
+                reader = new FileReader();
+                reader.onload = function(event) {
+                    images.push(event.target.result);
+                    counter++;
+                    if (counter === files.length) {
+                        // All files processed, send JSON data
+                        var requestBody = {
+                            title: title,
+                            content: content,
+                            images: images
+                        };
+
+                        fetch('../../controller/seller/addBlog.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(requestBody)
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                return response.text();
+                            } else {
+                                throw new Error('Network response was not ok');
+                            }
+                        })
+                        .then(data => {
+                            if (data === 'success') {
+                                window.location.href = "?page=community";
+                                console.log("success");
+                            } else {
+                                console.error('Error:', data);
+                            }
+                        })
+                        .catch(error => {
+                            // Catch any fetch errors
+                            console.error('Error:', error);
+                        });
+
+                        closePopup();
+                    }
+                };
+                reader.readAsDataURL(files[i]);
+            }
         }
     }
+
 
     function validateForm() {
         var title = document.getElementById('titleInput').value.trim();
         var content = document.getElementById('contentInput').value.trim();
+        var image = document.getElementById('fileInput').value.trim();
 
         if (title === '' || content === '') {
             alert('Vui lòng nhập Tiêu đề và Nội dung bài đăng');

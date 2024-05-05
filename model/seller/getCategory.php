@@ -1,6 +1,6 @@
 <?php
 function getCategory($mysqli) {
-    $sql_get_list_category = mysqli_query($mysqli, "SELECT id, typeName FROM category");
+    $sql_get_list_category = mysqli_query($mysqli, "SELECT id, typeName, image FROM category");
 
     $category = array();
 

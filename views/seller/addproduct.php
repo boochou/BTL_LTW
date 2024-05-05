@@ -89,6 +89,7 @@
                 placeholder="Nhập mô tả cho sản phẩm" required style="width: 100%;" rows="5"></textarea>
         </div>
         <div class="mb-5">
+        <!-- accept="image/*" -->
             <label class="form-label" for="image">Hình ảnh minh họa sản phẩm</label>
             <input class="form-control" type="file" id="image" name="image" required onchange="previewImage(event)">
             <div id="image-preview" class="mt-2" style="max-height:200px; max-width:200px"></div>
