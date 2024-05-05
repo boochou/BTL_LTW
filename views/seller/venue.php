@@ -199,10 +199,13 @@
                     <input id="startDatePaid" class="form-control" type="date" style="width: 150px;" />
                     <label for="endDatePaid" style="margin-left: 20px; margin-right: 10px;">End date</label>
                     <input id="endDatePaid" class="form-control" type="date" style="width: 150px;" />
+                    <button id="fetchOrdersBtn" class="btn btn-primary" style="margin-left: 20px;"
+                        onclick="fetchOrders()">Fetch Orders</button>
+
                 </div>
                 <div class="ms-5 border border-solid rounded" style="width: 90%;border-width: 1px; border-radius: 5px;">
                     <div style="overflow-y: auto; max-height: 300px;">
-                        <table class="table">
+                        <table id="ordersTable" class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">Mã đơn hàng</th>
@@ -211,70 +214,108 @@
                                     <th scope="col">Giá tiền</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>12345</td>
-                                    <td>Đang xử lý</td>
-                                    <td>Thanh toán khi nhận hàng</td>
-                                    <td>250.000đ</td>
-                                </tr>
-                                <tr>
-                                    <td>54321</td>
-                                    <td>Đã giao hàng</td>
-                                    <td>Thanh toán bằng thẻ</td>
-                                    <td>150.000đ</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="notpaid" role="tabpanel" aria-labelledby="notpaid-tab">
-                <div class="d-flex mt-3 mb-3">
-                    <label for="startDate" style="margin-right: 10px;">Start date</label>
-                    <input id="startDate" class="form-control" type="date" style="width: 150px;" />
-                    <label for="endDate" style="margin-left: 20px; margin-right: 10px;">End date</label>
-                    <input id="endDate" class="form-control" type="date" style="width: 150px;" />
-                </div>
-                <div class="ms-5 border border-solid rounded" style="width: 90%;border-width: 1px; border-radius: 5px;">
-                    <div style="overflow-y: auto; max-height: 300px;">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Mã đơn hàng</th>
-                                    <th scope="col">Trạng thái</th>
-                                    <th scope="col">Phương thức thanh toán</th>
-                                    <th scope="col">Giá tiền</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>12345</td>
-                                    <td>Đang xử lý</td>
-                                    <td>Thanh toán khi nhận hàng</td>
-                                    <td>250.000đ</td>
-                                </tr>
-                                <tr>
-                                    <td>54321</td>
-                                    <td>Đã giao hàng</td>
-                                    <td>Thanh toán bằng thẻ</td>
-                                    <td>150.000đ</td>
-                                </tr>
+                            <tbody id="ordersTableBody">
+                                <!-- Table body will be filled by JavaScript -->
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="tab-pane fade" id="notpaid" role="tabpanel" aria-labelledby="notpaid-tab">
+            <div class="d-flex mt-3 mb-3">
+                <label for="startDate" style="margin-right: 10px;">Start date</label>
+                <input id="startDate" class="form-control" type="date" style="width: 150px;" />
+                <label for="endDate" style="margin-left: 20px; margin-right: 10px;">End date</label>
+                <input id="endDate" class="form-control" type="date" style="width: 150px;" />
+                <button id="fetchOrdersNotPaid" class="btn btn-primary" style="margin-left: 20px;"
+                    onclick="fetchOrdersNotPaid()">Fetch Orders</button>
+            </div>
+            <div class="ms-5 border border-solid rounded" style="width: 90%;border-width: 1px; border-radius: 5px;">
+                <div style="overflow-y: auto; max-height: 300px;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Mã đơn hàng</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Phương thức thanh toán</th>
+                                <th scope="col">Giá tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersNotPaidTableBody">
+                            <!-- Table body will be filled by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+</div>
 <script>
-     // Get today's date in the format yyyy-mm-dd
     var today = new Date().toISOString().split('T')[0];
-    
-    // Set the default value of the start date input to today
     document.getElementById('startDate').value = today;
     document.getElementById('endDate').value = today;
     document.getElementById('startDatePaid').value = today;
     document.getElementById('endDatePaid').value = today;
+    function fetchOrders() {
+        var startDate = document.getElementById('startDatePaid').value;
+        var endDate = document.getElementById('endDatePaid').value;
+        console.log(startDate)
+        fetch('../../controller/seller/displayOrder.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ startDate: startDate, endDate: endDate })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("ahihi")
+                console.log(data)
+                var ordersTableBody = document.getElementById('ordersTableBody');
+                ordersTableBody.innerHTML = '';
+                data.forEach(function (order) {
+                    var row = '<tr>';
+                    row += '<td>' + order.idOrder + '</td>';
+                    row += '<td>' + order.statusOrder + '</td>';
+                    row += '<td>' + order.payment + '</td>';
+                    var formattedTotal = (order.total / 1000).toFixed(3) + ' đ'; // Dividing by 1000 to convert to thousands
+                    row += '<td>' + formattedTotal + '</td>';
+                    row += '</tr>';
+                    ordersTableBody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    function fetchOrdersNotPaid() {
+        var startDate = document.getElementById('startDate').value;
+        var endDate = document.getElementById('endDate').value;
+        console.log(startDate)
+        fetch('../../controller/seller/displayOrderNotPaid.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ startDate: startDate, endDate: endDate })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("ahihi")
+                console.log(data)
+                var ordersTableBody = document.getElementById('ordersNotPaidTableBody');
+                ordersTableBody.innerHTML = '';
+                data.forEach(function (order) {
+                    var row = '<tr>';
+                    row += '<td>' + order.idOrder + '</td>';
+                    row += '<td>' + order.statusOrder + '</td>';
+                    row += '<td>' + order.payment + '</td>';
+                    var formattedTotal = (order.total / 1000).toFixed(3) + ' đ'; // Dividing by 1000 to convert to thousands
+                    row += '<td>' + formattedTotal + '</td>';
+                    row += '</tr>';
+                    ordersTableBody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
 </script>
