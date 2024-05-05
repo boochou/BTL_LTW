@@ -73,14 +73,13 @@
 
                         </div>
                         <div class="dropdown">
-                            <i class="fas fa-ellipsis-v" id="dropdownMenuButton" onclick="toggleMenu(this)"></i>
-                            <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
-                                <a class="dropdown-item" href="#"
-                                    onclick="openEditModal(<?php echo $blog['id']; ?>, '<?php echo $blog['header']; ?>', '<?php echo $blog['content']; ?>')">Modify</a>
-                                <a class="dropdown-item" href="#"
-                                    onclick="confirmDelete(<?php echo $blog['id']; ?>)">Delete</a>
-                            </div>
-                        </div>
+    <i class="fas fa-ellipsis-v" id="dropdownMenuButton" onclick="toggleMenu(this)"></i>
+    <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" id="dropdownMenu" style="display: none;">
+        <a class="dropdown-item" href="#" onclick="openEditModal(<?php echo $blog['id']; ?>, '<?php echo $blog['header']; ?>', '<?php echo $blog['content']; ?>')">Modify</a>
+        <a class="dropdown-item" href="#" onclick="confirmDelete(<?php echo $blog['id']; ?>)">Delete</a>
+    </div>
+</div>
+
 
                     </div>
                     <div>
@@ -93,11 +92,8 @@
                     <?php
                     $blog_content = $blog['content'];
                     $cleaned_content = str_replace(array("\\r", "\\n", "\\r\\n"), '', $blog_content);
-                    echo $cleaned_content; ?>
-                    <!-- <div style="display: flex; justify-content: center">
-                        <img src="./images/Rectangle 45.png" alt="" style="width: 45%" />
-                        <img src="./images/Rectangle 45.png" alt="" style="width: 45%" />
-                    </div> -->
+                    echo "<div>$cleaned_content</div>"; ?>
+                    <img src="..\..\public\images\fork2.png" alt="" class="mt-3" />
                 </div>
                 <?php
                 include_once ("../../controller/seller/fetchCommentList.php");

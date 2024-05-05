@@ -1,3 +1,5 @@
-- truyền idaccount cho trang (trang account, notification) => này chắc mặc định là 1
-
-- sửa header footer theo php
+- xem chi tiết hóa đơn
+- load danh sách hóa đơn theo thời gian
+- làm search, phân loại bên tất cả hóa đơn
+- responsive 2 nút kia
+- edit blog hình ảnh
