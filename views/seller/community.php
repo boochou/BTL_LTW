@@ -257,26 +257,79 @@
         var title = document.getElementById('editTitleInput').value.trim();
         var content = document.getElementById('editContentInput').value.trim();
         content = content.replace(/\n/g, '<br/>');
-        console.log(content)
-        fetch('../../controller/seller/editBlog.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ blogID: blogID, title: title, content: content })
-        })
-            .then(response => {
-                if (response.ok) {
-                    closeEditModal();
-                    console.log('Blog post updated successfully');
-                    window.location.reload()
-                } else {
-                    console.error('Error:', response.statusText);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+        console.log(content);
+
+        var files = document.getElementById('editFileInput').files;
+        var images = [];
+        var reader;
+        var counter = 0;
+
+        for (var i = 0; i < files.length; i++) {
+                reader = new FileReader();
+                reader.onload = function (event) {
+                    images.push(event.target.result);
+                    counter++;
+                    if (counter === files.length) {
+                        // All files processed, send JSON data
+                        var requestBody = {
+                            blogID: blogID,
+                            title: title,
+                            content: content,
+                            images: images
+                        };
+
+                        fetch('../../controller/seller/editBlog.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(requestBody)
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.text();
+                                } else {
+                                    throw new Error('Network response was not ok');
+                                }
+                            })
+                            .then(data => {
+                                if (data === 'success') {
+                                    window.location.href = "?page=community";
+                                    console.log("success");
+                                } else {
+                                    console.error('Error:', data);
+                                }
+                            })
+                            .catch(error => {
+                                // Catch any fetch errors
+                                console.error('Error:', error);
+                            });
+
+                        closeEditModal();
+                    }
+                };
+                reader.readAsDataURL(files[i]);
+            }
+
+        // fetch('../../controller/seller/editBlog.php', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({ blogID: blogID, title: title, content: content })
+        // })
+        //     .then(response => {
+        //         if (response.ok) {
+        //             closeEditModal();
+        //             console.log('Blog post updated successfully');
+        //             window.location.reload()
+        //         } else {
+        //             console.error('Error:', response.statusText);
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error('Error:', error);
+        //     });
     }
 
     function submitForm() {
