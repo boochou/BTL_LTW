@@ -436,14 +436,39 @@
     console.log("Viewing details of order with ID:", orderID);
 }
 
-function completeOrder(orderID) {
-    // Your code to handle completing the order here
-    console.log("Completing order...", orderID);
-}
-
 function prepareOrder(orderID) {
     // Your code to handle preparing the order here
     console.log("Preparing order...", orderID);
+    
+    // Make an AJAX request to call the PHP function
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log("Order status changed to preparing.");
+            window.location.reload();
+            // You can handle the response here if needed
+        }
+    };
+    xhttp.open("GET", "../../controller/seller/changeOrderStatus.php?action=prepareOrder&orderID=" + orderID, true);
+    xhttp.send();
 }
+
+function completeOrder(orderID) {
+    // Your code to handle completing the order here
+    console.log("Completing order...", orderID);
+    
+    // Make an AJAX request to call the PHP function
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log("Order status changed to completed.");
+            window.location.reload();
+            // You can handle the response here if needed
+        }
+    };
+    xhttp.open("GET", "../../controller/seller/changeOrderStatus.php?action=deliveryOrder&orderID=" + orderID, true);
+    xhttp.send();
+}
+
 
 </script>

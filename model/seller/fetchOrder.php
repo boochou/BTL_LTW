@@ -5,7 +5,7 @@ function getListOrder($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
         "SELECT orders.id as idOrder, statusOrder, userName, total, note
         FROM orders, users, accounts
-        WHERE idUser = idAccount AND idAccount = accounts.id;");
+        WHERE idUser = idAccount AND idAccount = accounts.id ORDER BY idOrder DESC;");
 
     $listuser = array();
 
@@ -65,7 +65,7 @@ function getListOrderCompleted($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
         "SELECT orders.id as idOrder, statusOrder, userName, total, note
         FROM orders, users, accounts
-        WHERE idUser = idAccount AND idAccount = accounts.id AND statusOrder = 'Đã hoàn thành';");
+        WHERE idUser = idAccount AND idAccount = accounts.id AND statusOrder = 'Đã hoàn thành' ORDER BY idOrder DESC;;");
 
     $listuser = array();
 
@@ -80,7 +80,7 @@ function getListOrderPrepared($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
         "SELECT orders.id as idOrder, statusOrder, userName, total, note
         FROM orders, users, accounts
-        WHERE idUser = idAccount AND idAccount = accounts.id AND statusOrder = 'Chờ chuẩn bị';");
+        WHERE idUser = idAccount AND idAccount = accounts.id AND statusOrder = 'Chờ chuẩn bị' ORDER BY idOrder DESC;;");
 
     $listuser = array();
 
@@ -95,7 +95,7 @@ function getListOrderDeliveried($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
         "SELECT orders.id as idOrder, statusOrder, userName, total, note
         FROM orders, users, accounts
-        WHERE idUser = idAccount AND idAccount = accounts.id AND statusOrder = 'Đang giao hàng';");
+        WHERE idUser = idAccount AND idAccount = accounts.id AND statusOrder = 'Đang giao hàng' ORDER BY idOrder DESC;");
 
     $listuser = array();
 
