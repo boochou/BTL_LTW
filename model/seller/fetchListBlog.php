@@ -5,7 +5,8 @@ function getListBlog($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
         "SELECT *
         FROM blog
-        WHERE isDelete = 0");
+        WHERE isDelete = 0
+        ORDER BY id DESC;");
 
     $listuser = array();
 
