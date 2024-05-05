@@ -2,7 +2,7 @@
 function calculateTotalRevenue($mysqli, $startDate, $endDate) {
     $query = "SELECT SUM(total) AS total_revenue
               FROM orders
-              WHERE isPaid = 1 AND dateCreated >= ? AND dateCreated <= ?";
+              WHERE payment='Ship COD' AND dateCreated >= ? AND dateCreated <= ?";
     $stmt = mysqli_prepare($mysqli, $query);
     mysqli_stmt_bind_param($stmt, "ss", $startDate, $endDate);
     mysqli_stmt_execute($stmt);
@@ -17,7 +17,7 @@ function calculateTotalRevenue($mysqli, $startDate, $endDate) {
 function getTotalRevenue($mysqli) {
     $query = "SELECT SUM(total) AS total_revenue
               FROM orders
-              WHERE isPaid = 1";
+              WHERE payment='Ship COD'";
     $stmt = mysqli_prepare($mysqli, $query);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -31,7 +31,7 @@ function getTotalRevenue($mysqli) {
 function calculateNotPaidRevenue($mysqli, $startDate, $endDate) {
     $query = "SELECT SUM(total) AS total_revenue
               FROM orders
-              WHERE isPaid = 0 AND dateCreated >= ? AND dateCreated <= ?";
+              WHERE payment='MOMO' AND dateCreated >= ? AND dateCreated <= ?";
     $stmt = mysqli_prepare($mysqli, $query);
     mysqli_stmt_bind_param($stmt, "ss", $startDate, $endDate);
     mysqli_stmt_execute($stmt);
@@ -46,7 +46,7 @@ function calculateNotPaidRevenue($mysqli, $startDate, $endDate) {
 function getNotPaidRevenue($mysqli) {
     $query = "SELECT SUM(total) AS total_revenue
               FROM orders
-              WHERE isPaid = 0";
+              WHERE payment='MOMO'";
     $stmt = mysqli_prepare($mysqli, $query);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);

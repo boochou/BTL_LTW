@@ -1,4 +1,3 @@
 - xem chi tiết hóa đơn
 - làm search, phân loại bên tất cả hóa đơn
-- edit blog hình ảnh
 - làm comment
