@@ -3,7 +3,7 @@ include_once("../../model/connectdb.php");
 
 function getListOrder($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
-        "SELECT orders.id as idOrder, statusOrder, userName, total, note
+        "SELECT orders.id as idOrder, statusOrder, userName, total, note, users.isReported, users.idAccount
         FROM orders, users, accounts
         WHERE idUser = idAccount AND idAccount = accounts.id ORDER BY idOrder DESC;");
 
@@ -20,7 +20,7 @@ $orders = getListOrder($mysqli);
 
 function getListOrderFromTo($mysqli, $startDate, $endDate) {
     $sql_get_list_reported_user = mysqli_prepare($mysqli,
-        "SELECT orders.id as idOrder, statusOrder, total, payment
+        "SELECT orders.id as idOrder, statusOrder, total, payment, 
         FROM orders
         WHERE dateCreated >= ? AND dateCreated <= ? AND payment = 'Ship COD'
         ORDER BY dateCreated ASC;");
@@ -42,7 +42,7 @@ function getListOrderFromTo($mysqli, $startDate, $endDate) {
 
 function getListOrderFromToNotPaid($mysqli, $startDate, $endDate) {
     $sql_get_list_reported_user = mysqli_prepare($mysqli,
-        "SELECT orders.id as idOrder, statusOrder, total, payment
+        "SELECT orders.id as idOrder, statusOrder, total, payment,
         FROM orders
         WHERE dateCreated >= ? AND dateCreated <= ? AND payment='MOMO'
         ORDER BY dateCreated ASC;");
@@ -63,9 +63,9 @@ function getListOrderFromToNotPaid($mysqli, $startDate, $endDate) {
 }
 function getListOrderCompleted($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
-        "SELECT orders.id as idOrder, statusOrder, userName, total, note
+        "SELECT orders.id as idOrder, statusOrder, userName, total, note, users.isReported, users.idAccount
         FROM orders, users, accounts
-        WHERE idUser = idAccount AND idAccount = accounts.id AND statusOrder = 'Đã hoàn thành' ORDER BY idOrder DESC;;");
+        WHERE idUser = idAccount AND idAccount = accounts.id AND statusOrder = 'Đã hoàn thành' ORDER BY idOrder DESC;");
 
     $listuser = array();
 
@@ -78,7 +78,7 @@ function getListOrderCompleted($mysqli) {
 }
 function getListOrderPrepared($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
-        "SELECT orders.id as idOrder, statusOrder, userName, total, note
+        "SELECT orders.id as idOrder, statusOrder, userName, total, note, users.isReported, users.idAccount
         FROM orders, users, accounts
         WHERE idUser = idAccount AND idAccount = accounts.id AND statusOrder = 'Chờ chuẩn bị' ORDER BY idOrder DESC;;");
 
@@ -93,7 +93,7 @@ function getListOrderPrepared($mysqli) {
 }
 function getListOrderDeliveried($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
-        "SELECT orders.id as idOrder, statusOrder, userName, total, note
+        "SELECT orders.id as idOrder, statusOrder, userName, total, note, users.isReported, users.idAccount
         FROM orders, users, accounts
         WHERE idUser = idAccount AND idAccount = accounts.id AND statusOrder = 'Đang giao hàng' ORDER BY idOrder DESC;");
 
