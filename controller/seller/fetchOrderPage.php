@@ -16,6 +16,9 @@ foreach ($orderList as $order) {
             'total' => $order['total'],
             'note' => $order['note'],
             'statusOrder' => $order['statusOrder'],
+            'isReported' => $order['isReported'],
+            'email' => $order['email'],
+            'phone' => $order['phone'],
             'idOrder' => $orderId,
             'product' => []
         ];

@@ -6,7 +6,7 @@ function getListOrderWithProduct($mysqli)
         $mysqli,
         "SELECT accounts.userName as userName, total, orders.note as note, orders.total as total, 
         statusOrder,orders.id as idOrder, product.name as proName, product_in_order.price as proPrice,
-        product_in_order.quantity as quantity , users.isReported as isReported, users.idAccount as idAccount
+        product_in_order.quantity as quantity , users.isReported as isReported, users.idAccount as idAccount, accounts.email as email, accounts.phone as phone
         FROM orders, users, accounts, product_in_order, product 
         WHERE idUser = idAccount AND idAccount = accounts.id 
         AND product_in_order.idOrder = orders.id AND product.id = product_in_order.idProduct 
