@@ -190,14 +190,92 @@
                         <?php
                         include_once ("../../controller/seller/fetchOrderDone.php");
                         $orderList = fetchListOrderDone();
-                        foreach ($orderList as $order) {
+                        
+                        foreach ($orderList as $index => $order) {
+                            $modalId1 = 'detailUser1_' . $index;
                             ?>
                             <div class="row">
                                 <div class="col-lg-7 col-md-7 col-sm-12">
                                     <div class="d-flex align-items-center ms-2 mt-3"><img
                                             class="avatar avatar-48 bg-light rounded-circle text-white p-1"
-                                            src="https://i.mydramalist.com/qY2oK2_5c.jpg">
-                                        <h5 class="ms-2"><?php echo $order['userName']; ?></h5>
+                                            src="https://cdn2.iconfinder.com/data/icons/avatars-99/62/avatar-370-456322-512.png">
+                                            <a class="ms-2 text-decoration-none fw-bold" style="color: black;"><?php echo $order['userName']; ?></a>
+                                        <a class="ms-4 text-decoration-none text-decoration-underline fw-light" style="color: black;" data-bs-toggle="modal" data-bs-target="#<?php echo $modalId1; ?>">Xem thông tin</a>
+                                        <?php if ($order['isReported'] == 0) { ?>
+                                            <a class="text-decoration-none text-decoration-underline fw-light ms-4" style="color:red" onclick="reportUser(<?php echo $order['idAccount']; ?>)">Chặn</a>
+                                            <?php } 
+                                        ?>
+                                        <?php if ($order['isReported'] == 1) { ?>
+                                            <a class="text-decoration-none text-decoration-underline fw-light ms-4" style="color:red" onclick="unblockUser(<?php echo $order['idAccount']; ?>)">Gỡ chặn</a>
+                                            <?php } 
+                                        ?>
+                                    </div>
+                                    <?php
+                                        include_once("../../controller/seller/getUserdetail.php");
+                                        $userID = $order['idAccount'];
+                                        $userdetail = fetchUserDetail($userID);
+                                        
+                                    ?>
+                                    <div class="modal fade" id="<?php echo $modalId1; ?>" tabindex="-1" aria-labelledby="infoUser" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="infoUser">
+                                                    Thông tin khách hàng
+                                                    </h1>
+                                                    <button
+                                                    type="button"
+                                                    class="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"
+                                                    ></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="username"
+                                                        >Tên khách hàng</label
+                                                        >
+                                                        <input
+                                                        class="form-control"
+                                                        id="username"
+                                                        name="username"
+                                                        type="text"
+                                                        value="<?php echo $userdetail['userName']?>"
+                                                        readonly
+                                                        style="width: 100%"
+                                                        />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="email"
+                                                        >Email</label
+                                                        >
+                                                        <input
+                                                        class="form-control"
+                                                        id="email"
+                                                        name="email"
+                                                        type="text"
+                                                        value="<?php echo $userdetail['email']; ?>"
+                                                        readonly
+                                                        style="width: 100%"
+                                                        />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="phonenum"
+                                                        >Số điện thoại</label
+                                                        >
+                                                        <input
+                                                        class="form-control"
+                                                        id="phonenum"
+                                                        name="phonenum"
+                                                        type="number"
+                                                        value="<?php echo $userdetail['phone']; ?>"
+                                                        readonly
+                                                        style="width: 100%"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="mt-2" style="margin-bottom: 20px; max-height: 150px; overflow-y: auto;">
                                         <table id="orderTable" class="table">
@@ -288,14 +366,91 @@
                         <?php
                         include_once ("../../controller/seller/fetchOrderPrepare.php");
                         $orderList = fetchListOrderPrepare();
-                        foreach ($orderList as $order) {
+                        foreach ($orderList as $index => $order) {
+                            $modalId2 = 'detailUser2_' . $index;
                             ?>
                             <div class="row">
                                 <div class="col-lg-7 col-md-7 col-sm-12">
                                     <div class="d-flex align-items-center ms-2 mt-3"><img
                                             class="avatar avatar-48 bg-light rounded-circle text-white p-1"
-                                            src="https://i.mydramalist.com/qY2oK2_5c.jpg">
-                                        <h5 class="ms-2"><?php echo $order['userName']; ?></h5>
+                                            src="https://cdn2.iconfinder.com/data/icons/avatars-99/62/avatar-370-456322-512.png">
+                                            <a class="ms-2 text-decoration-none fw-bold" style="color: black;"><?php echo $order['userName']; ?></a>
+                                        <a class="ms-4 text-decoration-none text-decoration-underline fw-light" style="color: black;" data-bs-toggle="modal" data-bs-target="#<?php echo $modalId2; ?>">Xem thông tin</a>
+                                        <?php if ($order['isReported'] == 0) { ?>
+                                            <a class="text-decoration-none text-decoration-underline fw-light ms-4" style="color:red" onclick="reportUser(<?php echo $order['idAccount']; ?>)">Chặn</a>
+                                            <?php } 
+                                        ?>
+                                        <?php if ($order['isReported'] == 1) { ?>
+                                            <a class="text-decoration-none text-decoration-underline fw-light ms-4" style="color:red" onclick="unblockUser(<?php echo $order['idAccount']; ?>)">Gỡ chặn</a>
+                                            <?php } 
+                                        ?>
+                                    </div>
+                                    <?php
+                                        include_once("../../controller/seller/getUserdetail.php");
+                                        $userID = $order['idAccount'];
+                                        $userdetail = fetchUserDetail($userID);
+                                        
+                                    ?>
+                                    <div class="modal fade" id="<?php echo $modalId2; ?>" tabindex="-1" aria-labelledby="infoUser" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="infoUser">
+                                                    Thông tin khách hàng
+                                                    </h1>
+                                                    <button
+                                                    type="button"
+                                                    class="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"
+                                                    ></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="username"
+                                                        >Tên khách hàng</label
+                                                        >
+                                                        <input
+                                                        class="form-control"
+                                                        id="username"
+                                                        name="username"
+                                                        type="text"
+                                                        value="<?php echo $userdetail['userName']?>"
+                                                        readonly
+                                                        style="width: 100%"
+                                                        />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="email"
+                                                        >Email</label
+                                                        >
+                                                        <input
+                                                        class="form-control"
+                                                        id="email"
+                                                        name="email"
+                                                        type="text"
+                                                        value="<?php echo $userdetail['email']; ?>"
+                                                        readonly
+                                                        style="width: 100%"
+                                                        />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="phonenum"
+                                                        >Số điện thoại</label
+                                                        >
+                                                        <input
+                                                        class="form-control"
+                                                        id="phonenum"
+                                                        name="phonenum"
+                                                        type="number"
+                                                        value="<?php echo $userdetail['phone']; ?>"
+                                                        readonly
+                                                        style="width: 100%"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="mt-2" style="margin-bottom: 20px; max-height: 150px; overflow-y: auto;">
                                         <table id="orderTable" class="table">
@@ -386,14 +541,90 @@
                         <?php
                         include_once ("../../controller/seller/fetchOrderDelivery.php");
                         $orderList = fetchListOrderDelivery();
-                        foreach ($orderList as $order) {
+                        foreach ($orderList as $index => $order) {
+                            $modalId3 = 'detailUser3_' . $index;
                             ?>
                             <div class="row">
                                 <div class="col-lg-7 col-md-7 col-sm-12">
                                     <div class="d-flex align-items-center ms-2 mt-3"><img
                                             class="avatar avatar-48 bg-light rounded-circle text-white p-1"
-                                            src="https://i.mydramalist.com/qY2oK2_5c.jpg">
-                                        <h5 class="ms-2"><?php echo $order['userName']; ?></h5>
+                                            src="https://cdn2.iconfinder.com/data/icons/avatars-99/62/avatar-370-456322-512.png">
+                                            <a class="ms-4 text-decoration-none text-decoration-underline fw-light" style="color: black;" data-bs-toggle="modal" data-bs-target="#<?php echo $modalId3; ?>">Xem thông tin</a>
+                                        <?php if ($order['isReported'] == 0) { ?>
+                                            <a class="text-decoration-none text-decoration-underline fw-light ms-4" style="color:red" onclick="reportUser(<?php echo $order['idAccount']; ?>)">Chặn</a>
+                                            <?php } 
+                                        ?>
+                                        <?php if ($order['isReported'] == 1) { ?>
+                                            <a class="text-decoration-none text-decoration-underline fw-light ms-4" style="color:red" onclick="unblockUser(<?php echo $order['idAccount']; ?>)">Gỡ chặn</a>
+                                            <?php } 
+                                        ?>
+                                    </div>
+                                    <?php
+                                        include_once("../../controller/seller/getUserdetail.php");
+                                        $userID = $order['idAccount'];
+                                        $userdetail = fetchUserDetail($userID);
+                                        
+                                    ?>
+                                    <div class="modal fade" id="<?php echo $modalId3; ?>" tabindex="-1" aria-labelledby="infoUser" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="infoUser">
+                                                    Thông tin khách hàng
+                                                    </h1>
+                                                    <button
+                                                    type="button"
+                                                    class="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"
+                                                    ></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="username"
+                                                        >Tên khách hàng</label
+                                                        >
+                                                        <input
+                                                        class="form-control"
+                                                        id="username"
+                                                        name="username"
+                                                        type="text"
+                                                        value="<?php echo $userdetail['userName']?>"
+                                                        readonly
+                                                        style="width: 100%"
+                                                        />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="email"
+                                                        >Email</label
+                                                        >
+                                                        <input
+                                                        class="form-control"
+                                                        id="email"
+                                                        name="email"
+                                                        type="text"
+                                                        value="<?php echo $userdetail['email']; ?>"
+                                                        readonly
+                                                        style="width: 100%"
+                                                        />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="phonenum"
+                                                        >Số điện thoại</label
+                                                        >
+                                                        <input
+                                                        class="form-control"
+                                                        id="phonenum"
+                                                        name="phonenum"
+                                                        type="number"
+                                                        value="<?php echo $userdetail['phone']; ?>"
+                                                        readonly
+                                                        style="width: 100%"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="mt-2" style="margin-bottom: 20px; max-height: 150px; overflow-y: auto;">
                                         <table id="orderTable" class="table">

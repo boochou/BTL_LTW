@@ -31,9 +31,9 @@
         <div  style="max-height: 700px; overflow-y: auto; overflow-x: hidden;">
         <?php
             include_once("../../controller/seller/getReportedProduct.php");
-            $reportlist = fetchReportedProduct();
-            foreach ($reportlist as $itemmreport) {
-                
+            $reportlist = fetchReportedProduct();          
+            foreach ($reportlist as $index =>  $itemmreport) {
+                $modalId = 'detailUser_' . $index;
         ?>
         <div class="row border rounded-4 mb-3">
             <div
@@ -71,7 +71,7 @@
                 >
                 <a class="mb-2 mt-2 text-decoration-none" style="color: black" id="user">
                     Người báo cáo: <span><?php echo $itemmreport['userName']; ?></span> - (<span><?php echo $itemmreport['account_id']; ?></span>)
-                    <span class="me-5 ms-5 text-decoration-underline fw-light">Trò chuyện</span>
+                    <span class="me-5 ms-5 text-decoration-underline fw-light" data-bs-toggle="modal" data-bs-target="#<?php echo $modalId; ?>">Xem thông tin</span>
                     <?php if ($itemmreport['isReported'] == 0) { ?>
                         <span class="text-decoration-underline fw-light" style="color:red" onclick="reportUser(<?php echo $itemmreport['account_id']; ?>)">Chặn</span>
                         <?php } 
@@ -81,6 +81,73 @@
                         <?php } 
                     ?>
                 </a>
+                <?php
+                    include_once("../../controller/seller/getUserdetail.php");
+                    $userID = $itemmreport['account_id'];
+                    $userdetail = fetchUserDetail($userID);
+                    
+                ?>
+                <div class="modal fade" id="<?php echo $modalId; ?>" tabindex="-1" aria-labelledby="infoUser" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="infoUser">
+                            Thông tin khách hàng
+                            </h1>
+                            <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label" for="username"
+                                >Tên khách hàng</label
+                                >
+                                <input
+                                class="form-control"
+                                id="username"
+                                name="username"
+                                type="text"
+                                value="<?php echo $userdetail['userName']?>"
+                                readonly
+                                style="width: 100%"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="email"
+                                >Email</label
+                                >
+                                <input
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                type="text"
+                                value="<?php echo $userdetail['email']; ?>"
+                                readonly
+                                style="width: 100%"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="phonenum"
+                                >Số điện thoại</label
+                                >
+                                <input
+                                class="form-control"
+                                id="phonenum"
+                                name="phonenum"
+                                type="number"
+                                value="<?php echo $userdetail['phone']; ?>"
+                                readonly
+                                style="width: 100%"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
             <div
             class="col-lg-3 col-md-4 d-flex d-lg-flex flex-column justify-content-center mt-2 mb-2"

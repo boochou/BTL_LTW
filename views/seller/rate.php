@@ -185,6 +185,7 @@
             $ratings = fetchRatings($sortOption);
             foreach ($ratings as $index => $itemm) {
                 $modalId = 'shoprespone_' . $index;
+                $modalIduser = 'userdetail_' . $index;
                 
         ?>
     <div class="row border rounded-4 me-5 ms-5 mb-3">
@@ -203,7 +204,7 @@
         </div>
         <div class="col-12 d-flex flex-column mt-3">
             <a class="text-decoration-none" style="color: black;">
-                <span class=" ms-2 text-decoration-underline fw-light">Trò chuyện</span>
+                <span class=" ms-2 text-decoration-underline fw-light" data-bs-toggle="modal" data-bs-target="#<?php echo $modalIduser; ?>">Xem thông tin</span>
                 <?php if ($itemm['isReported'] == 0) { ?>
                         <span class="text-decoration-underline fw-light ms-3" style="color:red" onclick="reportUser(<?php echo $itemm['id']; ?>)">Chặn</span>
                         <?php } 
@@ -213,6 +214,73 @@
                         <?php } 
                     ?>
             </a>
+                <?php
+                    include_once("../../controller/seller/getUserdetail.php");
+                    $userID = $itemm['id'];
+                    $userdetail = fetchUserDetail($userID);
+                    
+                ?>
+                <div class="modal fade" id="<?php echo $modalIduser; ?>" tabindex="-1" aria-labelledby="infoUser" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="infoUser">
+                                Thông tin khách hàng
+                                </h1>
+                                <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                                ></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label class="form-label" for="username"
+                                    >Tên khách hàng</label
+                                    >
+                                    <input
+                                    class="form-control"
+                                    id="username"
+                                    name="username"
+                                    type="text"
+                                    value="<?php echo $userdetail['userName']?>"
+                                    readonly
+                                    style="width: 100%"
+                                    />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="email"
+                                    >Email</label
+                                    >
+                                    <input
+                                    class="form-control"
+                                    id="email"
+                                    name="email"
+                                    type="text"
+                                    value="<?php echo $userdetail['email']; ?>"
+                                    readonly
+                                    style="width: 100%"
+                                    />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="phonenum"
+                                    >Số điện thoại</label
+                                    >
+                                    <input
+                                    class="form-control"
+                                    id="phonenum"
+                                    name="phonenum"
+                                    type="number"
+                                    value="<?php echo $userdetail['phone']; ?>"
+                                    readonly
+                                    style="width: 100%"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <a class="ms-2 text-decoration-none mt-3" style="color: #939292"
                 ><span><?php echo $itemm['timeRating']; ?></span></a
             >
