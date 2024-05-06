@@ -40,6 +40,6 @@ function fetchProductInOrderAll($orderID)
         ];
     }
     // Output orders as JSON
-    echo json_encode($groupedOrders);
+    return $groupedOrders;
 }
 ?>
