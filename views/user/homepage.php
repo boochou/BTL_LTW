@@ -18,104 +18,92 @@
 <div class="hompage_body">
     <div style="width: 80%;">
         <div class="attcach_image">
-            <h2>Ưu đãi của UniEat</h2>
-            <div class="many_discount">
-                <div class="product">
-                    <img src="/BTL/public/images/Rectangle5.png" alt="product1" style="width:100%">
-                    <div class="pro_info">
-                        <div style="display: flex; justify-content:space-between; width: 100%">
-                            <b>Trà sữa Tocotoco</b>
-                            <span class="iconify" data-icon="mdi:heart-outline" style="display: inline-block; margin-right: 0;"></span>
-                        </div>                                
-                        <p>Trà sữa</p>
-                        <div class="star_time_dis">
-                            <div style="display: inline-block;">
-                                <span class="iconify" data-icon="ph:star-fill" style="margin-right: 3px;"></span>
-                                <p style="display: inline;">4.7</p>
-                            </div>
-                            <div style="display: inline-block; margin-left: 10px">
-                                <span class="iconify" data-icon="mingcute:time-fill" style="margin-right: 3px;"></span>
-                                <p style="display: inline;">15 phút - 0,8km</p>
-                            </div>
-                        </div>
-                        <div class="discount">
-                            <span class="iconify" data-icon="mdi:voucher"></span>
-                            <p style="display: inline;">Tocotoco discount 20%</p>
-                        </div>
+            <h2>Món ăn của UniEat</h2>
+            <div style="width: 100%">
+                <div id="multi-trasua" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php
+                        $size = count($products);
+                        for ($i = 0; $i < $size; $i = $i + 3) {
+                            if ($i == 0) {
+                                echo '<div class="carousel-item active">';
+                            } else {
+                                echo '<div class="carousel-item">';
+                            }
+                            echo '<div class="products">';
+                            for ($j = $i; $j < $i + 3 && $j < $size; $j ++) {
+                                echo '<div class="product" style="margin-right: 10px;">';
+                                echo '  <img src="' . $products[$j]["image"] . '" alt="product1" style="width:100%; height: 150px">';
+                                echo '  <div class="pro_info">';
+                                echo '      <div style="display: flex; justify-content:space-between; width: 100%">';
+                                echo '          <b>' . $products[$j]["name"] . '</b>';
+                                echo '          <span class="iconify" data-icon="mdi:heart-outline" style="display: inline-block; margin-right: 0;"></span>';
+                                echo '      </div>';
+                                echo '      <p>' . $categories[$products[$j]["idCategory"]][0] . '</p>';
+                                echo '      <div class="star_time_dis">';
+                                echo '          <div style="display: inline-block;">';
+                                echo '              <span class="iconify" data-icon="ph:star-fill" style="margin-right: 3px;"></span>';
+                                echo '              <p style="display: inline;">' . $products[$j]["rate"] . '</p>';
+                                echo '          </div>';
+                                echo '      </div>';
+                                echo '      <div class="discount">';
+                                echo '          <span class="iconify" data-icon="mdi:voucher"></span>';
+                                echo '          <p style="display: inline;">Tocotoco discount 20%</p>';
+                                echo '      </div>';
+                                echo '  </div>';
+                                echo '</div>';
+                            }
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                        ?>
                     </div>
-                </div>
-                <div class="product">
-                    <img src="/BTL/public/images/Rectangle5.png" alt="product1" style="width:100%">
-                    <div class="pro_info">
-                        <div style="display: flex; justify-content:space-between; width: 100%">
-                            <b>Trà sữa Tocotoco</b>
-                            <span class="iconify" data-icon="mdi:heart-outline" style="display: inline-block; margin-right: 0;"></span>
-                        </div>
-                        <p>Trà sữa</p>
-                        <div class="star_time_dis">
-                            <div style="display: inline-block;">
-                                <span class="iconify" data-icon="ph:star-fill" style="margin-right: 3px;"></span>
-                                <p style="display: inline;">4.7</p>
-                            </div>
-                            <div style="display: inline-block; margin-left: 10px">
-                                <span class="iconify" data-icon="mingcute:time-fill" style="margin-right: 3px;"></span>
-                                <p style="display: inline;">15 phút - 0,8km</p>
-                            </div>
-                        </div>
-                        <div class="discount">
-                            <span class="iconify" data-icon="mdi:voucher"></span>
-                            <p style="display: inline;">Tocotoco discount 20%</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="product">
-                    <img src="/BTL/public/images/Rectangle5.png" alt="product1" style="width:100%">
-                    <div class="pro_info">
-                        <div style="display: flex; justify-content:space-between; width: 100%">
-                            <b>Trà sữa Tocotoco</b>
-                            <span class="iconify" data-icon="mdi:heart-outline" style="display: inline-block; margin-right: 0;"></span>
-                        </div>
-                        <p>Trà sữa</p>
-                        <div class="star_time_dis">
-                            <div style="display: inline-block;">
-                                <span class="iconify" data-icon="ph:star-fill" style="margin-right: 3px;"></span>
-                                <p style="display: inline;">4.7</p>
-                            </div>
-                            <div style="display: inline-block; margin-left: 10px">
-                                <span class="iconify" data-icon="mingcute:time-fill" style="margin-right: 3px;"></span>
-                                <p style="display: inline;">15 phút - 0,8km</p>
-                            </div>
-                        </div>
-                        <div class="discount">
-                            <span class="iconify" data-icon="mdi:voucher"></span>
-                            <p style="display: inline;">Tocotoco discount 20%</p>
-                        </div>
-                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#multi-trasua" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" id="prev_but" style="background-color:#FFC700;" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#multi-trasua" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" id="next_but" style="background-color:#FFC700;" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
-            <div class="xemuudai">Xem thêm ưu đãi</div>
             <h3>Khám phá theo danh mục</h3>
-            <div class="list_item">
-                <div class="items">
-                    <img src="/BTL/public/images/Rectangle5.png" alt="item" style="width:100%">
-                    <div class="item_info">
-                        <b>Trà sữa</b>
+            <div style="width: 100%">
+                <div id="multi-categories" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php
+                        $size = count($categories);
+                        for ($i = 1; $i <= $size; $i = $i + 3) {
+                            if ($i == 1) {
+                                echo '<div class="carousel-item active">';
+                            } else {
+                                echo '<div class="carousel-item">';
+                            }
+                            echo '<div class="list_item">';
+                            for ($j = $i; $j < $i + 3 && $j <= $size; $j ++) {
+                                echo '<div class="items">';
+                                echo '  <img src="' . $categories[$j][1] . '" alt="item" style="width:100%; height: 150px">';
+                                echo '  <div class="item_info">';
+                                echo '      <b>' . $categories[$j][0] . '</b>';
+                                echo '  </div>';
+                                echo '</div>';
+                            }
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                        ?>
                     </div>
-                </div>
-                <div class="items">
-                    <img src="/BTL/public/images/Rectangle5.png" alt="item" style="width:100%">
-                    <div class="item_info">
-                        <b>Cơm</b>
-                    </div>
-                </div>
-                <div class="items">
-                    <img src="/BTL/public/images/Rectangle5.png" alt="item" style="width:100%">
-                    <div class="item_info">
-                        <b>Bánh mì</b>
-                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#multi-categories" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" id="prev_but" style="background-color:#FFC700;" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#multi-categories" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" id="next_but" style="background-color:#FFC700;" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
-            <div class="xemcacthumuc">Xem thêm danh mục</div>
         </div>
         <div class="no_image">
             <h2>Vì sao bạn nên Order trên UniEat?</h2>
@@ -140,7 +128,6 @@
                 <b>Tôi có thể đặt đồ ăn trên GrabFood cho người khác không?</b>
                 <p style="margin-top: 5px;">Tất nhiên rồi, hãy chăm sóc những người thân yêu của mình bằng cách gửi những món ăn mà họ yêu thích đến tận nhà. Bạn chỉ cần cập nhật địa chỉ giao hàng và tên người nhận trước khi đặt đơn hàng của bạn.</p>
             </div>
-            <div class="xemuudai">Đọc thêm</div>
         </div>
     </div>
 </div>

@@ -42,6 +42,21 @@ h6 {
   align-items: center;
 }
 
+.products {
+  margin-left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  width: 95%;
+  justify-content: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+.product {
+  width: 20%;
+  color: rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 2px 5px rgba(164, 160, 160, 0.5);
+}
+
 .product,
 .items {
   width: 30%;
@@ -92,12 +107,6 @@ h6 {
   border: 1px solid black;
   border-radius: 20px;
   height: 30px;
-}
-
-footer {
-  height: 341.4px;
-  width: 100%;
-  background-color: #ffc700;
 }
 
 @media only screen and (max-width: 500px) and (max-height: 1000px) {

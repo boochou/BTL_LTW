@@ -6,9 +6,10 @@
 .linkStyleColor {
   color: #a9a9a9;
 }
-.title-history {
-  margin-top: 15px;
-  margin-left: 15px;
+.titlePage {
+  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 .container.container-border-page {
   max-width: 60%;
@@ -17,6 +18,11 @@
   border-right: 1px solid #c0c0c0;
   border-bottom: 3px solid #c0c0c0;
   margin-top: 20px;
+}
+@media screen and (max-width: 992px) {
+  .container.container-border-page {
+    max-width: 80%;
+  }
 }
 .inside-container-page {
   padding-top: 5px;
@@ -27,37 +33,31 @@
   display: flex;
   align-items: center;
 }
-.note-style {
-  font-size: small;
-  color: #a9a9a9;
-}
 .evaluate-link {
   min-width: 100%;
   text-align: right;
   color: #ffd700;
 }
-.content-responsive {
+.address-style {
+  /* display: flex; */
+  align-items: center;
+  margin-left: 15px;
+  line-height: 40px;
+  text-align: center;
+}
+.note-style {
+  font-size: small;
+  color: #a9a9a9;
+}
+.col.prices {
   display: flex;
+  justify-content: right;
+  /* align-items: center; */
+  max-width: 25%;
 }
-.information-food {
+.momo-icon {
   display: flex;
-}
-@media screen and (max-width: 992px) {
-  .container.container-border-page {
-    max-width: 80%;
-  }
-}
-@media screen and (max-width: 545px) {
-  .content-responsive {
-    flex-direction: column;
-    align-items: center;
-  }
-  .information-food {
-    justify-content: center;
-  }
-  .container.container-border-page {
-    max-width: 60%;
-  }
+  align-items: center;
 }
 .rate {
   height: 46px;

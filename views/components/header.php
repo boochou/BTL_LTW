@@ -11,13 +11,12 @@
   </div>
   <div class="col" style="display: flex; align-items: center">
     <div class="address-note">
-      <div class="linkStyleColor" style="display: inline">Giao đến</div>
       <span
         class="iconify"
-        data-icon="ri:map-pin-2-fill"
+        data-icon="fluent-emoji-high-contrast:telephone"
         style="color: red"
       ></span>
-      KTX Khu A
+      <div style="display: inline; padding-left: 3px">Hotline: 0123456789</div>
     </div>
     <div class="search-food">
       <input
@@ -58,7 +57,13 @@
           data-icon="map:grocery-or-supermarket"
           style="color: #ffc700; width: 30px; height: 30px"
         ></span>
-        <div class="circle-number">1</div>
+        <?php
+        if (count($product_in_cart) > 0) {
+          echo '<div class="circle-number">';
+          echo count($product_in_cart);
+          echo '</div>';
+        }
+        ?>
       </button>
     </div>
   </div>
@@ -69,10 +74,7 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div style="text-align: center; margin-top: 10px">
-          <h4><strong>TRÀ SỮA TOCOTOCO</strong></h4>
-          <div class="linkStyleColor">
-            Thời gian giao: 15 phút (Cách bạn 0,8 km)
-          </div>
+          <h3><strong>Giỏ hàng UniEat</strong></h3>
         </div>
         <hr />
         <div
@@ -84,176 +86,110 @@
             margin-bottom: 20px;
           "
         >
-          <div class="linkStyleColor" style="display: inline">Giao đến</div>
           <span
             class="iconify"
-            data-icon="ri:map-pin-2-fill"
-            style="color: red; margin-left: 10px; margin-right: 10px"
+            data-icon="fluent-emoji-high-contrast:telephone"
+            style="color: red"
           ></span>
-          KTX Khu A
+          <div style="display: inline; padding-left: 3px">Hotline: 0123456789</div>
         </div>
         <h5><strong>Tóm tắt đơn hàng</strong></h5>
-        <div
-          class="container container-border-modal"
-          style="padding-top: 20px; padding-bottom: 20px"
-        >
-          <div class="row" style="display: flex; align-items: center">
-            <div class="col number-food">
-              <button
-                class="minus-button"
-                style="border: none; background: white; padding: 0"
-                onclick="decrease_number(0)"
-              >
-                <span
-                  class="iconify"
-                  data-icon="mdi:minus-box-outline"
-                  style="color: #ffc700; height: 30px; width: 30px"
-                ></span>
-              </button>
-              <div style="text-align: center; width: 30px">
-                <strong
-                  class="number-order"
-                  style="margin-left: 10px; margin-right: 10px"
-                  >1</strong
-                >
-              </div>
-              <button
-                class="plus-button"
-                style="border: none; background: white; padding: 0"
-                onclick="increase_number(0)"
-              >
-                <span
-                  class="iconify"
-                  data-icon="mdi:plus-box-outline"
-                  style="color: #ffc700; height: 30px; width: 30px"
-                ></span>
-              </button>
-            </div>
-            <div class="col form-food">
-              <img src="/BTL/public/images/Rectangle 21.png" alt="" />
-              <div style="margin-left: 20px">
-                <div>
-                  <strong>Trà sữa ba anh em</strong>
-                </div>
-                <div class="note-style">Bỏ ít đá dùm em</div>
-              </div>
-            </div>
-            <div class="col price-food">36.800</div>
-          </div>
-        </div>
-        <div
-          class="container container-border-modal"
-          style="padding-top: 20px; padding-bottom: 20px"
-        >
-          <div class="row" style="display: flex; align-items: center">
-            <div class="col number-food">
-              <span
-                class="iconify"
-                data-icon="mdi:minus-box-outline"
-                style="color: #ffc700; height: 30px; width: 30px"
-              ></span>
-              <strong style="margin-left: 10px; margin-right: 10px">1</strong>
-              <span
-                class="iconify"
-                data-icon="mdi:plus-box-outline"
-                style="color: #ffc700; height: 30px; width: 30px"
-              ></span>
-            </div>
-            <div class="col form-food">
-              <img src="/BTL/public/images/Rectangle 21.png" alt="" />
-              <div style="margin-left: 20px">
-                <div>
-                  <strong>Trà sữa ba anh em</strong>
-                </div>
-                <div class="note-style">Bỏ ít đá dùm em</div>
-              </div>
-            </div>
-            <div class="col price-food">36.800</div>
-          </div>
-        </div>
-        <div
-          class="container container-border-modal"
-          style="padding-top: 20px; padding-bottom: 20px"
-        >
-          <div class="row" style="display: flex; align-items: center">
-            <div class="col number-food">
-              <span
-                class="iconify"
-                data-icon="mdi:minus-box-outline"
-                style="color: #ffc700; height: 30px; width: 30px"
-              ></span>
-              <strong style="margin-left: 10px; margin-right: 10px">1</strong>
-              <span
-                class="iconify"
-                data-icon="mdi:plus-box-outline"
-                style="color: #ffc700; height: 30px; width: 30px"
-              ></span>
-            </div>
-            <div class="col form-food">
-              <img src="/BTL/public/images/Rectangle 21.png" alt="" />
-              <div style="margin-left: 20px">
-                <div>
-                  <strong>Trà sữa ba anh em</strong>
-                </div>
-                <div class="note-style">Bỏ ít đá dùm em</div>
-              </div>
-            </div>
-            <div class="col price-food">36.800</div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">Tổng tạm tính</div>
-          <div class="col" style="text-align: right">
-            110.400 <u style="padding-left: 3px">đ</u>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">Phí áp dụng</div>
-          <div class="col" style="text-align: right">
-            5.000 <u style="padding-left: 3px">đ</u>
-          </div>
-        </div>
-        <div style="margin-top: 20px">
-          <h5><strong>Thông tin hóa đơn</strong></h5>
-        </div>
-        <div
-          class="container container-border-modal"
-          style="padding-top: 20px; padding-bottom: 20px"
-        >
-          <div class="linkStyleColor">Phương thức thanh toán</div>
-          <select class="form-select" style="border-radius: 20px">
-            <!-- <option selected>Open this select menu</option> -->
-            <option value="1">Tiền mặt</option>
-            <option value="2">Chuyển khoản</option>
-          </select>
-          <div class="linkStyleColor">Khuyến mãi</div>
-          <select class="form-select" style="border-radius: 20px">
-            <!-- <option selected>Open this select menu</option> -->
-            <option value="1">Áp dụng ưu đãi để được giảm giá</option>
-            <option value="2">Không có</option>
-          </select>
-        </div>
-        <div
-          class="container container-border-modal"
-          style="padding-top: 20px; padding-bottom: 10px; margin-bottom: 20px"
-        >
-          <div class="row" style="margin-bottom: 10px">
-            <div class="col">
-              <h5>TỔNG CỘNG</h5>
-            </div>
-            <div class="col" style="text-align: right">
-              <h5>115.400 <u style="padding-left: 3px">đ</u></h5>
-            </div>
-          </div>
-          <button
-            type="button"
-            class="btn"
-            style="background: #ffc700; width: 100%; border-radius: 20px"
-            data-bs-dismiss="modal"
-          >
-            Đặt đơn
-          </button>
-        </div>
+        <?php
+          if (count($product_in_cart) > 0) {
+            echo '<form id="cart-form">';
+            $size = count($product_in_cart);
+            for ($i = 0; $i < $size; $i ++) {
+              $product = Header::getProductById($product_in_cart[$i]["idProduct"]);
+              echo '<input type="hidden" name="product_ids[]" value="' . $product_in_cart[$i]["id"] . '">';
+              echo '<div';
+              echo '  class="container container-border-modal"';
+              echo '  style="padding-top: 20px; padding-bottom: 20px"';
+              echo '>';
+              echo '  <div class="row" style="display: flex; align-items: center">';
+              echo '    <div class="col number-food">';
+              echo '      <button';
+              echo '        type="button"';
+              echo '        class="minus-button"';
+              echo '        style="border: none; background: white; padding: 0"';
+              echo '        onclick="decrease_number(' . $i . ')"';
+              echo '      >';
+              echo '        <span';
+              echo '          class="iconify"';
+              echo '          data-icon="mdi:minus-box-outline"';
+              echo '          style="color: #ffc700; height: 30px; width: 30px"';
+              echo '        ></span>';
+              echo '      </button>';
+              echo '      <div style="text-align: center; width: 30px">';
+              echo '        <strong';
+              echo '          class="number-order"';
+              echo '          style="margin-left: 10px; margin-right: 10px"';
+              echo '          >' . $product_in_cart[$i]["quantity"] . '</strong';
+              echo '        >';
+              echo '        <input type="hidden" class="numberofitem" name="quantity[]" value="' . $product_in_cart[$i]["quantity"] . '">';
+              echo '      </div>';
+              echo '      <button';
+              echo '        type="button"';
+              echo '        class="plus-button"';
+              echo '        style="border: none; background: white; padding: 0"';
+              echo '        onclick="increase_number(' . $i . ')"';
+              echo '      >';
+              echo '        <span';
+              echo '          class="iconify"';
+              echo '          data-icon="mdi:plus-box-outline"';
+              echo '          style="color: #ffc700; height: 30px; width: 30px"';
+              echo '        ></span>';
+              echo '      </button>';
+              echo '    </div>';
+              echo '    <div class="col form-food">';
+              echo '      <img src="' . $product["image"] . '" alt="" style="height: 75px; width: 75px" />';
+              echo '      <div style="margin-left: 20px">';
+              echo '        <div>';
+              echo '          <strong>' . $product["name"] . '</strong>';
+              echo '        </div>';
+              echo '        <div class="note-style">' . $product_in_cart[$i]["note"] . '</div>';
+              echo '      </div>';
+              echo '    </div>';
+              echo '    <div class="col price-food">' .$product["price"] . 'đ/món</div>';
+              echo '  </div>';
+              echo '</div>';
+            }
+            echo '    <h5><strong>Thông tin hóa đơn</strong></h5>';
+            echo '</div>';
+            echo '<div class="container container-border-modal" style="padding-top: 20px; padding-bottom: 20px">';
+            echo '    <div class="linkStyleColor">Phương thức thanh toán</div>';
+            echo '    <select class="form-select" style="border-radius: 20px" name="payment">';
+            echo '        <!-- <option selected>Open this select menu</option> -->';
+            echo '        <option value="1">Tiền mặt</option>';
+            echo '        <option value="2">Chuyển khoản</option>';
+            echo '    </select>';
+            echo '    <div class="linkStyleColor">Vị trí</div>';
+            echo '    <select class="form-select" style="border-radius: 20px" name="address">';
+            echo '        <!-- <option selected>Open this select menu</option> -->';
+            echo '        <option value="1">KTX Khu A</option>';
+            echo '        <option value="2">KTX Khu B</option>';
+            echo '    </select>';
+            echo '</div>';
+            echo '<div class="container container-border-modal" style="padding-top: 20px; padding-bottom: 10px; margin-bottom: 20px">';
+            echo '    <div class="row" style="margin-bottom: 10px">';
+            echo '        <div class="col">';
+            echo '            <h5>TỔNG CỘNG</h5>';
+            echo '        </div>';
+            echo '        <div class="col" style="text-align: right">';
+            echo '            <h5 id="sum-price">115.400 <u style="padding-left: 3px">đ</u></h5>';
+            echo '            <input type="hidden" name="total" value="" id="sum-price-hidden">';
+            echo '        </div>';
+            echo '    </div>';
+            echo '    <button type="submit" class="btn" style="background: #ffc700; width: 100%; border-radius: 20px" data-bs-dismiss="modal">';
+            echo '        Đặt đơn';
+            echo '    </button>';
+            echo '</div>';
+            echo '</form>';
+          } else {
+            echo '<div style="text-align: center; margin-top: 10px">';
+            echo '  <h5><strong>Chưa có đơn hàng</strong></h5>';
+            echo '</div>';
+          }
+        ?>
       </div>
     </div>
   </div>
@@ -297,14 +233,14 @@
           <div class="item-menu">
             <span
               class="iconify"
-              data-icon="material-symbols:star"
+              data-icon="ci:main-component"
               style="color: #ffc700; height: 25px; width: 25px"
             ></span>
             <div style="margin-left: 10px">
               <a
-                href="?page=wish_list"
+                href="/BTL/user/mainpage"
                 style="text-decoration: none; color: black; font-size: small"
-                >Yêu thích</a
+                >Trang chủ</a
               >
             </div>
           </div>
@@ -316,7 +252,7 @@
             ></span>
             <div style="margin-left: 10px">
               <a
-                href="?page=orders"
+                href="/BTL/user/orders"
                 style="text-decoration: none; color: black; font-size: small"
                 >Đơn hàng</a
               >
@@ -325,28 +261,14 @@
           <div class="item-menu">
             <span
               class="iconify"
-              data-icon="tdesign:discount-filled"
+              data-icon="fluent:people-community-16-filled"
               style="color: #ffc700; height: 25px; width: 25px"
             ></span>
             <div style="margin-left: 10px">
               <a
-                href="#"
+                href="/BTL/user/community"
                 style="text-decoration: none; color: black; font-size: small"
-                >Khuyến mãi</a
-              >
-            </div>
-          </div>
-          <div class="item-menu">
-            <span
-              class="iconify"
-              data-icon="gg:support"
-              style="color: #ffc700; height: 25px; width: 25px"
-            ></span>
-            <div style="margin-left: 10px">
-              <a
-                href="#"
-                style="text-decoration: none; color: black; font-size: small"
-                >Hỗ trợ</a
+                >Cộng đồng</a
               >
             </div>
           </div>
@@ -364,16 +286,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div style="text-align: center; margin-top: 20px; font-size: small">
-      <a href="?page=homepage" class="linkStyleColor">
-        <strong>Trang chủ</strong>
-      </a>
-    </div>
-    <div style="text-align: center; font-size: small">
-      <a href="?page=community" class="linkStyleColor">
-        <strong>Cộng đồng</strong>
-      </a>
     </div>
     <div class="icon-sidebar" style="justify-content: center; margin-top: 20px">
       <div style="display: flex">
@@ -393,7 +305,13 @@
               data-icon="map:grocery-or-supermarket"
               style="color: #ffc700; width: 30px; height: 30px"
             ></span>
-            <div class="circle-number">1</div>
+            <?php
+            if (count($product_in_cart) > 0) {
+              echo '<div class="circle-number">';
+              echo count($product_in_cart);
+              echo '</div>';
+            }
+            ?>
           </button>
         </div>
       </div>

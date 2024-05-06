@@ -6,7 +6,7 @@ function getListOrderWithProduct($mysqli)
         $mysqli,
         "SELECT accounts.userName as userName, total, orders.note as note, orders.total as total, 
         statusOrder,orders.id as idOrder, product.name as proName, product_in_order.price as proPrice,
-        product_in_order.quantity as quantity , users.isReported as isReported, users.idAccount as idAccount, accounts.email as email, accounts.phone as phone
+        product_in_order.quantity as quantity , users.isReported as isReported, users.idAccount as idAccount, accounts.email as email, accounts.phone as phone, dateCreated
         FROM orders, users, accounts, product_in_order, product 
         WHERE idUser = idAccount AND idAccount = accounts.id 
         AND product_in_order.idOrder = orders.id AND product.id = product_in_order.idProduct 
@@ -41,7 +41,7 @@ $orders = getListOrder($mysqli);
 
 function getListOrderFromTo($mysqli, $startDate, $endDate) {
     $sql_get_list_reported_user = mysqli_prepare($mysqli,
-        "SELECT orders.id as idOrder, statusOrder, total, payment, 
+        "SELECT orders.id as idOrder, statusOrder, total, payment, dateCreated
         FROM orders
         WHERE dateCreated >= ? AND dateCreated <= ? AND payment = 'Ship COD'
         ORDER BY dateCreated ASC;");
@@ -63,7 +63,7 @@ function getListOrderFromTo($mysqli, $startDate, $endDate) {
 
 function getListOrderFromToNotPaid($mysqli, $startDate, $endDate) {
     $sql_get_list_reported_user = mysqli_prepare($mysqli,
-        "SELECT orders.id as idOrder, statusOrder, total, payment,
+        "SELECT orders.id as idOrder, statusOrder, total, payment, dateCreated
         FROM orders
         WHERE dateCreated >= ? AND dateCreated <= ? AND payment='MOMO'
         ORDER BY dateCreated ASC;");
@@ -86,7 +86,7 @@ function getListOrderCompleted($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
         "SELECT accounts.userName as userName, total, orders.note as note, orders.total as total, 
         statusOrder,orders.id as idOrder, product.name as proName, product_in_order.price as proPrice,
-        product_in_order.quantity as quantity , users.isReported as isReported, users.idAccount as idAccount, accounts.email as email, accounts.phone as phone
+        product_in_order.quantity as quantity , users.isReported as isReported, users.idAccount as idAccount, accounts.email as email, accounts.phone as phone, dateCreated
         FROM orders, users, accounts, product_in_order, product 
         WHERE idUser = idAccount AND idAccount = accounts.id 
         AND product_in_order.idOrder = orders.id AND product.id = product_in_order.idProduct AND statusOrder = 'Đã hoàn thành' ORDER BY idOrder DESC;");
@@ -104,7 +104,7 @@ function getListOrderPreparedPage($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
         "SELECT accounts.userName as userName, total, orders.note as note, orders.total as total, 
         statusOrder,orders.id as idOrder, product.name as proName, product_in_order.price as proPrice,
-        product_in_order.quantity as quantity , users.isReported as isReported, users.idAccount as idAccount, accounts.email as email, accounts.phone as phone
+        product_in_order.quantity as quantity , users.isReported as isReported, users.idAccount as idAccount, accounts.email as email, accounts.phone as phone, dateCreated
         FROM orders, users, accounts, product_in_order, product 
         WHERE idUser = idAccount AND idAccount = accounts.id 
         AND product_in_order.idOrder = orders.id AND product.id = product_in_order.idProduct AND statusOrder = 'Chờ chuẩn bị' ORDER BY idOrder DESC;;");
@@ -122,7 +122,7 @@ function getListOrderDeliveriedPage($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
         "SELECT accounts.userName as userName, total, orders.note as note, orders.total as total, 
         statusOrder,orders.id as idOrder, product.name as proName, product_in_order.price as proPrice,
-        product_in_order.quantity as quantity , users.isReported as isReported, users.idAccount as idAccount, accounts.email as email, accounts.phone as phone
+        product_in_order.quantity as quantity , users.isReported as isReported, users.idAccount as idAccount, accounts.email as email, accounts.phone as phone, dateCreated
         FROM orders, users, accounts, product_in_order, product 
         WHERE idUser = idAccount AND idAccount = accounts.id 
         AND product_in_order.idOrder = orders.id AND product.id = product_in_order.idProduct AND statusOrder = 'Đang giao hàng' ORDER BY idOrder DESC;");

@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: May 05, 2024 at 10:22 AM
+-- Host: 127.0.0.1
+-- Generation Time: May 06, 2024 at 10:27 AM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `btl_ltw`
 --
+
+CREATE DATABASE IF NOT EXISTS btl_ltw DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE btl_ltw;
 
 -- --------------------------------------------------------
 
@@ -139,7 +142,12 @@ CREATE TABLE `notifications` (
 INSERT INTO `notifications` (`id`, `message`, `timeNoti`, `title`) VALUES
 (1, 'Đơn hàng ABCDXYZ nóng hổi vừa mới đến. Hãy xác nhận đơn và thực hiện đơn hàng cho khách yêu của bạn nào!', '2023-09-28 07:14:25', 'Bạn có đơn hàng mới!'),
 (2, 'Đơn hàng NAMANH nóng hổi vừa mới đến. Hãy xác nhận đơn và thực hiện đơn hàng cho khách yêu của bạn nào!', '2023-09-28 21:02:16', 'Bạn có đơn hàng mới!'),
-(3, 'Sản phẩm ABC đã bị báo cáo!', '2024-05-05 15:06:45', 'Bạn có sản phẩm bị báo cáo!');
+(3, 'Sản phẩm ABC đã bị báo cáo!', '2024-05-05 15:06:45', 'Bạn có sản phẩm bị báo cáo!'),
+(4, 'Đơn hàng 5 vừa mới đến', '2024-05-05 15:47:28', 'Bạn có đơn hàng mới'),
+(5, 'Đơn hàng (Mã đơn: 6) nóng hổi vừa mới đến. Hãy xác nhận đơn và thực hiện đơn hàng cho khách yêu của bạn nào!', '2024-05-05 15:53:54', 'Bạn có đơn hàng mới'),
+(6, 'Sản phẩm (Mã sản phẩm: 11) vừa bị báo cáo. Bạn hãy đến xem xét và xử lý nhanh nào!', '2024-05-05 16:02:43', 'Bạn có sản phẩm bị báo cáo'),
+(7, 'Đơn hàng (Mã đơn: 7) nóng hổi vừa mới đến. Hãy xác nhận đơn và thực hiện đơn hàng cho khách yêu của bạn nào!', '2024-05-06 00:51:14', 'Bạn có đơn hàng mới'),
+(8, 'Đơn hàng (Mã đơn: 8) nóng hổi vừa mới đến. Hãy xác nhận đơn và thực hiện đơn hàng cho khách yêu của bạn nào!', '2024-05-06 02:06:51', 'Bạn có đơn hàng mới');
 
 -- --------------------------------------------------------
 
@@ -161,7 +169,12 @@ CREATE TABLE `notify` (
 INSERT INTO `notify` (`idAccount`, `idNotifications`, `isRead`, `isDeleted`) VALUES
 (1, 1, 0, 0),
 (1, 2, 1, 0),
-(1, 3, 0, 0);
+(1, 3, 0, 0),
+(1, 4, 0, 1),
+(1, 5, 0, 0),
+(1, 6, 0, 0),
+(1, 7, 0, 0),
+(1, 8, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -177,7 +190,6 @@ CREATE TABLE `orders` (
   `note` text DEFAULT NULL,
   `dateCreated` datetime DEFAULT NULL,
   `total` decimal(10,2) DEFAULT NULL,
-  `isRepay` tinyint(1) DEFAULT NULL,
   `address` text DEFAULT NULL,
   `isCanceled` tinyint(1) DEFAULT NULL,
   `isPaid` tinyint(1) DEFAULT 0
@@ -187,11 +199,36 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `idUser`, `payment`, `statusOrder`, `note`, `dateCreated`, `total`, `isRepay`, `address`, `isCanceled`, `isPaid`) VALUES
-(1, 2, 'Ship COD', 'Đã hoàn thành', 'Giao rào A9 giúp em', '2024-04-08 10:30:32', 109000.00, NULL, 'Kí túc xá khu A làng đại học quốc gia TPHCM', 1, 0),
-(2, 2, 'Ship COD', 'Đã hoàn thành', 'Giao rào A9 giúp em', '2024-03-04 10:31:56', 200000.00, NULL, 'Kí túc xá khu A làng đại học quốc gia TPHCM', NULL, 0),
-(3, 3, 'MOMO', 'Đã hoàn thành', 'Giao cổng KTX ạ', NULL, 68000.00, NULL, 'Kí túc xá khu A làng đại học quốc gia TPHCM', NULL, 0),
-(4, 3, 'MOMO', 'Đã hoàn thành', NULL, '2024-03-11 17:39:18', 240000.00, NULL, 'Kí túc xá khu B làng đại học quốc gia TPHCM', NULL, 0);
+INSERT INTO `orders` (`id`, `idUser`, `payment`, `statusOrder`, `note`, `dateCreated`, `total`, `address`, `isCanceled`) VALUES
+(1, 2, 'Ship COD', 'Đã hoàn thành', 'Giao rào A9 giúp em', '2024-04-08 10:30:32', 109000.00, 'Kí túc xá khu A làng đại học quốc gia TPHCM', NULL),
+(2, 2, 'Ship COD', 'Đã hoàn thành', 'Giao rào A9 giúp em', '2024-03-04 10:31:56', 200000.00, 'Kí túc xá khu A làng đại học quốc gia TPHCM', NULL),
+(3, 3, 'MOMO', 'Đã hoàn thành', 'Giao cổng KTX ạ', NULL, 68000.00, 'Kí túc xá khu A làng đại học quốc gia TPHCM', NULL),
+(4, 3, 'MOMO', 'Đã hoàn thành', NULL, '2024-03-11 17:39:18', 240000.00, 'Kí túc xá khu B làng đại học quốc gia TPHCM', NULL),
+(5, 4, 'MOMO', 'Chờ chuẩn bị', 'A8-313', '2024-05-05 14:46:18', 200000.00, 'Ký túc xá khu A làng đại học quốc gia TPHCM', NULL),
+(6, 5, 'Ship COD', 'Chờ chuẩn bị', 'Gọi em trước 5p ạ', '2024-05-05 15:00:19', 240000.00, 'Ký túc xá khu A', NULL),
+(7, 2, 'MOMO', 'Chờ chuẩn bị', NULL, '2024-05-05 19:51:14', 339000.00, 'KTX khu A', NULL),
+(8, 2, 'MOMO', 'Chờ chuẩn bị', NULL, '2024-05-05 21:06:51', 175000.00, 'KTX khu A', NULL);
+
+--
+-- Triggers `orders`
+--
+DELIMITER $$
+CREATE TRIGGER `notify_new_order` AFTER INSERT ON `orders` FOR EACH ROW BEGIN
+    DECLARE new_notification_id INT;
+
+    -- Insert into notifications table
+    INSERT INTO notifications (message, title, timeNoti)
+    VALUES (CONCAT('Đơn hàng (Mã đơn: ', NEW.id, ') nóng hổi vừa mới đến. Hãy xác nhận đơn và thực hiện đơn hàng cho khách yêu của bạn nào!'), 'Bạn có đơn hàng mới', NOW());
+
+    -- Get the ID of the newly inserted notification
+    SET new_notification_id = LAST_INSERT_ID();
+
+    -- Insert into notify table
+    INSERT INTO notify (idAccount, idNotifications)
+    VALUES (1, new_notification_id);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -221,16 +258,39 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`id`, `name`, `quantity`, `description`, `isDeleted`, `isHidden`, `isReported`, `price`, `idCategory`, `deliveryType`, `image`, `rate`) VALUES
 (1, 'Trà sữa ba anh em', 100, 'Có 3 loại topping: thạch, trân châu, bánh flan', 0, 0, 1, 45000.00, 5, 'Cửa hàng tự vận chuyển', 'https://product.hstatic.net/1000360860/product/tra_sua_toco_517ae6b8d48942a3b0ff7f40fbe2fcc2_master.jpg', 0.0),
 (2, 'Sữa tươi trân châu đường đen', 90, 'Cửa hàng tự vận chuyển', 0, 0, 1, 40000.00, 1, 'Cửa hàng tự vận chuyển', 'https://feelingteaonline.com/wp-content/uploads/2020/08/s%C6%B0a-tuoi-tc-%C4%91%C6%B0%E1%BB%9Dng-%C4%91en.jpg', 0.0),
-(3, 'Trà trái cây nhiệt đới', 200, 'Trái cây bao gồm: dâu, cam, dưa lưới, xoài, ổi', 0, 0, 1, 1000.00, 6, 'Cửa hàng tự vận chuyển', 'https://congthucphache.com/wp-content/uploads/2022/11/tra-trai-cay-nhiet-doi.jpg', 0.0),
-(4, 'Trà bí đao hạt chia', 50, 'Trà bí đao hạt chia giải nhiệt, thích hợp cho mùa hè nóng bức!!! <3', 0, 0, 1, 20000.00, 6, 'Cửa hàng tự vận chuyển', 'https://images.foody.vn/res/g79/781003/s800/foody-tra-bi-dao-hat-chia-ba-trieu-252-636746014125974092.jpg', 0.0),
+(3, 'Trà trái cây nhiệt đới', 200, 'Trái cây bao gồm: dâu, cam, dưa lưới, xoài, ổi', 0, 0, 0, 1000.00, 6, 'Cửa hàng tự vận chuyển', 'https://congthucphache.com/wp-content/uploads/2022/11/tra-trai-cay-nhiet-doi.jpg', 0.0),
+(4, 'Trà bí đao hạt chia', 50, 'Trà bí đao hạt chia giải nhiệt, thích hợp cho mùa hè nóng bức!!! <3', 0, 0, 0, 20000.00, 6, 'Cửa hàng tự vận chuyển', 'https://images.foody.vn/res/g79/781003/s800/foody-tra-bi-dao-hat-chia-ba-trieu-252-636746014125974092.jpg', 0.0),
 (5, 'Trà sữa ô long', 85, 'Trà ô long tự nhiên, thanh nhiệt!', 0, 0, 0, 48000.00, 5, 'Cửa hàng tự vận chuyển', 'https://feelingteaonline.com/wp-content/uploads/2020/08/Tr%C3%A0-Olong-s%E1%BB%AFa.jpg', 0.0),
 (6, 'Sinh tố dâu', 43, 'Dâu tây từ Đà Lạt. Mùa này dâu hơi mắc, quý khách cân nhắc khi mua', 0, 0, 0, 50000.00, 7, 'Cửa hàng tự vận chuyển', 'https://www.hoidaubepaau.com/wp-content/uploads/2015/12/sinh-to-dau.jpg', 0.0),
 (7, 'Coca-Pepsi-7up', 100, 'Quý khách chọn 1 trong 3', 0, 0, 0, 15000.00, 8, 'Cửa hàng tự vận chuyển', 'https://cdn.tgdd.vn/Files/2017/04/12/971458/cach-lua-chon-va-su-dung-nuoc-ngot-khong-gay-hai-suc-khoe-2_760x506.jpg', 0.0),
 (8, 'Trà sữa truyền thống', 190, 'Trà sữa thương hiệu của quán <3', 0, 0, 0, 35000.00, 1, 'Cửa hàng tự vận chuyển', 'https://kiwixanh.com/wp-content/uploads/2021/12/tra-sua-truyen-thong-1.jpg', 0.0),
 (9, 'Cơm chiên dương châu', 40, 'Cơm chiên dương châu luôn là sự lựa chọn của bạn ^^', 0, 0, 0, 30000.00, 3, 'Cửa hàng tự vận chuyển', 'https://4.bp.blogspot.com/-F5b2m7upMiw/WkSt1qhi7_I/AAAAAAAAADY/doli22ApRcU6IJIKo35JjH8LHhjgDSRmACLcBGAs/s1600/com-chien-duong-chau-2018.jpg', 0.0),
 (10, 'Mì ý sốt thịt bò bằm', 40, '89% là thịt :>', 0, 0, 0, 30000.00, 3, 'Cửa hàng tự vận chuyển', 'https://forza.com.vn/wp-content/uploads/2021/07/cach-lam-mi-y-thom-ngon-chuan-vi-tai-nha-6.jpeg', 0.0),
-(11, 'Tokbokki phô mai', 40, 'Có kèm 1 trứng lòng đào ^^', 0, 0, 0, 35000.00, 2, 'Cửa hàng tự vận chuyển', 'https://cdn.shopify.com/s/files/1/0617/2497/files/cach-lam-tokbokki_a2179426-f894-4dda-a709-52fe9f07d6ab.jpg', 0.0),
+(11, 'Tokbokki phô mai', 40, 'Có kèm 1 trứng lòng đào ^^', 0, 0, 1, 35000.00, 2, 'Cửa hàng tự vận chuyển', 'https://cdn.shopify.com/s/files/1/0617/2497/files/cach-lam-tokbokki_a2179426-f894-4dda-a709-52fe9f07d6ab.jpg', 0.0),
 (12, 'Bánh tráng trộn', 40, 'Bánh tráng trộn tại gia :))', 0, 0, 0, 20000.00, 4, 'Cửa hàng tự vận chuyển', 'https://media.cooky.vn/recipe/g1/1615/s800x500/recipe-cover-r1615.jpg', 0.0);
+
+--
+-- Triggers `product`
+--
+DELIMITER $$
+CREATE TRIGGER `notify_report_product` AFTER UPDATE ON `product` FOR EACH ROW BEGIN
+    DECLARE new_notification_id INT; -- Declare variable outside of BEGIN...END block
+
+    IF OLD.isReported = 0 AND NEW.isReported = 1 THEN
+        -- Insert into notifications table
+        INSERT INTO notifications (message, title, timeNoti)
+        VALUES (CONCAT('Sản phẩm (Mã sản phẩm: ', NEW.id, ') vừa bị báo cáo. Bạn hãy đến xem xét và xử lý nhanh nào!'), 'Bạn có sản phẩm bị báo cáo', NOW());
+
+        -- Get the ID of the newly inserted notification
+        SET new_notification_id = LAST_INSERT_ID();
+
+        -- Insert into notify table
+        INSERT INTO notify (idAccount, idNotifications)
+        VALUES (1, new_notification_id);
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -242,7 +302,7 @@ CREATE TABLE `product_in_cart` (
   `idUser` int(11) NOT NULL,
   `idProduct` int(11) NOT NULL,
   `quantity` int(11) DEFAULT NULL,
-  `note` text CHARACTER SET armscii8 COLLATE armscii8_general_ci DEFAULT NULL,
+  `note` text DEFAULT NULL,
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -251,10 +311,9 @@ CREATE TABLE `product_in_cart` (
 --
 
 INSERT INTO `product_in_cart` (`idUser`, `idProduct`, `quantity`, `note`, `id`) VALUES
-(2, 1, 2, '70 duong, da', 7),
-(2, 2, 2, 'nhieu duong giup em', 8),
-(2, 5, 2, 'Lay com them', 9),
-(2, 3, 3, NULL, 10);
+(2, 8, 3, 'Lấy ít đá', 17),
+(2, 10, 2, 'không lấy thịt nha', 18),
+(2, 10, 2, 'không lấy thịt nha', 19);
 
 -- --------------------------------------------------------
 
@@ -267,23 +326,33 @@ CREATE TABLE `product_in_order` (
   `idOrder` int(11) NOT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
-  `note` text DEFAULT NULL
+  `note` text DEFAULT NULL,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `product_in_order`
 --
 
-INSERT INTO `product_in_order` (`idProduct`, `idOrder`, `price`, `quantity`, `note`) VALUES
-(1, 3, 48000.00, 1, 'Ít đá'),
-(6, 1, 50000.00, 1, NULL),
-(7, 4, 35000.00, 4, NULL),
-(8, 3, 35000.00, 1, 'Ít đá\r\n'),
-(9, 1, 30000.00, 1, NULL),
-(9, 3, 60000.00, 2, NULL),
-(10, 2, 30000.00, 2, NULL),
-(11, 2, 30000.00, 2, 'Có thể làm ít cay không ạ'),
-(12, 1, 20000.00, 1, 'Không cay ạ');
+INSERT INTO `product_in_order` (`idProduct`, `idOrder`, `price`, `quantity`, `note`, `id`) VALUES
+(1, 3, 48000.00, 1, 'Ít đá', 1),
+(6, 1, 50000.00, 1, NULL, 2),
+(7, 4, 35000.00, 4, NULL, 3),
+(8, 3, 35000.00, 1, 'Ít đá\r\n', 4),
+(9, 1, 30000.00, 1, NULL, 5),
+(9, 3, 60000.00, 2, NULL, 6),
+(10, 2, 30000.00, 2, NULL, 7),
+(10, 5, 50000.00, 2, NULL, 8),
+(11, 2, 30000.00, 2, 'Có thể làm ít cay không ạ', 9),
+(11, 6, 30000.00, 1, 'Ít cay', 10),
+(12, 1, 20000.00, 1, 'Không cay ạ', 11),
+(1, 7, 90000.00, 2, '70 duong, da', 12),
+(2, 7, 80000.00, 2, 'nhieu duong giup em', 13),
+(5, 7, 96000.00, 2, 'Lay com them', 14),
+(3, 7, 3000.00, 3, NULL, 15),
+(11, 7, 70000.00, 2, 'khong lay trung hong dao', 16),
+(11, 8, 70000.00, 2, 'phomai c? l?n', 17),
+(8, 8, 105000.00, 3, 'khong cho ??', 18);
 
 -- --------------------------------------------------------
 
@@ -309,7 +378,9 @@ CREATE TABLE `ratings` (
 INSERT INTO `ratings` (`ID`, `isHidden`, `idOrder`, `idUser`, `respone`, `content`, `stars`, `timeRating`) VALUES
 (1, 0, 1, 2, 'Cảm ơn em nhé! Lần sau ủng hộ quán tiếp nhé', 'Mới ăn lần đầu nhưng ngon lắm mn ạ ^^ ', 4, '2024-04-09 10:37:29'),
 (2, 0, 2, 2, NULL, 'Em quay lại rồi đây và đồ ăn vẫn ngon như ngày nàoooo', 2, '2024-04-16 10:38:30'),
-(3, 0, 3, 3, 'Cảm ơn em nhá <3', 'Ăn biết bao lần ròi, lần nào cũng hợp khẩu vị', 3, '2024-05-01 10:39:12');
+(3, 0, 3, 3, 'Cảm ơn em nhá <3', 'Ăn biết bao lần ròi, lần nào cũng hợp khẩu vị', 3, '2024-05-01 10:39:12'),
+(4, 0, 2, 2, NULL, 'quá ngon luôn', 5, '2024-05-05 22:03:37'),
+(5, 0, 2, 2, NULL, 'như hạch', 3, '2024-05-06 09:51:11');
 
 -- --------------------------------------------------------
 
@@ -388,7 +459,8 @@ INSERT INTO `users` (`idAccount`, `isReported`) VALUES
 --
 ALTER TABLE `accounts`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `unique_email` (`email`);
 
 --
 -- Indexes for table `blog`
@@ -450,14 +522,16 @@ ALTER TABLE `product`
 --
 ALTER TABLE `product_in_cart`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `idProduct` (`idProduct`) USING BTREE;
+  ADD KEY `idProduct` (`idProduct`) USING BTREE,
+  ADD KEY `fk_user_id` (`idUser`);
 
 --
 -- Indexes for table `product_in_order`
 --
 ALTER TABLE `product_in_order`
-  ADD PRIMARY KEY (`idProduct`,`idOrder`),
-  ADD KEY `idOrder` (`idOrder`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idOrder` (`idOrder`),
+  ADD KEY `product_in_order_ibfk_1` (`idProduct`);
 
 --
 -- Indexes for table `ratings`
@@ -518,13 +592,13 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -536,13 +610,19 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `product_in_cart`
 --
 ALTER TABLE `product_in_cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `product_in_order`
+--
+ALTER TABLE `product_in_order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -586,6 +666,13 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`idCategory`) REFERENCES `category` (`id`);
+
+--
+-- Constraints for table `product_in_cart`
+--
+ALTER TABLE `product_in_cart`
+  ADD CONSTRAINT `fk_product_id` FOREIGN KEY (`idProduct`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`idUser`) REFERENCES `users` (`idAccount`);
 
 --
 -- Constraints for table `product_in_order`

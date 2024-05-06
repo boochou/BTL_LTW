@@ -30,19 +30,12 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="paid" role="tabpanel" aria-labelledby="paid-tab">
-                <div class="d-flex mt-3 mb-3">
-                    <label for="startDatePaid" style="margin-right: 10px;">Start date</label>
-                    <input id="startDatePaid" class="form-control" type="date" style="width: 150px;" />
-                    <label for="endDatePaid" style="margin-left: 20px; margin-right: 10px;">End date</label>
-                    <input id="endDatePaid" class="form-control" type="date" style="width: 150px;" />
-                    <button id="fetchOrdersBtn" class="btn btn-primary" style="margin-left: 20px;">Fetch Orders</button>
-                </div>
                 <div class="ms-5 border border-solid rounded mb-5"
                     style="width: 90%; border-width: 1px; border-radius: 5px;">
                     <div class="container" id="orderListContainer">
                     </div>
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center" id="pagination">
+                        <ul class="pagination justify-content-center" id="paginationAll">
                         </ul>
                     </nav>
                 </div>
@@ -50,58 +43,34 @@
 
 
             <div class="tab-pane fade" id="done" role="tabpanel" aria-labelledby="done-tab">
-                <div class="d-flex mt-3 mb-3">
-                    <label for="startDate" style="margin-right: 10px;">Start date</label>
-                    <input id="startDate" class="form-control" type="date" style="width: 150px;" />
-                    <label for="endDate" style="margin-left: 20px; margin-right: 10px;">End date</label>
-                    <input id="endDate" class="form-control" type="date" style="width: 150px;" />
-                    <button id="fetchOrdersNotPaid" class="btn btn-primary" style="margin-left: 20px;"
-                        onclick="fetchOrdersNotPaid()">Fetch Orders</button>
-                </div>
                 <div class="ms-5 border border-solid rounded mb-5"
                     style="width: 90%; border-width: 1px; border-radius: 5px;">
                     <div class="container" id="orderListContainerDone">
                     </div>
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center" id="pagination">
+                        <ul class="pagination justify-content-center" id="paginationDone">
                         </ul>
                     </nav>
                 </div>
             </div>
             <div class="tab-pane fade" id="notpaid" role="tabpanel" aria-labelledby="notpaid-tab">
-                <div class="d-flex mt-3 mb-3">
-                    <label for="startDate" style="margin-right: 10px;">Start date</label>
-                    <input id="startDate" class="form-control" type="date" style="width: 150px;" />
-                    <label for="endDate" style="margin-left: 20px; margin-right: 10px;">End date</label>
-                    <input id="endDate" class="form-control" type="date" style="width: 150px;" />
-                    <button id="fetchOrdersNotPaid" class="btn btn-primary" style="margin-left: 20px;"
-                        onclick="fetchOrdersNotPaid()">Fetch Orders</button>
-                </div>
                 <div class="ms-5 border border-solid rounded mb-5"
                     style="width: 90%; border-width: 1px; border-radius: 5px;">
                     <div class="container" id="orderListContainerPrepare">
                     </div>
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center" id="pagination">
+                        <ul class="pagination justify-content-center" id="paginationPrepare">
                         </ul>
                     </nav>
                 </div>
             </div>
             <div class="tab-pane fade" id="delivery" role="tabpanel" aria-labelledby="delivery-tab">
-                <div class="d-flex mt-3 mb-3">
-                    <label for="startDate" style="margin-right: 10px;">Start date</label>
-                    <input id="startDate" class="form-control" type="date" style="width: 150px;" />
-                    <label for="endDate" style="margin-left: 20px; margin-right: 10px;">End date</label>
-                    <input id="endDate" class="form-control" type="date" style="width: 150px;" />
-                    <button id="fetchOrdersNotPaid" class="btn btn-primary" style="margin-left: 20px;"
-                        onclick="fetchOrdersNotPaid()">Fetch Orders</button>
-                </div>
                 <div class="ms-5 border border-solid rounded mb-5"
                     style="width: 90%; border-width: 1px; border-radius: 5px;">
                     <div class="container" id="orderListContainerDelivery">
                     </div>
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center" id="pagination">
+                        <ul class="pagination justify-content-center" id="paginationDelivery">
                         </ul>
                     </nav>
                 </div>
@@ -122,7 +91,7 @@
             success: function (response) {
                 console.log(response);
                 displayOrders(response.orders, 'orderListContainer');
-                generatePagination(response.totalPages);
+                generatePagination(response.totalPages,'paginationAll');
             },
             error: function (xhr, status, error) {
                 console.error(error);
@@ -137,7 +106,7 @@
             success: function (response) {
                 console.log(response);
                 displayOrders(response.orders, 'orderListContainerDelivery');
-                generatePagination(response.totalPages);
+                generatePagination(response.totalPages,'paginationDelivery');
             },
             error: function (xhr, status, error) {
                 console.error(error);
@@ -152,7 +121,7 @@
             success: function (response) {
                 console.log(response);
                 displayOrders(response.orders, 'orderListContainerDone');
-                generatePagination(response.totalPages);
+                generatePagination(response.totalPages,'paginationDone');
             },
             error: function (xhr, status, error) {
                 console.error(error);
@@ -167,7 +136,7 @@
             success: function (response) {
                 console.log(response);
                 displayOrders(response.orders, 'orderListContainerPrepare');
-                generatePagination(response.totalPages);
+                generatePagination(response.totalPages,'paginationPrepare');
             },
             error: function (xhr, status, error) {
                 console.error(error);
@@ -228,7 +197,9 @@
                 const productRow = createProductRow(prod);
                 orderElement.querySelector('tbody').appendChild(productRow);
             });
-
+            if (order.note == null) {
+                order.note = 'Không có'
+            }
             // Close the table body and table element
             orderElement.innerHTML += `
                         </tbody>
@@ -249,12 +220,16 @@
                                 <td>${order.idOrder}</td>
                             </tr>
                             <tr>
-                                <td style="font-weight: bold;">Giá trị đơn hàng</td>
-                                <td style="font-weight: bold;">${order.total}</td>
-                            </tr>
-                            <tr>
                                 <td>Note</td>
                                 <td>${order.note}</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày tạo</td>
+                                <td>${order.dateCreated}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Giá trị đơn hàng</td>
+                                <td style="font-weight: bold;">${order.total}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -343,8 +318,8 @@
 
 
     // Function to generate pagination links
-    function generatePagination(totalPages) {
-        const paginationContainer = document.getElementById('pagination');
+    function generatePagination(totalPages,divID) {
+        const paginationContainer = document.getElementById(divID);
         paginationContainer.innerHTML = ''; // Clear previous pagination links
 
         for (let i = 1; i <= totalPages; i++) {
