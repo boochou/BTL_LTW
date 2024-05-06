@@ -335,10 +335,12 @@
         fetchOrders(1);
     });
     function viewDetails(orderID) {
-        // Your code to handle viewing details here
-        // You can use the orderID parameter to identify the order
-        // For example, you can make an AJAX request to fetch more details about the order
         console.log("Viewing details of order with ID:", orderID);
+        var redirectTo = "http://localhost/BTL/views/seller/index.php?page=orderdetail&orderID=" + orderID;;
+    
+    // Redirect to the specified page
+    window.location.href = redirectTo;
+        
     }
 
     function prepareOrder(orderID) {

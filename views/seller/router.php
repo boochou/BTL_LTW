@@ -16,6 +16,7 @@ $url_pages = [
     // 'voucher' => 'voucher.php',
     // 'voucherdetail' => 'voucherdetail.php',
     // 'addvoucher' => 'addvoucher.php',
+    'orderdetail' => 'orderdetail.php',
     'community' => 'community.php',
     'notification' => 'notification.php',
     'listreporteduser' => 'listreporteduser.php'
