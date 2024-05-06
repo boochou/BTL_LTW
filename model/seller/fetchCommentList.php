@@ -3,8 +3,8 @@ function getCommentList($mysqli, $blogID) {
 
     $sql_get_product_in_order = mysqli_query($mysqli,
         "SELECT *
-        FROM comments, accounts
-        WHERE idBlog = $blogID AND idAccount = accounts.id");
+        FROM comments, accounts, users
+        WHERE idBlog = $blogID AND comments.idAccount = accounts.id AND comments.idAccount = users.idAccount");
 
     $product = array();
 

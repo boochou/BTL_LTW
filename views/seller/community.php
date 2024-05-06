@@ -140,18 +140,104 @@
                     <a class="link-underline-light linkStyleColor" href="#">Xem thêm bình luận</a>
                 </div> -->
                 <?php
-                foreach ($commentList as $comment) {
+                foreach ($commentList as $index => $comment) {
+                    $modalId = 'detailUser_' . $index;
                     ?>
-                    <div style="margin-top: 5px">
-                        <div style="display: flex">
-                            <img class="mb-3" src="/BTL/public/images/Avatar-Profile-PNG-Photos 1.png" alt="" />
-                            <div class="comment-style mb-3">
-                                <div>
-                                    <strong>Anh</strong>
+                    <div class="row" style="margin-top: 5px; margin-bottom:10px;">
+                        <div class="col-12 d-flex flex-row align-items-center">
+                            <img
+                                src="https://res.cloudinary.com/hy4kyit2a/f_auto,fl_lossy,q_70/learn/modules/salesforce-b2b-commerce-storefront-experience/support-your-buyers-b2b-journey/images/4889eb0c3f27a0c1a53bc4e89b09bdb4_b-42-aa-2-e-0-1-bc-4-4-cb-9-a-91-e-016914-c-0-a-473.png"
+                                width="60"
+                                height="60"
+                                alt="avatar"
+                                class="d-none d-lg-flex d-md-flex"
+                            />
+                            <div class=" d-flex flex-column ms-2 rounded-3" style="background-color:#FFC700;">
+                                <div class="d-flex flex-row justify-content-center ms-4 me-4 mt-2">
+                                    <strong class=""><?php echo $comment['userName']; ?></strong>
+                                    <span class="me-5 ms-5 text-decoration-underline fw-light" data-bs-toggle="modal" data-bs-target="#<?php echo $modalId; ?>">Xem thông tin</span>
+                                        <?php if ($comment['isReported'] == 0) { ?>
+                                            <span class="text-decoration-underline fw-light" style="color:red" onclick="reportUser(<?php echo $comment['idAccount']; ?>)">Chặn</span>
+                                            <?php } 
+                                        ?>
+                                        <?php if ($comment['isReported'] == 1) { ?>
+                                            <span class="text-decoration-underline fw-light" style="color:red" onclick="unblockUser(<?php echo $comment['idAccount']; ?>)">Gỡ chặn</span>
+                                            <?php } 
+                                        ?>
                                 </div>
-                                <div><?php echo $comment['content']; ?></div>
+                                <div class="mb-2 ms-4"><?php echo $comment['content']; ?></div>
+                                
                             </div>
+                            
+
                         </div>
+                            <?php
+                                include_once("../../controller/seller/getUserdetail.php");
+                                $userID = $comment['idAccount'];
+                                $userdetail = fetchUserDetail($userID);
+                                
+                            ?>
+                            <div class="modal fade" id="<?php echo $modalId; ?>" tabindex="-1" aria-labelledby="infoUser" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="infoUser">
+                                            Thông tin khách hàng
+                                            </h1>
+                                            <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                            ></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="username"
+                                                >Tên khách hàng</label
+                                                >
+                                                <input
+                                                class="form-control"
+                                                id="username"
+                                                name="username"
+                                                type="text"
+                                                value="<?php echo $userdetail['userName']?>"
+                                                readonly
+                                                style="width: 100%"
+                                                />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="email"
+                                                >Email</label
+                                                >
+                                                <input
+                                                class="form-control"
+                                                id="email"
+                                                name="email"
+                                                type="text"
+                                                value="<?php echo $userdetail['email']; ?>"
+                                                readonly
+                                                style="width: 100%"
+                                                />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="phonenum"
+                                                >Số điện thoại</label
+                                                >
+                                                <input
+                                                class="form-control"
+                                                id="phonenum"
+                                                name="phonenum"
+                                                type="number"
+                                                value="<?php echo $userdetail['phone']; ?>"
+                                                readonly
+                                                style="width: 100%"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         <!-- <div class="note-style" style="margin-left: 60px">
                             <a class="linkStyleColor" href="#" style="margin-left: 10px">Phản hồi</a>
                         </div> -->
@@ -461,5 +547,54 @@
             fileNamesDiv.appendChild(fileName);
         }
     });
+    function reportUser(userID){
+            console.log("User ID:", userID);
+            var confirmation = confirm("Xác nhận chặn khách hàng này?");
+            if(!confirmation){
+                return;
+            }
+            fetch('../../controller/seller/reportUser.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userID: userID }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "?page=community";
+                } else {
+                    console.error('Error:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
 
+        }
+        function unblockUser(userID){
+            console.log("User ID:", userID);
+            var confirmation = confirm("Xác nhận gỡ chặn khách hàng này?");
+            if(!confirmation){
+                return;
+            }
+            fetch('../../controller/seller/unblockUser.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userID: userID }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "?page=community";
+                } else {
+                    console.error('Error:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        }
 </script>
