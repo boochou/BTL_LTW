@@ -144,8 +144,8 @@
                     ?>
                     <div style="margin-top: 5px">
                         <div style="display: flex">
-                            <img src="/BTL/public/images/Avatar-Profile-PNG-Photos 1.png" alt="" />
-                            <div class="comment-style">
+                            <img class="mb-3" src="/BTL/public/images/Avatar-Profile-PNG-Photos 1.png" alt="" />
+                            <div class="comment-style mb-3">
                                 <div>
                                     <strong>Anh</strong>
                                 </div>
