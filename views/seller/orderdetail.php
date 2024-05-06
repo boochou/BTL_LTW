@@ -1,178 +1,114 @@
-<div class="container-fluid" style="margin-bottom: 50px">
-    <nav aria-label="breadcrumb" class="d-none d-md-flex d-lg-flex ms-5">
-        <ol class="breadcrumb">
+<div class="row">
+    <!-- content -->
+    <div class="col align-items-center justify-content-center mt-3 me-3">
+        <nav aria-label="breadcrumb" class="d-none d-md-flex d-lg-flex ms-5">
+            <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="?page=mainpage" class="text-decoration-none" style="color: black">Trang chủ</a>
+                <a href="?page=mainpage" class="text-decoration-none" style="color: black"
+                >Trang chủ</a
+                >
             </li>
             <li class="breadcrumb-item">
-                <a href="?page=product" class="text-decoration-none" style="color: black">Quản lý sản phẩm</a>
+                <a
+                href="?page=order"
+                class="text-decoration-none"
+                style="color: black"
+                >Quản lý đơn hàng</a
+                >
             </li>
             <li class="breadcrumb-item">
-                <a href="?page=productdetail" class="text-decoration-none" style="color: black">Chi tiết sản
-                    phẩm</a>
+                <a
+                href="?page=product"
+                class="text-decoration-none"
+                style="color: black"
+                >Chi tiết đơn hàng</a
+                >
             </li>
-        </ol>
-    </nav>
-    <?php
-        include_once ("../../controller/seller/getProdctinOrder.php");
-        $orderID = isset($_GET['orderID']) ? $_GET['orderID'] : null;
-        if (!$orderID) {
-            echo "order ID is missing!";
-            exit;
-        }
-        $aaaaa = fetchProductInOrderAll($orderID);
-        echo $aaaaa;
-        echo $aaaaa['dateCreated'];
-        ?>
-    <div class="titlePage">
-        <div>
-            <div>
-                <strong><?php echo $orderUse['dateCreated']; ?></strong>
+            </ol>
+        </nav>
+        <div class="d-flex flex-column justify-content-center align-items-center mt-3 ms-5 me-5 mb-4" >
+            <a class="text-decoration-none  fw-bold" style="color: black;">Thời gian đặt hàng</a>
+            <a class="text-decoration-none  fw-light" style="color: black;">Mã đơn hàng: 
+                <span>ABC</span>
+            </a>
+        </div>
+        <div class="row ms-5 me-5 border rounded-4 mt-3 mb-3">
+            <div class="col-2 d-flex justify-content-center align-items-center mt-2 mb-2">
+                <img src="https://clipart-library.com/images_k/transparent-food-clipart/transparent-food-clipart-10.png" alt="order image" width="40" height="40">
             </div>
-            <div class="linkStyleColor" style="display: flex; justify-content: space-between">
-                <div>Mã đơn hàng</div>
-                <div>NYCA<?php echo $orderUse["idOrder"]; ?></div>
+            <div class="col-8 d-flex align-items-center">
+                <div class="d-flex flex-column justify-content-center mt-2 mb-2">
+                    <a class="text-decoration-none  fw-bold" style="color: black;">Tên quán</a>
+                    <a class="text-decoration-none  fw-light" style="color: black;">Trạng thái</a>
+                </div>
+            </div>
+            <div class="col-2 d-flex justify-content-center mt-2 mb-2">
+                <a class="text-decoration-none  fw-bold" style="color: #FFC700;">Đánh giá nếu đơn đã ht hong thì khỏi có gì hết</a>
             </div>
         </div>
-    </div>
-    <div class="container container-border-page">
-        <div class="row inside-container-page">
-            <div class="col content-in-container" style="max-width: 10%; min-width: 80px">
-                <img src="/BTL/public/images/Ellipse 2.png" alt="" />
+        <div class="d-flex ms-5 me-5 mb-3 align-items-center justify-content-center">
+            <img src="../../public/images/image 5.png" alt="map" class="img-fluid">
+        </div>
+        <div class="row ms-5 me-5 border rounded-4 mt-3 mb-3">
+            <div class="col-2 d-flex flex-column justify-content-center align-items-center mt-2 mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="blue" class="bi bi-geo-alt-fill mb-3" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                </svg>
             </div>
-            <div class="col content-in-container">
-                <div>
-                    <div>
-                        <strong>UniEat</strong>
+            <div class="col-10 flex-column d-flex justify-content-center mt-2 mb-2">
+                    <a class="text-decoration-none mb-3" style="color: black;">Vị trí của quán</a>
+                    <a class="text-decoration-none" style="color: black;">Vị trí đến</a>
+            </div>
+        </div>
+        <div class="row ms-5 me-5 border rounded-4 mt-3 mb-3">
+            <div class="col-12 mt-2 ">
+                <p class="fw-bold  text-center">Tóm tắt đơn hàng</p>
+            </div>
+            <div class="col-12 mb-2">
+                <div class="row">
+                    <div class="col-2 d-flex justify-content-center  mb-2">
+                        <a class="text-decoration-none fw-bold" style="color: black;"> 
+                            <span>10</span>x
+                        </a>
                     </div>
-                    <div class="note-style"> <?php echo $orderUse[$orderID]["statusOrder"]; ?> </div>
-                </div>
-            </div>
-            <div class="col content-in-container" style="max-width: 20%">
-                <a href="#" class="evaluate-link" data-bs-toggle="modal" data-bs-target="#myModal">Đánh giá</a>
-            </div>
-        </div>
-    </div>
-    <div class="container container-border-page">
-        <div class="inside-container-page">
-            <div>
-                <span class="iconify" data-icon="fa6-solid:circle-dot" style="color: #1e90ff"></span>
-                <span class="address-style"> <?php echo $orderUse[$orderID]["addr"]; ?> </span>
-            </div>
-        </div>
-    </div>
-    <div class="container container-border-page">
-        <div class="inside-container-page">
-            <strong>Tóm tắt đơn hàng</strong>
-        </div>
-        <hr style="margin-top: 2px; margin-bottom: 10px" />
-        <div style="margin-bottom: 10px">
-            <?php
-            $size = count($product_in_order);
-            for ($i = 0; $i < $size; $i++) {
-                echo '<div class="row inside-container-page">';
-                echo '  <div class="col" style="max-width: 5%">';
-                echo '      <strong>' . $product_in_order[$i]["quantity"] . 'x</strong>';
-                echo '  </div>';
-                echo '  <div class="col">';
-                echo '      <div>' . $products[$i]["name"] . '</div>';
-                echo '      <div class="note-style">' . $product_in_order[$i]["note"] . '</div>';
-                echo '  </div>';
-                echo '  <div class="col prices">' . $product_in_order[$i]["price"] . '</div>';
-                echo '</div>';
-            }
-            ?>
-        </div>
-    </div>
-    <div class="container container-border-page">
-        <div>
-            <div class="row inside-container-page">
-                <div class="col">
-                    <strong>Tổng cộng</strong>
-                </div>
-                <div class="col prices momo-icon" style="margin-bottom: 15px">
-                    <img src="/BTL/public/images/Rectangle 41.png" alt="" style="width: 25px; height: 16px" />
-                    <span style="padding-left: 10px">
-                        <strong> <?php echo $orderUse["total"]; ?> <u style="padding-left: 3px">đ</u> </strong>
-                    </span>
+                    <div class="col-8 d-flex flex-column justify-content-center mb-2">
+                        <a class="text-decoration-none" style="color: black;"> Tên sản phẩm </a>
+                        <a class="text-decoration-none fw-light" style="color: black;"> Note </a>
+                    </div>
+                    <div class="col-2 d-flex justify-content-center  mb-2">
+                        <a class="text-decoration-none" style="color: black;"><span>40.000</span>đ </a>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="row ms-5 me-5 border rounded-4 mt-3 mb-3">
+            <div class="col-2 d-flex flex-column justify-content-center align-items-center mt-2 mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#FFC700" class="bi bi-pen mb-3" viewBox="0 0 16 16">
+                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#FFC700" class="bi bi-wallet2" viewBox="0 0 16 16">
+                    <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
+                </svg>
+            </div>
+            <div class="col-10 flex-column d-flex justify-content-center mt-2 mb-2">
+                    <a class="text-decoration-none mb-3" style="color: black;">Ghi chú:
+                        <span class="fw-light">Ghi chú ở đây</span>
+                    </a>
+                    <a class="text-decoration-none" style="color: black;">Phương thức thanh toán:
+                        <span>MOMO</span>        
+                    </a>
+            </div>
+            <div class="col-12 d-flex align-items-center justify-content-center mt-2 mb-2">
+                <h4 class="text-decoration-none fw-bold text-center" style="color: black;">Tổng cộng: <span>40000</span>đ</h4>
+
+            </div>
+        </div>
     </div>
+    <!-- content -->
+    <script>
+    
+    </script>
 </div>
-<div class="modal" id="myModal">
-    <form id="rate-form">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body" style="text-align: center">
-                    <img src="/BTL/public/images/fork 2.png" alt="" style="margin-top: 40px" />
-                    <div style="margin-top: 20px">
-                        <strong>Đánh giá bữa ăn này</strong>
-                    </div>
-                    <div class="note-style">
-                        Bạn thấy thức ăn hoặc thức uống từ
-                    </div>
-                    <div class="note-style">UniEat như thế nào?</div>
-                    <input type="hidden" id="order-id" name="order_id" value="<?php echo $orderIdForPage; ?>">
-                    <div style="margin-top: 20px; margin-bottom: 20px; display: flex; justify-content: center">
-                        <div class="rate">
-                            <input type="radio" id="star5" name="rate" value="5" />
-                            <label for="star5" title="text">5 stars</label>
-                            <input type="radio" id="star4" name="rate" value="4" />
-                            <label for="star4" title="text">4 stars</label>
-                            <input type="radio" id="star3" name="rate" value="3" />
-                            <label for="star3" title="text">3 stars</label>
-                            <input type="radio" id="star2" name="rate" value="2" />
-                            <label for="star2" title="text">2 stars</label>
-                            <input type="radio" id="star1" name="rate" value="1" />
-                            <label for="star1" title="text">1 star</label>
-                        </div>
-                    </div>
-                    <div style="display: flex; justify-content: center">
-                        <textarea name="text" id="comment" rows="6" placeholder="Bạn thấy món ăn như thế nào?"
-                            class="form-control" style="max-width: 70%; border-radius: 10px"></textarea>
-                    </div>
-                    <div style="margin-top: 20px">
-                        <button type="submit" class="btn" data-bs-dismiss="modal"
-                            style="width: 70%; background: #ffc700; border-radius: 20px">
-                            Gửi
-                        </button>
-                    </div>
-                    <div class="note-style" style="margin-top: 5px; margin-bottom: 50px">
-                        Nhận xét của bạn sẽ được công khai
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-<script>
-    var formRate = document.getElementById("rate-form");
-    formRate.addEventListener("submit", function (event) {
-        event.preventDefault();
-        var formData = new FormData(this);
-        fetch("../controller/user/rate.php", {
-            method: "POST",
-            body: formData,
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data);
-                alert(data);
-                window.location.reload();
-                console.log(data);
-            })
-            .catch((error) => {
-                console.log(error);
-                alert("Error submitting form. Please try again later.");
-            });
-    });
-</script>
