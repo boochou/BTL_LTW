@@ -20,6 +20,7 @@ foreach ($orderList as $order) {
             'idAccount' => $order['idAccount'],
             'email' => $order['email'],
             'phone' => $order['phone'],
+            'idAccount' => $order['idAccount'],
             'idOrder' => $orderId,
             'dateCreated' => $order['dateCreated'],
             'product' => []

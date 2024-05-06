@@ -22,13 +22,15 @@
     <?php
         $stt = 1;
     ?>
-    <div class="justify-content-center mt-3 ms-5 me-5 mb-4">
+    <div class="table-responsive justify-content-center mt-3 ms-5 me-5 mb-4">
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">ID Khách hàng</th>
                     <th scope="col">Tên khách hàng</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Số điện thoại</th>
                     <th scope="col">Hành động</th>
                 </tr>
             </thead>
@@ -43,6 +45,8 @@
                     <th scope="row"><?php echo $stt++ ?></th>
                     <td><?php echo $itemmuser['idAccount']; ?></td>
                     <td><?php echo $itemmuser['userName']; ?></td>
+                    <td><?php echo $itemmuser['email']; ?></td>
+                    <td><?php echo $itemmuser['phone']; ?></td>
                     <td><span class="text-decoration-underline fw-bold" style="color:red" onclick="unblockUser(<?php echo $itemmuser['idAccount']; ?>)">Gỡ chặn</span></td>
                 </tr>
                 <?php
