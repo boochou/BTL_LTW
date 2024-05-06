@@ -117,9 +117,9 @@
                 margin-top: 20px;
                 ">
                     <?php if ($commentCount > 0): ?>
-                        <div><?php echo $commentCount; ?> bình luận</div>
+                        <div id="countComment"><?php echo $commentCount; ?> bình luận</div>
                     <?php else: ?>
-                        <div></div>
+                        <div id="countComment">Không có bình luận</div>
                     <?php endif; ?>
                 </div>
                 <hr />
@@ -136,9 +136,9 @@
                     </div>
                 </div>
                 <hr />
-                <div>
+                <!-- <div>
                     <a class="link-underline-light linkStyleColor" href="#">Xem thêm bình luận</a>
-                </div>
+                </div> -->
                 <?php
                 foreach ($commentList as $comment) {
                     ?>
@@ -152,45 +152,47 @@
                                 <div><?php echo $comment['content']; ?></div>
                             </div>
                         </div>
-                        <div class="note-style" style="margin-left: 60px">
+                        <!-- <div class="note-style" style="margin-left: 60px">
                             <a class="linkStyleColor" href="#" style="margin-left: 10px">Phản hồi</a>
-                        </div>
+                        </div> -->
                     </div>
                 <?php } ?>
-                <div style="
+                <div id="commentContainer"></div>
+                <!-- <div style="
                 margin-top: 5px;
                 display: flex;
                 margin-bottom: 20px;
                 align-items: center;
                 ">
                     <img class="avatar avatar-48 bg-light rounded-circle text-white p-1" src="../../public/images/logo.png">
-                    <input type="text" placeholder="Viết bình luận" class="comment-note-style" />
-                </div>
+                    <input type="text" placeholder="Viết bình luận" class="comment-note-style"
+                        onkeypress="submitComment(event,<?php echo $blog['id']; ?>,'<?php echo $account['nameStore']; ?>')" />
+                </div> -->
             </div>
         </div>
     <?php } ?>
 </div>
 <script>
     function previewImage() {
-                    const input = event.target;
-                    const preview = document.getElementById("fileNames");
+        const input = event.target;
+        const preview = document.getElementById("fileNames");
 
-                    if (input.files && input.files[0]) {
-                        const reader = new FileReader();
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
 
-                        reader.onload = function (e) {
-                            const img = document.createElement("img");
-                            img.src = e.target.result;
-                            img.classList.add("img-fluid");
-                            preview.innerHTML = "";
-                            preview.appendChild(img);
-                        };
+            reader.onload = function (e) {
+                const img = document.createElement("img");
+                img.src = e.target.result;
+                img.classList.add("img-fluid");
+                preview.innerHTML = "";
+                preview.appendChild(img);
+            };
 
-                        reader.readAsDataURL(input.files[0]);
-                    } else {
-                        preview.innerHTML = "";
-                    }
-                }
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.innerHTML = "";
+        }
+    }
     function previewEditImage(event) {
         const input = event.target;
         const preview = document.getElementById("editfileNames");
@@ -265,51 +267,51 @@
         var counter = 0;
 
         for (var i = 0; i < files.length; i++) {
-                reader = new FileReader();
-                reader.onload = function (event) {
-                    images.push(event.target.result);
-                    counter++;
-                    if (counter === files.length) {
-                        // All files processed, send JSON data
-                        var requestBody = {
-                            blogID: blogID,
-                            title: title,
-                            content: content,
-                            images: images
-                        };
+            reader = new FileReader();
+            reader.onload = function (event) {
+                images.push(event.target.result);
+                counter++;
+                if (counter === files.length) {
+                    // All files processed, send JSON data
+                    var requestBody = {
+                        blogID: blogID,
+                        title: title,
+                        content: content,
+                        images: images
+                    };
 
-                        fetch('../../controller/seller/editBlog.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(requestBody)
+                    fetch('../../controller/seller/editBlog.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(requestBody)
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                return response.text();
+                            } else {
+                                throw new Error('Network response was not ok');
+                            }
                         })
-                            .then(response => {
-                                if (response.ok) {
-                                    return response.text();
-                                } else {
-                                    throw new Error('Network response was not ok');
-                                }
-                            })
-                            .then(data => {
-                                if (data === 'success') {
-                                    window.location.href = "?page=community";
-                                    console.log("success");
-                                } else {
-                                    console.error('Error:', data);
-                                }
-                            })
-                            .catch(error => {
-                                // Catch any fetch errors
-                                console.error('Error:', error);
-                            });
+                        .then(data => {
+                            if (data === 'success') {
+                                window.location.href = "?page=community";
+                                console.log("success");
+                            } else {
+                                console.error('Error:', data);
+                            }
+                        })
+                        .catch(error => {
+                            // Catch any fetch errors
+                            console.error('Error:', error);
+                        });
 
-                        closeEditModal();
-                    }
-                };
-                reader.readAsDataURL(files[i]);
-            }
+                    closeEditModal();
+                }
+            };
+            reader.readAsDataURL(files[i]);
+        }
 
         // fetch('../../controller/seller/editBlog.php', {
         //     method: 'POST',
