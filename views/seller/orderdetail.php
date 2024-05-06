@@ -26,10 +26,21 @@
             </li>
             </ol>
         </nav>
+        <?php
+        include_once ("../../controller/seller/getProdctinOrder.php");
+        include_once ("../../controller/seller/getAccountdetail.php");
+        $orderID = isset($_GET['orderID']) ? $_GET['orderID'] : null;
+        if (!$orderID) {
+            echo "order ID is missing!";
+            exit;
+        }
+        $acc =  fetchAccountdetail(1);
+        $orderDetail = fetchProductInOrderAll($orderID);
+        ?>
         <div class="d-flex flex-column justify-content-center align-items-center mt-3 ms-5 me-5 mb-4" >
-            <a class="text-decoration-none  fw-bold" style="color: black;">Thời gian đặt hàng</a>
+            <a class="text-decoration-none  fw-bold" style="color: black;"><?php echo $orderDetail[0]['dateCreated'] ?></a>
             <a class="text-decoration-none  fw-light" style="color: black;">Mã đơn hàng: 
-                <span>ABC</span>
+                <span>NYCA<?php echo $orderDetail[0]['idOrder'] ?></span>
             </a>
         </div>
         <div class="row ms-5 me-5 border rounded-4 mt-3 mb-3">
@@ -38,12 +49,9 @@
             </div>
             <div class="col-8 d-flex align-items-center">
                 <div class="d-flex flex-column justify-content-center mt-2 mb-2">
-                    <a class="text-decoration-none  fw-bold" style="color: black;">Tên quán</a>
-                    <a class="text-decoration-none  fw-light" style="color: black;">Trạng thái</a>
+                    <a class="text-decoration-none  fw-bold" style="color: black;"><?php echo $orderDetail[0]['userName']?></a>
+                    <a class="text-decoration-none  fw-light" style="color: black;"><?php echo $orderDetail[0]['statusOrder']?></a>
                 </div>
-            </div>
-            <div class="col-2 d-flex justify-content-center mt-2 mb-2">
-                <a class="text-decoration-none  fw-bold" style="color: #FFC700;">Đánh giá nếu đơn đã ht hong thì khỏi có gì hết</a>
             </div>
         </div>
         <div class="d-flex ms-5 me-5 mb-3 align-items-center justify-content-center">
@@ -59,8 +67,9 @@
                 </svg>
             </div>
             <div class="col-10 flex-column d-flex justify-content-center mt-2 mb-2">
-                    <a class="text-decoration-none mb-3" style="color: black;">Vị trí của quán</a>
-                    <a class="text-decoration-none" style="color: black;">Vị trí đến</a>
+                    <a class="text-decoration-none mb-3" style="color: black;">Địa chỉ quán: <?php echo $acc['address']; ?></a>
+                    <a class="text-decoration-none" style="color: black;">Địa chỉ nhận hàng: <?php echo $orderDetail[0]['addr']; ?></a>
+                    <a class="text-decoration-none" style="color: black;">Số điện thoại nhận hàng: <?php echo $orderDetail[0]['phone']; ?></a>
             </div>
         </div>
         <div class="row ms-5 me-5 border rounded-4 mt-3 mb-3">
@@ -68,20 +77,26 @@
                 <p class="fw-bold  text-center">Tóm tắt đơn hàng</p>
             </div>
             <div class="col-12 mb-2">
+                <?php 
+                $index = 0;
+               foreach ($orderDetail[0]['product'] as $key => $productArray) {            
+                ?>
                 <div class="row">
                     <div class="col-2 d-flex justify-content-center  mb-2">
                         <a class="text-decoration-none fw-bold" style="color: black;"> 
-                            <span>10</span>x
+                            <span><?php echo $productArray['quantity']?></span>x
                         </a>
                     </div>
                     <div class="col-8 d-flex flex-column justify-content-center mb-2">
-                        <a class="text-decoration-none" style="color: black;"> Tên sản phẩm </a>
-                        <a class="text-decoration-none fw-light" style="color: black;"> Note </a>
+                        <a class="text-decoration-none" style="color: black;"> <?php echo $productArray['proName']?> </a>
+                        <a class="text-decoration-none fw-light" style="color: black;"><?php echo $productArray['proNote']?> </a>
                     </div>
                     <div class="col-2 d-flex justify-content-center  mb-2">
-                        <a class="text-decoration-none" style="color: black;"><span>40.000</span>đ </a>
+                        <a class="text-decoration-none" style="color: black;"><span><?php echo number_format((int)$productArray['proPrice'])?></span>đ </a>
                     </div>
                 </div>
+                <?php 
+            $index++;}?>
             </div>
         </div>
         <div class="row ms-5 me-5 border rounded-4 mt-3 mb-3">
@@ -95,14 +110,14 @@
             </div>
             <div class="col-10 flex-column d-flex justify-content-center mt-2 mb-2">
                     <a class="text-decoration-none mb-3" style="color: black;">Ghi chú:
-                        <span class="fw-light">Ghi chú ở đây</span>
+                        <span class="fw-light"><?php echo $orderDetail[0]['note'] ?></span>
                     </a>
                     <a class="text-decoration-none" style="color: black;">Phương thức thanh toán:
-                        <span>MOMO</span>        
+                        <span><?php echo $orderDetail[0]['payment'] ?></span>        
                     </a>
             </div>
             <div class="col-12 d-flex align-items-center justify-content-center mt-2 mb-2">
-                <h4 class="text-decoration-none fw-bold text-center" style="color: black;">Tổng cộng: <span>40000</span>đ</h4>
+                <h4 class="text-decoration-none fw-bold text-center" style="color: black;">Tổng cộng: <span><?php echo number_format((int)$orderDetail[0]['total'], 0, ',', '.'); ?></span>đ</h4>
 
             </div>
         </div>

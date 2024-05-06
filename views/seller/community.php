@@ -341,6 +341,7 @@
     }
 
     function submitEditForm() {
+        console.log("submitForm")
         var blogID = document.getElementById('editBlogID').value;
         var title = document.getElementById('editTitleInput').value.trim();
         var content = document.getElementById('editContentInput').value.trim();
@@ -375,6 +376,7 @@
                     })
                         .then(response => {
                             if (response.ok) {
+                                console.log(response)
                                 return response.text();
                             } else {
                                 throw new Error('Network response was not ok');
@@ -382,7 +384,8 @@
                         })
                         .then(data => {
                             if (data === 'success') {
-                                window.location.href = "?page=community";
+                                closeEditModal();
+                                window.location.reload()
                                 console.log("success");
                             } else {
                                 console.error('Error:', data);
@@ -398,26 +401,6 @@
             };
             reader.readAsDataURL(files[i]);
         }
-
-        // fetch('../../controller/seller/editBlog.php', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({ blogID: blogID, title: title, content: content })
-        // })
-        //     .then(response => {
-        //         if (response.ok) {
-        //             closeEditModal();
-        //             console.log('Blog post updated successfully');
-        //             window.location.reload()
-        //         } else {
-        //             console.error('Error:', response.statusText);
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error('Error:', error);
-        //     });
     }
 
     function submitForm() {
@@ -427,8 +410,7 @@
             console.log("Submit")
             var title = document.getElementById('titleInput').value.trim();
             var content = document.getElementById('contentInput').value.trim();
-
-            // Read and encode files to base64
+            content = content.replace(/\n/g, '<br/>');
             var files = document.getElementById('fileInput').files;
             var images = [];
             var reader;
