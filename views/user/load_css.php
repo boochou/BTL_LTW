@@ -1,13 +1,23 @@
 <?php
-// Xác định trang được yêu cầu từ tham số truyền vào
-$page = $_GET['page'] ?? 'homepage';
+$page = $_SERVER['REQUEST_URI'] ?? '/BTL/user/homepage';
+$part = explode('?orderId=', $page);
+$check_part = $part[1] ?? '';
+$orderIdForPage = NULL;
+if (strlen($check_part) > 0) {
+    $orderIdForPage = $check_part;
+    $page = $part[0];
+}
+if ($page == '/BTL/') {
+    $page = '/BTL/user/homepage';
+}
 
 $css_files = [
-    'homepage' => '/BTL/public/css/styles_homepage.css',
+    '/BTL/user/homepage' => '/BTL/public/css/styles_homepage.css',
     'user_info' => '/BTL/public/css/styles_userInfor.css',
-    'wish_list' => '/BTL/public/css/styles_wishList.css',
-    'orders' => '/BTL/public/css/styles_orders.css',
-    'community' => '/BTL/public/css/styles_community.css'
+    '/BTL/user/orderdetail' => '/BTL/public/css/styles_orderdetail.css',
+    '/BTL/user/orders' => '/BTL/public/css/styles_orders.css',
+    '/BTL/user/community' => '/BTL/public/css/styles_community.css',
+    '/BTL/user/mainpage' => '/BTL/public/css/styles_mainpage.css'
 ];
 
 $page_css = $css_files[$page];
