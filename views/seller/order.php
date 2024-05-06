@@ -220,12 +220,16 @@
                                 <td>${order.idOrder}</td>
                             </tr>
                             <tr>
-                                <td style="font-weight: bold;">Giá trị đơn hàng</td>
-                                <td style="font-weight: bold;">${order.total}</td>
-                            </tr>
-                            <tr>
                                 <td>Note</td>
                                 <td>${order.note}</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày tạo</td>
+                                <td>${order.dateCreated}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold;">Giá trị đơn hàng</td>
+                                <td style="font-weight: bold;">${order.total}</td>
                             </tr>
                         </tbody>
                     </table>

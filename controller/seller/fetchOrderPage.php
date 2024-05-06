@@ -21,6 +21,7 @@ foreach ($orderList as $order) {
             'email' => $order['email'],
             'phone' => $order['phone'],
             'idOrder' => $orderId,
+            'dateCreated' => $order['dateCreated'],
             'product' => []
         ];
     }
