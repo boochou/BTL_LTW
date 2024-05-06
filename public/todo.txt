@@ -1,3 +1,2 @@
 - xem chi tiết hóa đơn
-- làm search, phân loại bên tất cả hóa đơn
 - làm comment
