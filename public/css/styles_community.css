@@ -98,7 +98,7 @@ header .icon-header {
   border-radius: 20px;
   padding-left: 15px;
   padding-right: 15px;
-  width: 150px;
+  /* width: 150px; */
   margin-left: 10px;
 }
 .comment-note-style {

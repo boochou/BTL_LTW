@@ -26,13 +26,13 @@
 </head>
 <body>
     <header id="header" class="header">
-        <?php include '../components/header.php';?>
+        <?php include 'views/components/header.php';?>
     </header>
-    <?php include 'router.php'; ?>
+    <?php echo $content; ?>
     <?php
     $page = $_GET['page'] ?? 'homepage';
     if ($page != "user_info") {
-        include '../components/footer.php';
+        include 'views/components/footer.php';
     }
     ?>
     <script src="/BTL/public/js/scripts.js"></script>
