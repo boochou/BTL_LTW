@@ -84,9 +84,12 @@ function getListOrderFromToNotPaid($mysqli, $startDate, $endDate) {
 }
 function getListOrderCompleted($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
-        "SELECT orders.id as idOrder, statusOrder, userName, total, note, users.isReported, users.idAccount
-        FROM orders, users, accounts
-        WHERE idUser = idAccount AND idAccount = accounts.id AND statusOrder = 'Đã hoàn thành' ORDER BY idOrder DESC;");
+        "SELECT accounts.userName as userName, total, orders.note as note, orders.total as total, 
+        statusOrder,orders.id as idOrder, product.name as proName, product_in_order.price as proPrice,
+        product_in_order.quantity as quantity , users.isReported as isReported, users.idAccount as idAccount, accounts.email as email, accounts.phone as phone
+        FROM orders, users, accounts, product_in_order, product 
+        WHERE idUser = idAccount AND idAccount = accounts.id 
+        AND product_in_order.idOrder = orders.id AND product.id = product_in_order.idProduct AND statusOrder = 'Đã hoàn thành' ORDER BY idOrder DESC;");
 
     $listuser = array();
 
@@ -97,11 +100,14 @@ function getListOrderCompleted($mysqli) {
     }
     return $listuser;
 }
-function getListOrderPrepared($mysqli) {
+function getListOrderPreparedPage($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
-        "SELECT orders.id as idOrder, statusOrder, userName, total, note, users.isReported, users.idAccount
-        FROM orders, users, accounts
-        WHERE idUser = idAccount AND idAccount = accounts.id AND statusOrder = 'Chờ chuẩn bị' ORDER BY idOrder DESC;;");
+        "SELECT accounts.userName as userName, total, orders.note as note, orders.total as total, 
+        statusOrder,orders.id as idOrder, product.name as proName, product_in_order.price as proPrice,
+        product_in_order.quantity as quantity , users.isReported as isReported, users.idAccount as idAccount, accounts.email as email, accounts.phone as phone
+        FROM orders, users, accounts, product_in_order, product 
+        WHERE idUser = idAccount AND idAccount = accounts.id 
+        AND product_in_order.idOrder = orders.id AND product.id = product_in_order.idProduct AND statusOrder = 'Chờ chuẩn bị' ORDER BY idOrder DESC;;");
 
     $listuser = array();
 
@@ -112,11 +118,14 @@ function getListOrderPrepared($mysqli) {
     }
     return $listuser;
 }
-function getListOrderDeliveried($mysqli) {
+function getListOrderDeliveriedPage($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
-        "SELECT orders.id as idOrder, statusOrder, userName, total, note, users.isReported, users.idAccount
-        FROM orders, users, accounts
-        WHERE idUser = idAccount AND idAccount = accounts.id AND statusOrder = 'Đang giao hàng' ORDER BY idOrder DESC;");
+        "SELECT accounts.userName as userName, total, orders.note as note, orders.total as total, 
+        statusOrder,orders.id as idOrder, product.name as proName, product_in_order.price as proPrice,
+        product_in_order.quantity as quantity , users.isReported as isReported, users.idAccount as idAccount, accounts.email as email, accounts.phone as phone
+        FROM orders, users, accounts, product_in_order, product 
+        WHERE idUser = idAccount AND idAccount = accounts.id 
+        AND product_in_order.idOrder = orders.id AND product.id = product_in_order.idProduct AND statusOrder = 'Đang giao hàng' ORDER BY idOrder DESC;");
 
     $listuser = array();
 
