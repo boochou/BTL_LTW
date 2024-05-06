@@ -713,6 +713,55 @@
         xhttp.open("GET", "../../controller/seller/changeOrderStatus.php?action=deliveryOrder&orderID=" + orderID, true);
         xhttp.send();
     }
+    function reportUser(userID){
+            console.log("User ID:", userID);
+            var confirmation = confirm("Xác nhận chặn khách hàng này?");
+            if(!confirmation){
+                return;
+            }
+            fetch('../../controller/seller/reportUser.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userID: userID }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "?page=order";
+                } else {
+                    console.error('Error:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
 
+        }
+        function unblockUser(userID){
+            console.log("User ID:", userID);
+            var confirmation = confirm("Xác nhận gỡ chặn khách hàng này?");
+            if(!confirmation){
+                return;
+            }
+            fetch('../../controller/seller/unblockUser.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userID: userID }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "?page=order";
+                } else {
+                    console.error('Error:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        }
 
 </script>

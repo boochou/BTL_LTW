@@ -1,7 +1,7 @@
 <?php
 function getListReportedUser($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
-        "SELECT users.idAccount, accounts.userName
+        "SELECT users.idAccount, accounts.userName, accounts.email, accounts.phone
         FROM accounts
         INNER JOIN users ON accounts.id = users.idAccount
         WHERE users.isReported = 1

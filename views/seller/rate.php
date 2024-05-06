@@ -419,7 +419,7 @@
                     console.error('Error:', error);
                 });
             }
-            function reportUser(userID){
+        function reportUser(userID){
             console.log("User ID:", userID);
             var confirmation = confirm("Xác nhận chặn khách hàng này?");
             if(!confirmation){
