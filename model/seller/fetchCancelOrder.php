@@ -3,7 +3,7 @@ include_once("../../model/connectdb.php");
 
 function getListCancelOrder($mysqli) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
-        "SELECT orders.id as idOrder, statusOrder, userName, total
+        "SELECT orders.id as idOrder, statusOrder, userName, total, users.idAccount, users.isReported
         FROM orders, users, accounts
         WHERE idUser = idAccount AND idAccount = accounts.id AND isCanceled=1;");
 
