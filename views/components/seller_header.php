@@ -16,21 +16,21 @@
 
 <header id="header" class="container-fluid shadow p-3">
   <div class="row d-flex align-items-center justify-content-center mt-2">
-      <div class="col-3 col-md-5 col-lg-4 align-items-center justify-content-center d-lg-flex d-md-flex">
+      <div class="col-10 col-md-5 col-lg-5 align-items-center justify-content-center d-lg-flex d-md-flex">
           <button class="border-0 bg-transparent btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
               <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="#FFC700" class="bi bi-list" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
               </svg>
           </button>
-          <a href="?page=mainpage" class="fs-2 fw-bold text-decoration-none d-none d-md-block d-lg-block" style="color: #FFC700;"><?php echo $info['nameStore']?> <span style="color: red;">For Seller</span></a>
+          <a href="?page=mainpage" class="fs-2 fw-bold text-decoration-none " style="color: #FFC700;"><?php echo $info['nameStore']?> <span style="color: red;">For Seller</span></a>
       </div>
-      <div class="col-6 col-md-6 col-lg-4 align-items-center justify-content-center d-lg-flex">
+      <!-- <div class="col-6 col-md-6 col-lg-4 align-items-center justify-content-center d-lg-flex">
           <input class="form-control" type="text" placeholder="Tìm kiếm sản phẩm/đơn hàng">
-      </div>
-      <div class="col-lg-3 align-items-center justify-content-center d-md-none d-none d-lg-flex">
+      </div> -->
+      <div class="col-lg-5 col-md-5 align-items-center justify-content-center d-none d-md-flex d-lg-flex">
           <a href="?page=account" class="fw-bold text-decoration-none text-center" style="color: black;">Xin chào, <span class="fs-4" style="color:#FFC700"><?php echo $info['nameStore']?></span></a>
       </div>
-      <div class="col-3 col-md-1 col-lg-1 align-items-center justify-content-center d-flex">
+      <div class="col-2 col-md-2 col-lg-2 align-items-center justify-content-center d-flex">
           <button type="button" class="border-0 bg-transparent position-relative" onclick="redirectToNofications()">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#FFC700" class="bi bi-bell-fill" viewBox="0 0 16 16">
                   <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901"/>
