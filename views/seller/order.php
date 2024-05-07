@@ -17,15 +17,18 @@
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="notpaid-tab" data-bs-toggle="tab" data-bs-target="#notpaid" type="button"
-                    role="tab" aria-controls="notpaid" aria-selected="false"  onclick="fetchOrdersPrepare(1)">Chờ chuẩn bị</button>
+                    role="tab" aria-controls="notpaid" aria-selected="false" onclick="fetchOrdersPrepare(1)">Chờ chuẩn
+                    bị</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="delivery-tab" data-bs-toggle="tab" data-bs-target="#delivery" type="button"
-                    role="tab" aria-controls="delivery" aria-selected="true" onclick="fetchOrdersDelivery(1)">Đang giao hàng</button>
+                    role="tab" aria-controls="delivery" aria-selected="true" onclick="fetchOrdersDelivery(1)">Đang giao
+                    hàng</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="done-tab" data-bs-toggle="tab" data-bs-target="#done" type="button"
-                    role="tab" aria-controls="done" aria-selected="true"  onclick="fetchOrdersDone(1)">Đã hoàn thành</button>
+                    role="tab" aria-controls="done" aria-selected="true" onclick="fetchOrdersDone(1)">Đã hoàn
+                    thành</button>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -91,7 +94,7 @@
             success: function (response) {
                 console.log(response);
                 displayOrders(response.orders, 'orderListContainer');
-                generatePagination(response.totalPages,'paginationAll');
+                generatePagination(response.totalPages, 'paginationAll');
             },
             error: function (xhr, status, error) {
                 console.error(error);
@@ -106,7 +109,7 @@
             success: function (response) {
                 console.log(response);
                 displayOrders(response.orders, 'orderListContainerDelivery');
-                generatePagination(response.totalPages,'paginationDelivery');
+                generatePagination(response.totalPages, 'paginationDelivery');
             },
             error: function (xhr, status, error) {
                 console.error(error);
@@ -121,7 +124,7 @@
             success: function (response) {
                 console.log(response);
                 displayOrders(response.orders, 'orderListContainerDone');
-                generatePagination(response.totalPages,'paginationDone');
+                generatePagination(response.totalPages, 'paginationDone');
             },
             error: function (xhr, status, error) {
                 console.error(error);
@@ -136,7 +139,7 @@
             success: function (response) {
                 console.log(response);
                 displayOrders(response.orders, 'orderListContainerPrepare');
-                generatePagination(response.totalPages,'paginationPrepare');
+                generatePagination(response.totalPages, 'paginationPrepare');
             },
             error: function (xhr, status, error) {
                 console.error(error);
@@ -217,7 +220,7 @@
                             </tr>
                             <tr>
                                 <td>Mã đơn hàng</td>
-                                <td>${order.idOrder}</td>
+                                <td>NYCA${order.idOrder}</td>
                             </tr>
                             <tr>
                                 <td>Note</td>
@@ -229,7 +232,9 @@
                             </tr>
                             <tr>
                                 <td style="font-weight: bold;">Giá trị đơn hàng</td>
-                                <td style="font-weight: bold;">${order.total}</td>
+                                <td style="font-weight: bold;">
+                                ${parseInt(order.total).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(/(\.[0-9]*[1-9])0+$/, '$1')}đ
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -312,13 +317,13 @@
         row.innerHTML = `
         <td>${product.quantity}</td>
         <td>${product.proName}</td>
-        <td>${product.proPrice}</td>`;
+        <td>${parseInt(product.proPrice).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",").replace(/(\.[0-9]*[1-9])0+$/, '$1')}đ</td>`;
         return row;
     }
 
 
     // Function to generate pagination links
-    function generatePagination(totalPages,divID) {
+    function generatePagination(totalPages, divID) {
         const paginationContainer = document.getElementById(divID);
         paginationContainer.innerHTML = ''; // Clear previous pagination links
 
@@ -337,10 +342,10 @@
     function viewDetails(orderID) {
         console.log("Viewing details of order with ID:", orderID);
         var redirectTo = "http://localhost/BTL/views/seller/index.php?page=orderdetail&orderID=" + orderID;;
-    
-    // Redirect to the specified page
-    window.location.href = redirectTo;
-        
+
+        // Redirect to the specified page
+        window.location.href = redirectTo;
+
     }
 
     function prepareOrder(orderID) {
@@ -376,19 +381,19 @@
         xhttp.open("GET", "../../controller/seller/changeOrderStatus.php?action=deliveryOrder&orderID=" + orderID, true);
         xhttp.send();
     }
-    function reportUser(userID){
-            console.log("User ID:", userID);
-            var confirmation = confirm("Xác nhận chặn khách hàng này?");
-            if(!confirmation){
-                return;
-            }
-            fetch('../../controller/seller/reportUser.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ userID: userID }),
-            })
+    function reportUser(userID) {
+        console.log("User ID:", userID);
+        var confirmation = confirm("Xác nhận chặn khách hàng này?");
+        if (!confirmation) {
+            return;
+        }
+        fetch('../../controller/seller/reportUser.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userID: userID }),
+        })
             .then(response => {
                 if (response.ok) {
                     window.location.href = "?page=order";
@@ -400,20 +405,20 @@
                 console.error('Error:', error);
             });
 
+    }
+    function unblockUser(userID) {
+        console.log("User ID:", userID);
+        var confirmation = confirm("Xác nhận gỡ chặn khách hàng này?");
+        if (!confirmation) {
+            return;
         }
-        function unblockUser(userID){
-            console.log("User ID:", userID);
-            var confirmation = confirm("Xác nhận gỡ chặn khách hàng này?");
-            if(!confirmation){
-                return;
-            }
-            fetch('../../controller/seller/unblockUser.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ userID: userID }),
-            })
+        fetch('../../controller/seller/unblockUser.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userID: userID }),
+        })
             .then(response => {
                 if (response.ok) {
                     window.location.href = "?page=order";
@@ -425,6 +430,6 @@
                 console.error('Error:', error);
             });
 
-        }
+    }
 
 </script>
