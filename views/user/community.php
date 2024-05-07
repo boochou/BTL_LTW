@@ -33,7 +33,7 @@
         for ($j = 0; $j < count($commentsId[$blogs[$i]["id"]]); $j ++) {
             echo '    <div style="margin-top: 10px; margin-bottom: 10px">';
             echo '        <div style="display: flex">';
-            echo '            <img src="/BTL/public/images/Avatar-Profile-PNG-Photos 1.png" alt="" />';
+            echo '            <img src="/BTL/public/images/Avatar-Profile-PNG-Photos 1.png" alt="" style="height: 49px; width: 49px"/>';
             echo '            <div class="comment-style">';
             echo '                <div>';
             echo '                    <strong>' . $accounts[$commentsId[$blogs[$i]["id"]][$j]["idAccount"]] . '</strong>';
@@ -43,39 +43,47 @@
             echo '        </div>';
             echo '    </div>';
         }
-        echo '<form id="comment-form">';
-        echo '    <div style="margin-top: 5px; display: flex; margin-bottom: 20px; align-items: center;">';
-        echo '        <input type="hidden" id="comment-id" name="idBlog" value="' . $blogs[$i]["id"] . '">';
-        echo '        <img src="/BTL/public/images/Avatar-Profile-PNG-Photos 1.png" alt="" />';
-        echo '        <input type="text" placeholder="Viết bình luận" class="comment-note-style" name="content" />';
-        echo '        <button type="submit" style="margin-left: 5px; background: white; border: 0"> <span class="iconify" data-icon="mdi:send" style="font-size: 30px"></span> </button>';
-        echo '    </div>';
-        echo '</form>';
+        if ($isLogin) {
+            echo '<form id="comment-form' . $i . '">';
+            echo '    <div style="margin-top: 5px; display: flex; margin-bottom: 20px; align-items: center;">';
+            echo '        <input type="hidden" id="comment-id" name="idBlog" value="' . $blogs[$i]["id"] . '">';
+            echo '        <img src="/BTL/public/images/Avatar-Profile-PNG-Photos 1.png" alt="" />';
+            echo '        <input type="text" placeholder="Viết bình luận" class="comment-note-style" name="content" />';
+            echo '        <button type="submit" style="margin-left: 5px; background: white; border: 0"> <span class="iconify" data-icon="mdi:send" style="font-size: 30px"></span> </button>';
+            echo '    </div>';
+            echo '</form>';
+        }
         echo '</div>';
     }
     ?>
 </div>
 <script>
-var form = document.getElementById("comment-form");
-form.addEventListener("submit", function(event) {
-    event.preventDefault();
-    var formData = new FormData(this);
-    fetch("../controller/user/add-comment.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        return response.json();
-    })
-    .then(data => {
-        window.location.reload();
-    })
-    .catch(error => {
-        console.log(error);
-        alert("Error submitting form. Please try again later.");
+<?php
+for ($i = 0; $i < count($blogs); $i ++) {
+    echo '
+    var form = document.getElementById("comment-form' . $i . '");
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        fetch("../controller/user/add-comment.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(data => {
+            window.location.reload();
+        })
+        .catch(error => {
+            console.log(error);
+            alert("Error submitting form. Please try again later.");
+        });
     });
-});
+    ';
+}
+?>
 </script>

@@ -19,7 +19,9 @@ body {
 .text_otp {
     color: rgba(0, 0, 0, 0.5);
     text-align: left;
-    margin-left: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
 }
 
 .otp {

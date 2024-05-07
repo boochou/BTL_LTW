@@ -16,7 +16,12 @@ class UserController {
     public function homepage() {
         $products = Homepage::getAllProducts();
         $categories = Homepage::getAllCategories();
-        $product_in_cart = Header::getProductInCart();
+        $isLogin = isset($_COOKIE["id"]) && isset($_SESSION["id"]) && isset($_SESSION["author"]) && isset($_SESSION["phonemail"]) && isset($_SESSION["phone"]);
+        if ($isLogin) {
+            $product_in_cart = Header::getProductInCart();
+        } else {
+            $product_in_cart = NULL;
+        }
 
         ob_start();
         require_once 'views/user/homepage.php';
@@ -26,7 +31,12 @@ class UserController {
     public function mainpage() {
         $products = Mainpage::getAllProducts();
         $categories = Mainpage::getAllCategories();
-        $product_in_cart = Header::getProductInCart();
+        $isLogin = isset($_COOKIE["id"]) && isset($_SESSION["id"]) && isset($_SESSION["author"]) && isset($_SESSION["phonemail"]) && isset($_SESSION["phone"]);
+        if ($isLogin) {
+            $product_in_cart = Header::getProductInCart();
+        } else {
+            $product_in_cart = NULL;
+        }
 
         $pro_in_cat = [];
         for ($i = 1; $i <= count($categories); $i ++) {
@@ -45,8 +55,18 @@ class UserController {
         require_once 'views/user/index.php';
     }
     public function orders() {
-        $product_in_cart = Header::getProductInCart();
+        $isLogin = isset($_COOKIE["id"]) && isset($_SESSION["id"]) && isset($_SESSION["author"]) && isset($_SESSION["phonemail"]) && isset($_SESSION["phone"]);
+        if ($isLogin) {
+            $product_in_cart = Header::getProductInCart();
+        } else {
+            $product_in_cart = NULL;
+        }
         $orders = Orders::getAllOrders();
+        $allrates = Orders::getAllRatings();
+        $ratesId = [];
+        for ($i = 0; $i < count($allrates); $i ++) {
+            $ratesId[] = $allrates[$i]["idOrder"];
+        }
         
         ob_start();
         require_once 'views/user/orders.php';
@@ -54,13 +74,23 @@ class UserController {
         require_once 'views/user/index.php';
     }
     public function orderdetail() {
-        $product_in_cart = Header::getProductInCart();
+        $isLogin = isset($_COOKIE["id"]) && isset($_SESSION["id"]) && isset($_SESSION["author"]) && isset($_SESSION["phonemail"]) && isset($_SESSION["phone"]);
+        if ($isLogin) {
+            $product_in_cart = Header::getProductInCart();
+        } else {
+            $product_in_cart = NULL;
+        }
         $orderIdForPage = $this->orderIdForPage;
         $orderUse = Orderdetail::getOrdersById($orderIdForPage);
         $product_in_order = Orderdetail::getAllProductsByOrderId($orderIdForPage);
         $products = [];
         for ($i = 0; $i < count($product_in_order); $i ++) {
             $products[] = Orderdetail::getProductById($product_in_order[$i]["idProduct"]);
+        }
+        $allrates = Orders::getAllRatings();
+        $ratesId = [];
+        for ($i = 0; $i < count($allrates); $i ++) {
+            $ratesId[] = $allrates[$i]["idOrder"];
         }
 
         ob_start();
@@ -69,7 +99,12 @@ class UserController {
         require_once 'views/user/index.php';
     }
     public function community() {
-        $product_in_cart = Header::getProductInCart();
+        $isLogin = isset($_COOKIE["id"]) && isset($_SESSION["id"]) && isset($_SESSION["author"]) && isset($_SESSION["phonemail"]) && isset($_SESSION["phone"]);
+        if ($isLogin) {
+            $product_in_cart = Header::getProductInCart();
+        } else {
+            $product_in_cart = NULL;
+        }
         $blogs = Community::getAllBlogs();
         $accounts = Community::getAllAccounts();
         $comments = Community::getAllComments();

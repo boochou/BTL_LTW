@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if(!(isset($_COOKIE['id']) && isset($_SESSION['phonemail']) && isset($_SESSION['phone']))){
+        header("Location: login1.php");
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +29,7 @@
         <h2>WELCOME TO UNIEAT</h2>
         <div class="text_otp">
             <div>
-                <p>Nhập mã gồm 4 chữ số được gửi cho bạn theo số 01234567890 </p>
+                <p>Nhập mã gồm 4 chữ số được gửi cho bạn theo số <p id="phonenumber"></p></p></p>
                 <a class="hover-change" href="#!">Thay đổi số điện thoại?</a>
             </div>
             <div style="display: flex; margin-top: 20px;">
@@ -45,16 +52,52 @@
         </div>      
         <div style="display: flex; justify-content: space-between;" class="two_button">
             <div style="margin-top: 30px;">
-                <a style="color: #FFC700;" href="#!">
+                <a id="prev-but" style="color: #FFC700;" href="#!" onclick="goBack()">
                     <span class="iconify" style="font-size: 70px" data-icon="ei:arrow-left"></span>
                 </a>
             </div>
             <div style="margin-top: 30px; ">
-                <a style="color: #FFC700; text-align: right;" href="#!">
+                <a id="next-but" style="color: #FFC700; text-align: right;" href="#! " onclick="goNext()">
                     <span class="iconify" style="font-size: 70px" data-icon="ei:arrow-right"></span> 
                 </a>
             </div>
         </div>
     </div>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            fetch('../../controller/default/get_session_data.php?param=phone')
+                .then(response => response.json())
+                .then(data => {
+                    const phone = data.data;
+                    document.getElementById("phonenumber").innerHTML = phone;
+                })
+                .catch(error => {
+                    console.error('Error fetching session data:', error);
+            });
+        });
+        function goBack() {
+            window.history.back();
+        }
+        function goNext(){
+            fetch('../../controller/default/get_session_data.php?param=author')
+                .then(response => response.json())
+                .then(data => {
+                    const author = data.data;
+                    if (author == 'seller'){
+                        window.location.href = '../seller/index.php';
+                    }
+                    else if (author == 'user'){
+                        window.location.href = '/BTL/user/homepage';
+                    }
+                    else{
+                        console.log("????????????????????????????")
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching session data:', error);
+            });
+            
+        }
+    </script>
 </body>
 </html>

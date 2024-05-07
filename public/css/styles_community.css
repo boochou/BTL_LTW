@@ -99,6 +99,8 @@ header .icon-header {
   padding-left: 15px;
   padding-right: 15px;
   /* width: 150px; */
+  overflow-wrap: break-word;
+  max-width: 80%;
   margin-left: 10px;
 }
 .comment-note-style {

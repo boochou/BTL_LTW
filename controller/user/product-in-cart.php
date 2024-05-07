@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $product = getProductById($product_in_cart["idProduct"]);
             $price = $product["price"] * $quantity[$i];
             addProductInOrder($product_in_cart["idProduct"], $order_id, $price, $quantity[$i], $product_in_cart["note"]);
+            decreaseQuantityProduct($product_in_cart["idProduct"], $quantity[$i]);
         }
         echo json_encode("Đặt đơn thành công");
     } else {

@@ -20,15 +20,21 @@ function decrease_number(index) {
     number[index].innerHTML = number_inner;
     numberofitem[index].value = number_inner;
     total_count();
+  } else {
+    alert("Không thể giảm nữa");
   }
 }
 
-function increase_number(index) {
+function increase_number(index, quantity) {
   number_inner = parseInt(number[index].innerHTML);
-  number_inner++;
-  number[index].innerHTML = number_inner;
-  numberofitem[index].value = number_inner;
-  total_count();
+  if (number_inner < quantity) {
+    number_inner++;
+    number[index].innerHTML = number_inner;
+    numberofitem[index].value = number_inner;
+    total_count();
+  } else {
+    alert("Không thể tăng nữa");
+  }
 }
 
 function total_count() {
@@ -51,10 +57,37 @@ total_count();
 var formCart = document.getElementById("cart-form");
 formCart.addEventListener("submit", function (event) {
   event.preventDefault();
-  var formData = new FormData(this);
-  fetch("../controller/user/product-in-cart.php", {
+  check = confirm("Bạn muốn thanh toán giỏ hàng này");
+  if (check == true) {
+    var formData = new FormData(this);
+    fetch("../controller/user/product-in-cart.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        alert(data);
+        window.location.reload();
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Error submitting form. Please try again later.");
+      });
+  } else {
+    window.location.reload();
+  }
+});
+
+function signOut() {
+  fetch("../controller/default/signout.php", {
     method: "POST",
-    body: formData,
   })
     .then((response) => {
       if (!response.ok) {
@@ -63,13 +96,18 @@ formCart.addEventListener("submit", function (event) {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
-      alert(data);
-      window.location.reload();
-      console.log(data);
+      window.location = "/BTL/user/homepage";
     })
     .catch((error) => {
       console.log(error);
       alert("Error submitting form. Please try again later.");
     });
-});
+}
+
+function reDirectLogin() {
+  window.location = "/BTL/views/default/login1.php";
+}
+
+function reDirectSignUp() {
+  window.location = "/BTL/views/default/register.php";
+}

@@ -1,6 +1,6 @@
-<div class="tocotoco_body">
+<div class="tocotoco_body" style="min-height: 300px">
     <div class="linkStyle">
-        <a class="link-underline-light linkStyleColor" href="">Trang chủ</a> 
+        <a class="link-underline-light linkStyleColor" href="">Danh mục sản phẩm</a> 
     </div>
     <div class="address">
         <h2>UNIEAT</h2>
@@ -10,18 +10,10 @@
                 <p style="display: inline; ">Đang mở cửa</p>
             </div>
             <div class="star_time_dis">
-                <div style="display: inline-block;">
-                    <span class="iconify" data-icon="ph:star-fill" style="margin-right: 3px;"></span>
-                    <p style="display: inline;">4.7</p>
-                </div>
-                <div style="display: inline-block; margin-left: 10px">
+                <div style="display: inline-block">
                     <span class="iconify" data-icon="mdi:address-marker" style="margin-right: 3px;"></span>
                     <p style="display: inline;">Ký túc xá khu A: Đường Tạ Quang Bửu, Khu phố 6, Phường Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh</p>
                 </div>
-            </div>
-            <div class="discount" style="margin:5px">
-                <span class="iconify" data-icon="mdi:voucher"></span>
-                <p style="display: inline;">Discount 20%</p>
             </div>
             <div class="comment" style="margin:5px;">
                 <span class="iconify" data-icon="material-symbols-light:comment"></span>
@@ -69,9 +61,11 @@
                             echo $pro_in_cat[$cat][$j]["description"];
                             echo '      </div>';
                             echo '      <div style="color: black; font-size: 20px">' . $pro_in_cat[$cat][$j]["price"] . '</div>';
-                            echo '      <button id="icon-button" class="form-add" onclick="showForm(' . $pro_in_cat[$cat][$j]["id"] . ')">';
-                            echo '          <span class="iconify" data-icon="basil:add-solid" style="font-size: 30px;"></span>';
-                            echo '      </button>';
+                            if ($isLogin) {
+                                echo '      <button id="icon-button" class="form-add" onclick="showForm(' . $pro_in_cat[$cat][$j]["id"] . ')">';
+                                echo '          <span class="iconify" data-icon="basil:add-solid" style="font-size: 30px;"></span>';
+                                echo '      </button>';
+                            }
                             echo '  </div>';
                             echo '</div>';
                             }
@@ -102,6 +96,7 @@
 <div id="myModal">
     <form id="order-form">
         <input type="hidden" id="productId" name="productId" value="">
+        <input type="hidden" id="productQuantity" name="productQuantity" value="">
         <div class="add_to_giohang">
             <img id="form-image" src="" alt="product1" style="height:85px; width: 85px">
             <div class="add_pro_info" style="width:50%; margin-left:10px">
@@ -170,11 +165,13 @@
             var des = document.getElementById("description-form");
             var price = document.getElementById("price-form");
             var id = document.getElementById("productId");
+            var quantity = document.getElementById("productQuantity");
             name.innerHTML = data.name;
             image.src = data.image;
             des.innerHTML = data.description;
             price.innerHTML = data.price;
             id.value = productId;
+            quantity.value = data.quantity;
             modal.style.display = "block";
             cl.style.display = "block";
         })
@@ -213,12 +210,19 @@
             number --;
             numberofitemchange.innerHTML = number;
             numberofitemchangehidden.value = number;
+        } else {
+            alert("Không thể giảm nữa");
         }
     }
     function add_items() {
+        var quantity = document.getElementById("productQuantity");
         number = parseInt(numberofitemchange.innerHTML);
-        number ++;
-        numberofitemchange.innerHTML = number;
-        numberofitemchangehidden.value = number;
+        if (number < quantity.value) {
+            number ++;
+            numberofitemchange.innerHTML = number;
+            numberofitemchangehidden.value = number;
+        } else {
+            alert("Không thể tăng nữa");
+        }
     }
 </script>

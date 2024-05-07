@@ -1,9 +1,11 @@
 <?php
+session_start();
 require_once '../../core/Database.php';
 function addOrder($total, $payment, $address) {
     $conn = Database::connect();
+    date_default_timezone_set('Asia/Jakarta');
     $today = date("Y-m-d H:i:s");
-    $idUser = 2;
+    $idUser = $_SESSION["id"];
     $status = "Chờ chuẩn bị";
     if ($payment == 1) {
         $payment_bind = "MOMO";
@@ -64,5 +66,14 @@ function addProductInOrder($idProduct, $idOrder, $price, $quantity, $note) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("iiiis", $idProduct, $idOrder, $price, $quantity, $note);
     $stmt->execute();
+}
+
+function decreaseQuantityProduct($product_id, $quantity) {
+    $conn = Database::connect();
+    $sql = "UPDATE product SET quantity = quantity - ? WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ii", $quantity, $product_id);
+    $check = $stmt->execute();
+    return $check . $product_id;
 }
 ?>

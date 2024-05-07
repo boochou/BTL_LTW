@@ -33,7 +33,7 @@
                             echo '<div class="products">';
                             for ($j = $i; $j < $i + 3 && $j < $size; $j ++) {
                                 echo '<div class="product" style="margin-right: 10px;">';
-                                echo '  <img src="' . $products[$j]["image"] . '" alt="product1" style="width:100%; height: 150px">';
+                                echo '  <img src="' . $products[$j]["image"] . '" alt="product1" style="width:100%; height: 200px">';
                                 echo '  <div class="pro_info">';
                                 echo '      <div style="display: flex; justify-content:space-between; width: 100%">';
                                 echo '          <b>' . $products[$j]["name"] . '</b>';
@@ -83,7 +83,9 @@
                             echo '<div class="list_item">';
                             for ($j = $i; $j < $i + 3 && $j <= $size; $j ++) {
                                 echo '<div class="items">';
-                                echo '  <img src="' . $categories[$j][1] . '" alt="item" style="width:100%; height: 150px">';
+                                echo '  <a href="/BTL/user/mainpage#section' . $j . '">';
+                                echo '      <img src="' . $categories[$j][1] . '" alt="item" style="width:100%; height: 200px">';
+                                echo '  </a>';
                                 echo '  <div class="item_info">';
                                 echo '      <b>' . $categories[$j][0] . '</b>';
                                 echo '  </div>';
@@ -110,10 +112,9 @@
             <div>
                 <ul style="list-style-type: none; margin-left: 0px; padding: 0px">
                     <li><span class="iconify" data-icon="ic:baseline-check" style="margin-right: 8px;"></span> <b>Nhanh nhất - </b> UniEat cung cấp dịch vụ giao đồ ăn nhanh nhất thị trường.</li>
-                    <li><span class="iconify" data-icon="ic:baseline-check" style="margin-right: 8px;"></span> <b>Dễ dàng nhất - </b>Giờ đây, bạn chỉ cần thực hiện vài cú nhấp chuột hoặc chạm nhẹ là đã có thể đặt đồ ăn. Hãy đặt đồ ăn trực tuyến hoặc tải xuống siêu ứng dụng Grab của chúng tôi để có trải nghiệm nhanh hơn và thú vị hơn.</li>
+                    <li><span class="iconify" data-icon="ic:baseline-check" style="margin-right: 8px;"></span> <b>Dễ dàng nhất - </b>Giờ đây, bạn chỉ cần thực hiện vài cú nhấp chuột hoặc chạm nhẹ là đã có thể đặt đồ ăn. Hãy đặt đồ ăn trực tuyến hoặc tải xuống siêu ứng dụng UniEat của chúng tôi để có trải nghiệm nhanh hơn và thú vị hơn.</li>
                     <li><span class="iconify" data-icon="ic:baseline-check" style="margin-right: 8px;"></span> <b>Đáp ứng mọi nhu cầu - </b>Từ món ăn đặc sản địa phương đến các nhà hàng được ưa thích, nhiều lựa chọn đa dạng chắc chắn sẽ luôn làm hài lòng khẩu vị của bạn.</li>
-                    <li><span class="iconify" data-icon="ic:baseline-check" style="margin-right: 8px;"></span> <b>Thanh toán dễ dàng - </b>Giao và nhận đồ ăn thật dễ dàng. Thanh toán bằng GrabPay thậm chí còn dễ dàng hơn nữa.</li>
-                    <li><span class="iconify" data-icon="ic:baseline-check" style="margin-right: 8px;"></span> <b>Nhiều quà tặng hơn - </b>Tích điểm GrabRewards cho mỗi đơn hàng của bạn và sử dụng điểm thưởng để đổi lấy nhiều ưu đãi hơn.</li>
+                    <li><span class="iconify" data-icon="ic:baseline-check" style="margin-right: 8px;"></span> <b>Thanh toán dễ dàng - </b>Giao và nhận đồ ăn thật dễ dàng. Thanh toán bằng MOMO thậm chí còn dễ dàng hơn nữa.</li>
                 </ul>
             </div>
             <h2>Những câu hỏi thường gặp</h2>
@@ -121,11 +122,10 @@
                 <b>Làm cách nào để đặt đồ ăn ở Làng đại học TPHCM?</b><br>
                 <p style="margin-top: 5px;">Sau đây là cách đơn giản nhất để đặt đồ ăn qua UniEat khi bạn ở Làng đại học TPHCM:</p>
                 <ol style="padding-left: 25px; margin-top: 7px">
-                    <li>Tìm kiếm nhà hàng hoặc món ăn yêu thích - Nhập địa chỉ của bạn vào trang chủ. Xem các Nhà hàng và điểm ăn uống gần chỗ bạn trong danh sách của GrabFood. Chọn nhà hàng yêu thích, duyệt hết thực đơn và chọn món ăn bạn muốn đặt.</li>
                     <li>Kiểm tra & Thanh toán - Sau khi chắc chắn rằng bạn đã đặt đầy đủ các món theo nhu cầu, hãy nhấp vào tab “ORDER NOW” (ĐẶT MÓN NGAY) và nhập địa chỉ giao đồ ăn cuối cùng. Chọn phương thức thanh toán phù hợp nhất với bạn và thanh toán.</li>
                     <li>Giao hàng - UniEat đã thiết kế một hành trình phục vụ khách hàng liền mạch để bạn có thể thưởng thức món ăn một cách trọn vẹn. Chúng tôi sẽ gửi cho bạn email và tin nhắn SMS tức thời xác nhận đơn đặt hàng của bạn và thời gian giao hàng dự kiến. Sau đó chúng tôi sẽ giao ngay đồ ăn cho bạn.</li>
                 </ol>
-                <b>Tôi có thể đặt đồ ăn trên GrabFood cho người khác không?</b>
+                <b>Tôi có thể đặt đồ ăn trên UniEat cho người khác không?</b>
                 <p style="margin-top: 5px;">Tất nhiên rồi, hãy chăm sóc những người thân yêu của mình bằng cách gửi những món ăn mà họ yêu thích đến tận nhà. Bạn chỉ cần cập nhật địa chỉ giao hàng và tên người nhận trước khi đặt đơn hàng của bạn.</p>
             </div>
         </div>

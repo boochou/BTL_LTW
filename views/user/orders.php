@@ -1,4 +1,4 @@
-<div class="container-fluid" style="margin-bottom: 50px; min-height: 300px">
+<div class="container-fluid" style="margin-bottom: 50px; min-height: 350px">
     <div class="linkStyle">
         <a class="link-underline-light linkStyleColor" href="/BTL/user/orders">Đơn hàng</a>
     </div>
@@ -7,10 +7,12 @@
     </div>
     <?php
     $size = count($orders);
+    $count = 0;
     for ($i = 0; $i < $size; $i ++) {
         if ($orders[$i]["isCanceled"] == 1) {
             continue;
         }
+        $count ++;
         echo '<div class="container container-border-page">';
         echo '    <div class="row inside-container-page content-responsive">';
         echo '        <div class="col content-in-container" style="max-width: 20%; min-width: 94px; padding: 0px">';
@@ -35,9 +37,11 @@
             echo '                    <div style="margin-right: 10px">';
             echo '                        <a href="/BTL/user/orderdetail?orderId=' . $orders[$i]["id"] . '" class="evaluate-link" ><strong>Chi tiết</strong></a>';
             echo '                    </div>';
-            echo '                    <div style="margin-right: 10px">';
-            echo '                        <a href="#" class="evaluate-link" data-bs-toggle="modal" data-bs-target="#myModal" onclick="setOrderId(' . $orders[$i]["id"] . ')"><strong>Đánh giá</strong></a>';
-            echo '                    </div>';
+            if (in_array($orders[$i]["id"], $ratesId) == FALSE) {
+                echo '                    <div style="margin-right: 10px">';
+                echo '                        <a href="#" class="evaluate-link" data-bs-toggle="modal" data-bs-target="#myModal" onclick="setOrderId(' . $orders[$i]["id"] . ')"><strong>Đánh giá</strong></a>';
+                echo '                    </div>';
+            }
             echo '                    <div>';
             echo '                        <a href="/BTL/user/mainpage" class="evaluate-link"><strong>Đặt lại</strong></a>';
             echo '                    </div>';
@@ -49,6 +53,15 @@
         echo '            ' . $orders[$i]["total"] . ' <u style="padding-left: 3px">đ</u>';
         echo '        </div>';
         echo '    </div>';
+        echo '</div>';
+    }
+    if ($count == 0) {
+        echo '<div style="padding: 20px; border-radius: 10px; text-align: center">';
+        echo '<div style="margin-bottom: 20px;">';
+        echo '<span class="iconify" data-icon="mingcute:bill-fill" style="font-size: 80px; color: #FFC700"></span>';
+        echo '</div>';
+        echo '<p style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">Chưa có đơn hàng nào</p>';
+        echo '<p style="font-size: 14px; color: #666;">Hãy đặt hàng sau để kiểm tra trạng thái đơn hàng của bạn tại đây</p>';
         echo '</div>';
     }
     echo '<form id="cancel-form">';
@@ -150,6 +163,10 @@ formRate.addEventListener("submit", function (event) {
 });
 
 function cancelOrderClick(orderId) {
+    var check = confirm("Bạn muốn hủy đơn này");
+    if (check == false) {
+        return;
+    }
     document.getElementById("idOrderInput").value = orderId;
     var formData = new FormData();
     formData.append("idOrder", orderId);

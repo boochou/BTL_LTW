@@ -10,7 +10,7 @@ class Mainpage {
         $products = [];
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                if ($row["isDeleted"] == 1 || $row["isHidden"] == 1 || $row["isReported"] == 1) {
+                if ($row["isDeleted"] == 1 || $row["isHidden"] == 1 || $row["isReported"] == 1 || $row["quantity"] == 0) {
                     continue;
                 }
                 $products[] = $row;

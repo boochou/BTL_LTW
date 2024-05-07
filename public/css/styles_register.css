@@ -6,7 +6,7 @@ body {
     margin: 0;
 }
 
-input, #login_button{
+input, #register_button{
     width: 80%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -19,7 +19,7 @@ input[type=button] {
     background-color: #FFFFFF;
 }
 
-.login {
+.register {
     margin-top: 50px;
     text-align: center;
     width: 570px;
@@ -31,11 +31,11 @@ input[type=button] {
     color: #FFC700;
 }
 
-#phonemail, #pass {
+#phone, #mail, #pass, #pass_again, #username {
     background-color:#EDECEC;
 }
 
-#login_button{
+#register_button{
     background-color: #FFC700;
     font-weight: bold;
 }
@@ -58,17 +58,17 @@ input[type=button] {
     display: flex;
     height: 20px;
 }
-.switch_to_signup{
+.switch_to_signin{
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
 
-.switch_to_signup a{
+.switch_to_signin a{
     color: #FFC700;
 }
-.switch_to_signup a:hover{
+.switch_to_signin a:hover{
     color: #e1a942;
 }
 
@@ -86,7 +86,7 @@ input[type=button] {
     background-color: #FFFFFF;
 }
 
-#login_button:hover{
+#register_button:hover{
     background-color: #e1a942;
 }
 

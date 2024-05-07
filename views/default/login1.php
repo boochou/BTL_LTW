@@ -19,14 +19,18 @@
     <div class="login">
         <img src="/BTL/public/images/fork2.png" alt="Logo">
         <h1 id="UniEat">UniEat</h1>
-        <h2>WHAT IS YOUR PHONE NUMBER OR EMAIL?</h2>
-        <form>
-            <input type="text" id="phonemail" name="phonemail" placeholder="Enter your phone number or email"><br>
+        <h2>WELLCOME TO UNIEAT?</h2>
+        <form id="login_infor">
+            <input type="text" id="phonemail" name="phonemail" placeholder="Enter your email"><br>
+            <div id="error_phonemail" style="display: none"></div>
             <input type="password" id="pass" name = "pass" placeholder="Enter your password"><br>
+            <div id="error_pass" style="display: none"></div>
+            <button id="login_button" type="button" onclick="call_login()" >LOGIN</button>
         </form>
-        <form>
-            <input type="submit" id="continue" name="continue" value="CONTINUE">
-        </form>
+        <div class="switch_to_signup">
+            <p style="margin-right: 5px;">New to UniEat?</p>
+            <a href="./register.php">Join now</a>
+        </div>
         <div class="or_div">
             <hr class="h_line">
             <p class="or_text">OR</p>
@@ -46,5 +50,50 @@
             </div>
         </form>
     </div>
+    <script>
+        // CHECK XEM CÓ COOKIE THÌ CHO QUA LUÔN
+        window.addEventListener('DOMContentLoaded', function() {
+            fetch('../../controller/default/checkCookie.php', {
+                headers: {
+                'Content-Type': 'application/json' 
+                }
+            })
+            .then(response => response.json())
+            .then(data =>{
+                if(data['Success']){
+                    window.location.href = 'login2.php';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+        
+        /*call_login */
+        function call_login(){
+            const formData = {
+                phonemail: document.getElementById("phonemail").value,
+                pass: document.getElementById("pass").value
+            }
+            fetch('../../controller/default/login_controller.php', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response =>response.json())
+            .then(data =>{
+                if(data['Login successful']){
+                    window.location.href = 'login2.php'
+                } else {
+                    alert("Sai email hoặc mật khẩu");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 </body>
 </html>

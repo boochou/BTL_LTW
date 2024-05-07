@@ -34,13 +34,17 @@
         </div>
         </div>
         <div class="col content-in-container" style="max-width: 20%">
-        <a
-            href="#"
-            class="evaluate-link"
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
-            >Đánh giá</a
-        >
+        <?php
+        if ($orderUse["statusOrder"] == "Đã hoàn thành" && in_array($orderIdForPage, $ratesId) == FALSE) {
+            echo '<a
+                        href="#"
+                        class="evaluate-link"
+                        data-bs-toggle="modal"
+                        data-bs-target="#myModal"
+                        >Đánh giá</a
+                    >';
+        }
+        ?>
         </div>
     </div>
     </div>
