@@ -3,7 +3,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="?page=mainpage" class="text-decoration-none"
                     style="color: black; font-size: large">Trang chủ</a></li>
-            <li class="breadcrumb-item"><a href="#" class="text-decoration-none"
+            <li class="breadcrumb-item"><a href="?page=order" class="text-decoration-none"
                     style="color: black; font-size: large">Quản lý đơn hàng</a></li>
             <li class="breadcrumb-item"><a href="?page=order_cancel" class="text-decoration-none"
                     style="color: black; font-size: large">Đơn hàng bị hủy</a></li>
