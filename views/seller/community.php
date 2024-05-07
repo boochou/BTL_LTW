@@ -353,10 +353,52 @@
         var images = [];
         var reader;
         var counter = 0;
+        if (files.length == 0) {
+            {
+                    // All files processed, send JSON data
+                    var requestBody = {
+                        blogID: blogID,
+                        title: title,
+                        content: content,
+                    };
 
+                    fetch('../../controller/seller/editBlogWithoutImage.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(requestBody)
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                console.log(response)
+                                return response.text();
+                            } else {
+                                throw new Error('Network response was not ok');
+                            }
+                        })
+                        .then(data => {
+                            if (data === 'success') {
+                                closeEditModal();
+                                // window.location.reload()
+                                console.log("success");
+                            } else {
+                                console.error('Error:', data);
+                            }
+                        })
+                        .catch(error => {
+                            // Catch any fetch errors
+                            console.error('Error:', error);
+                        });
+
+                    closeEditModal();
+                }
+            
+        }
         for (var i = 0; i < files.length; i++) {
             reader = new FileReader();
             reader.onload = function (event) {
+                console.log("agugu")
                 images.push(event.target.result);
                 counter++;
                 if (counter === files.length) {
@@ -416,7 +458,47 @@
             var images = [];
             var reader;
             var counter = 0;
+            if (files.length == 0) {
+            {
+                    // All files processed, send JSON data
+                    var requestBody = {
+                        title: title,
+                        content: content,
+                    };
 
+                    fetch('../../controller/seller/addBlogWithoutImage.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(requestBody)
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                console.log(response)
+                                return response.text();
+                            } else {
+                                throw new Error('Network response was not ok');
+                            }
+                        })
+                        .then(data => {
+                            if (data === 'success') {
+                                closeEditModal();
+                                window.location.reload()
+                                console.log("success");
+                            } else {
+                                console.error('Error:', data);
+                            }
+                        })
+                        .catch(error => {
+                            // Catch any fetch errors
+                            console.error('Error:', error);
+                        });
+
+                    closeEditModal();
+                }
+            
+        }
             for (var i = 0; i < files.length; i++) {
                 reader = new FileReader();
                 reader.onload = function (event) {
