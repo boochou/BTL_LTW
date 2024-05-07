@@ -17,7 +17,7 @@
             </div>
             <div class="comment" style="margin:5px;">
                 <span class="iconify" data-icon="material-symbols-light:comment"></span>
-                <a href="#!">Đánh giá nhận xét</a>
+                <a href="/BTL/user/review">Đánh giá nhận xét</a>
             </div>
         </div>
     </div>
