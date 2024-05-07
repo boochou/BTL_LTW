@@ -24,7 +24,7 @@
                         <div class="col-lg-7 col-md-7 col-sm-12">
                             <div class="d-flex align-items-center ms-2 mt-3"><img
                                     class="avatar avatar-48 bg-light rounded-circle text-white p-1"
-                                    src="https://i.mydramalist.com/qY2oK2_5c.jpg">
+                                    src="https://res.cloudinary.com/hy4kyit2a/f_auto,fl_lossy,q_70/learn/modules/salesforce-b2b-commerce-storefront-experience/support-your-buyers-b2b-journey/images/4889eb0c3f27a0c1a53bc4e89b09bdb4_b-42-aa-2-e-0-1-bc-4-4-cb-9-a-91-e-016914-c-0-a-473.png">
                                     <a class="ms-2 text-decoration-none fw-bold" style="color: black;"><?php echo $order['userName']; ?></a>
                                         <a class="ms-4 text-decoration-none text-decoration-underline fw-light" style="color: black;" data-bs-toggle="modal" data-bs-target="#<?php echo $modalId; ?>">Xem thông tin</a>
                                         <?php if ($order['isReported'] == 0) { ?>
@@ -189,7 +189,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = "?page=order";
+                    window.location.reload();
                 } else {
                     console.error('Error:', response.statusText);
                 }
@@ -214,7 +214,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = "?page=order";
+                    window.location.reload();
                 } else {
                     console.error('Error:', response.statusText);
                 }

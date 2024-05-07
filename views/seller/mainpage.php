@@ -304,6 +304,14 @@
 </div>
 </div>
 <script>
+    function viewDetails(orderID) {
+        console.log("Viewing details of order with ID:", orderID);
+        var redirectTo = "http://localhost/BTL/views/seller/index.php?page=orderdetail&orderID=" + orderID;;
+    
+    // Redirect to the specified page
+    window.location.href = redirectTo;
+        
+    }
     var today = new Date().toISOString().split('T')[0];
     document.getElementById('startDate').value = today;
     document.getElementById('endDate').value = today;
@@ -327,7 +335,7 @@
                 var ordersTableBody = document.getElementById('ordersTableBody');
                 ordersTableBody.innerHTML = '';
                 data.forEach(function (order) {
-                    var row = '<tr>';
+                    var row = '<tr onclick="viewDetails(\'' + order.idOrder + '\')" style="cursor: pointer;">';
                     row += '<td>' + order.idOrder + '</td>';
                     row += '<td>' + order.statusOrder + '</td>';
                     row += '<td>' + order.dateCreated + '</td>';
@@ -357,7 +365,7 @@
                 var ordersTableBody = document.getElementById('ordersNotPaidTableBody');
                 ordersTableBody.innerHTML = '';
                 data.forEach(function (order) {
-                    var row = '<tr>';
+                    var row = '<tr onclick="viewDetails(\'' + order.idOrder + '\')" style="cursor: pointer;">';
                     row += '<td>' + order.idOrder + '</td>';
                     row += '<td>' + order.statusOrder + '</td>';
                     row += '<td>' + order.dateCreated + '</td>';
