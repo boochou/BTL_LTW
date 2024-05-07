@@ -4,7 +4,7 @@
     <nav aria-label="breadcrumb" class="d-none d-md-flex d-lg-flex ms-5">
         <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#" class="text-decoration-none" style="color: black"
+            <a href="?page=mainpage" class="text-decoration-none" style="color: black"
             >Trang chủ</a
             >
         </li>
@@ -26,140 +26,73 @@
         </li>
         </ol>
     </nav>
-    <form class="ms-5 me-5" onsubmit="logFormData(event)">
+        <?php
+            include_once("../../model/connectdb.php");
+            $query = "SELECT MAX(id) AS max_id FROM product";
+            $result = mysqli_query($mysqli, $query);
+            $row = mysqli_fetch_assoc($result);
+            $next_id = $row['max_id'] + 1;
+        ?>
+    <form class="ms-5 me-5" enctype="multipart/form-data" onsubmit="logFormData(event)">
         <div class="mb-3">
-        <label class="form-label" for="idsp">Mã sản phẩm</label>
-        <input
-            class="form-control"
-            id="idsp"
-            name="idsp"
-            type="text"
-            value="TS1005"
-            readonly
-            required
-            style="width: 100%"
-        />
+            <label class="form-label" for="idsp">Mã sản phẩm</label>
+            <input class="form-control" id="idsp" name="idsp" type="number" value="<?php echo $next_id; ?>" readonly required style="width: 100%;">
         </div>
         <div class="mb-3">
-        <label class="form-label" for="tensp">Tên sản phẩm</label>
-        <input
-            class="form-control"
-            id="tensp"
-            name="tensp"
-            type="text"
-            placeholder="Nhập tên sẩn phẩm"
-            required
-            style="width: 100%"
-        />
+            <label class="form-label" for="tensp">Tên sản phẩm</label>
+            <input class="form-control" id="tensp" name="tensp" type="text" placeholder="Nhập tên sẩn phẩm" required style="width: 100%;">
+        </div>
+        <div class="">
+            <label class="form-label" for="category">Danh mục</label>
+            <select
+                class="form-select"
+                id="category"
+                name="category"
+                aria-label="Default select example"
+            >
+            <?php
+                $query = "SELECT id, typeName FROM category;";
+                $result = mysqli_query($mysqli,$query);
+                while ($row = mysqli_fetch_assoc($result))
+                    {
+                        echo "<option value='{$row['id']}'>{$row['id']} ({$row['typeName']})</option>";
+                    }
+                echo "</select><br>";
+            ?>
+            </select>
         </div>
         <div class="mb-3">
-        <label class="form-label" for="industry">Ngành hàng</label>
-        <select
-            class="form-select"
-            id="industry"
-            name="industry"
-            aria-label="Default select example"
-        >
-            <option value="Thức uống">Thức uống</option>
-            <option value="Cơm-Bún-Cháo">Cơm-Bún-Cháo</option>
-            <option value="Bánh mì">Bánh mì</option>
-        </select>
+            <label class="form-label" for="price">Giá sản phẩm</label>
+            <input class="form-control" id="price" name="price" type="number" placeholder="Nhập giá sản phẩm" required style="width: 100%;">
         </div>
         <div class="mb-3">
-        <label class="form-label" for="category">Danh mục</label>
-        <select
-            class="form-select"
-            id="category"
-            name="category"
-            aria-label="Default select example"
-        >
-            <option value="Best Seller">Best Seller</option>
-            <option value="Trà sữa">Trà sữa</option>
-            <option value="Sữa tươi">Sữa tươi</option>
-        </select>
+            <label class="form-label" for="soluong">Số lượng</label>
+            <input class="form-control" id="soluong" name="soluong" value="0" type="number" required readonly style="width: 100%;" aria-describedby="numberhelp">
+            <div id="numberhelp" class="form-text">Hãy thay đổi số lượng sau khi thêm sản phẩm thành công</div>
         </div>
         <div class="mb-3">
-        <label class="form-label" for="price">Giá sản phẩm</label>
-        <input
-            class="form-control"
-            id="price"
-            name="price"
-            type="number"
-            placeholder="Nhập giá sản phẩm"
-            required
-            style="width: 100%"
-        />
+            <label class="form-label" for="status">Tình trạng sản phẩm</label>
+            <select class="form-select" id="status" name="status" aria-label="Default select example">
+                <option value="0">Đang bán</option>
+                <option value="1">Ẩn</option>
+            </select>
         </div>
         <div class="mb-3">
-        <label class="form-label" for="soluong">Số lượng</label>
-        <input
-            class="form-control"
-            id="soluong"
-            name="soluong"
-            value="0"
-            type="number"
-            required
-            readonly
-            style="width: 100%"
-            aria-describedby="numberhelp"
-        />
-        <div id="numberhelp" class="form-text">
-            Hãy thay đổi số lượng sau khi thêm sản phẩm thành công
-        </div>
+            <label class="form-label" for="ship">Phương thức vận chuyển</label>
+            <input class="form-control" id="ship" name="ship" value="Cửa hàng tự vận chuyển" type="text"
+                required readonly style="width: 100%;" aria-describedby="shiphelp">
+            <div id="shiphelp" class="form-text">Hiện tại chỉ hỗ trợ phương thức này</div>
         </div>
         <div class="mb-3">
-        <label class="form-label" for="status">Tình trạng sản phẩm</label>
-        <select
-            class="form-select"
-            id="status"
-            name="status"
-            aria-label="Default select example"
-        >
-            <option value="1">Đang bán</option>
-            <option value="0">Ẩn</option>
-        </select>
-        </div>
-        <div class="mb-3">
-        <label class="form-label" for="ship">Phương thức vận chuyển</label>
-        <input
-            class="form-control"
-            id="ship"
-            name="ship"
-            value="Cửa hàng tự vận chuyển"
-            type="text"
-            required
-            readonly
-            style="width: 100%"
-            aria-describedby="shiphelp"
-        />
-        <div id="shiphelp" class="form-text">
-            Hiện tại chỉ hỗ trợ phương thức này
-        </div>
-        </div>
-        <div class="mb-3">
-        <label class="form-label" for="description">Mô tả</label>
-        <textarea
-            class="form-control"
-            id="description"
-            name="description"
-            placeholder="Nhập mô tả cho sản phẩm"
-            required
-            style="width: 100%"
-            rows="5"
-        ></textarea>
+            <label class="form-label" for="description">Mô tả</label>
+            <textarea class="form-control" id="description" name="description"
+                placeholder="Nhập mô tả cho sản phẩm" required style="width: 100%;" rows="5"></textarea>
         </div>
         <div class="mb-5">
-        <label class="form-label" for="image"
-            >Hình ảnh minh họa sản phẩm</label
-        >
-        <input
-            class="form-control"
-            type="file"
-            id="image"
-            required
-            onchange="previewImage(event)"
-        />
-        <div id="image-preview" class="mt-2"></div>
+        <!-- accept="image/*" -->
+            <label class="form-label" for="image">Hình ảnh minh họa sản phẩm</label>
+            <input class="form-control" type="file" id="image" name="image" required onchange="previewImage(event)">
+            <div id="image-preview" class="mt-2" style="max-height:200px; max-width:200px"></div>
         </div>
         <script>
         function previewImage(event) {
@@ -198,20 +131,69 @@
     </form>
     <script>
         function logFormData(event) {
-        event.preventDefault();
-        const form = event.target;
-        const formData = new FormData(form);
-        var confirmation = confirm(
-            "Bạn có chắc chắn muốn thêm sản phẩm mới?"
-        );
-        if (confirmation) {
-            for (let pair of formData.entries()) {
-            console.log(pair[0] + ": " + pair[1]);
+            event.preventDefault();
+            if (!confirm("Bạn có chắc chắn muốn thêm sản phẩm mới?")) {
+                return;
             }
-            console.log("Form data will be sent to the server...");
+            const form = event.target;
+
+            if (!validateForm(form)) {
+                return;
+            }
+            const formData = new FormData(form);
+
+            fetch('../../controller/seller/addProduct.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "?page=product";
+                    console.log("success");
+                } else {
+                    console.error('Error:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
+
+        function validateForm(form) {
+            var price = form.elements["price"].value;
+            var description = form.elements["description"].value;
+            var imageInput = form.elements["image"];
+            var imageFile = imageInput.files[0];
+
+            if (description.length > 2500) {
+                alert('Please limit description (2500 characters)');
+                return false;
+            }
+            if (price < 1000){
+                alert('Please enter a valid price (>= 1000)');
+                return false;
+            }
+            if (imageFile) {
+                var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                var maxFileSize = 5 * 1024 * 1024; // 5 MB
+
+                var extension = imageFile.name.split('.').pop().toLowerCase();
+
+                if (!allowedExtensions.includes(extension)) {
+                    alert('Please upload an image file (jpg, jpeg, png, gif)');
+                    return false;
+                }
+
+                if (imageFile.size > maxFileSize) {
+                    alert('Maximum file size allowed is 5MB');
+                    return false;
+                }
+            } else {
+                alert('Please select an image file');
+                return false;
+            }
+            return true;
         }
     </script>
     </div>
-    <!-- content -->
 </div>

@@ -13,11 +13,13 @@ if ($page == '/BTL/') {
 
 $css_files = [
     '/BTL/user/homepage' => '/BTL/public/css/styles_homepage.css',
-    'user_info' => '/BTL/public/css/styles_userInfor.css',
+    '/BTL/user/userinfo' => '/BTL/public/css/styles_userInfor.css',
     '/BTL/user/orderdetail' => '/BTL/public/css/styles_orderdetail.css',
     '/BTL/user/orders' => '/BTL/public/css/styles_orders.css',
     '/BTL/user/community' => '/BTL/public/css/styles_community.css',
-    '/BTL/user/mainpage' => '/BTL/public/css/styles_mainpage.css'
+    '/BTL/user/mainpage' => '/BTL/public/css/styles_mainpage.css',
+    '/BTL/user/review' => '',
+    '/BTL/user/search' => '',
 ];
 
 $page_css = $css_files[$page];

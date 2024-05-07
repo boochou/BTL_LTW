@@ -1,71 +1,144 @@
-<div class="main-body">
-    <div style="width: 80%; height:90%; margin-top:20px; margin-bottom: 20px; box-shadow: 1px 2px rgb(237, 231, 231)">
-        <h2 style="color: black;">THÔNG TIN TÀI KHOẢN</h2>
-        <div style="display: flex; " class="avt_mtk">
-            <img src="/BTL/public/images/Avatar-Profile-PNG-Photos 2.png" alt="avt">
-            <div style="display:flex; justify-content: center; align-items: center; margin-left: 30px;">
-                <i>MTK: 1234</i>
-            </div>
+<div class="row">
+    <!-- content -->
+    <div class="col align-items-center justify-content-center mt-3 me-3">
+    <div class="d-flex flex-row align-items-center justify-content-center">
+        <a
+        class="fw-bold fs-4 text-decoration-none align-items-center justify-content-center"
+        style="color: black"
+        >THÔNG TIN TÀI KHOẢN</a
+        >
+    </div>
+    <div class="d-flex flex-row align-items-center ms-5">
+        <img
+        src="/BTL/public/images/logo.png"
+        alt="logo unieat"
+        width="100"
+        height="100"
+        />
+        <a class="ms-5 text-decoration-none" style="color: black"
+        >MTK: <span><?php echo $itemm['id']; ?></span></a
+        >
+    </div>
+    <form class="ms-5 me-5 mt-3" onsubmit="logFormData(event)">
+        <div class="mb-3">
+        <label class="form-label" for="account">Tên đăng nhập</label>
+        <input
+            class="form-control"
+            id="account"
+            name="account"
+            type="text"
+            value="<?php echo $itemm["userName"]; ?>"
+            placeholder="Nhập tên tài khoản"
+            required
+            style="width: 100%"
+            autocomplete="username"
+        />
         </div>
-        <div style="margin-top: 15px;" class="info">
-            <div class="info1">
-                <b>Tên</b>
-                <div class="content-icon">
-                    <p>TRẦN NGUYỄN NAM ANH</p>
-                    <span class="iconify" style="font-size: 25px; color:rgba(0, 0, 0, 0.5)" data-icon="ep:arrow-right-bold"></span>
-                </div>
-            </div>
-            <div class="info1">
-                <b>Số điện thoại</b>
-                <div class="content-icon">
-                    <p>012345678910</p>
-                    <span class="iconify" style="font-size: 25px; color:rgba(0, 0, 0, 0.5)" data-icon="ep:arrow-right-bold"></span>
-                </div>
-            </div>
-            <div class="info1">
-                <b>Email</b>
-                <div class="content-icon">
-                    <p>xinhdepxinhdep@gmail.com</p>
-                    <span class="iconify" style="font-size: 25px ; color:rgba(0, 0, 0, 0.5)" data-icon="ep:arrow-right-bold"></span>
-                </div>
-            </div>
-            <div class="info1">
-                <b>Mật khẩu</b>
-                <div class="content-icon">
-                    <p>..............</p>
-                    <span class="iconify" style="font-size: 25px; color:rgba(0, 0, 0, 0.5)" data-icon="ep:arrow-right-bold"></span>
-                </div>
-            </div>
+        <div class="mb-3">
+        <label class="form-label" for="passw">Mật khẩu</label>
+        <input
+            class="form-control"
+            id="passw"
+            name="passw"
+            type="password"
+            value="<?php echo $itemm['pass']; ?>"
+            placeholder="Nhập mật khẩu"
+            required
+            style="width: 100%"
+            autocomplete="current-password"
+        />
         </div>
-        <div style="margin-bottom: 50px; width:100%" class="link_to_acc">
-            <p style="font-weight: 700; margin-top:20px; margin-bottom:10px">Các liên kết</p>
-            <div class="google_w_icon">
-                <span class="iconify" style="font-size: 25px; margin-right:15px" data-icon="flat-color-icons:google"></span>
-                <div class="content-icon">
-                    <p style="margin-bottom: 0px;">Google</p>
-                    <div class="form-check form-switch">
-                        <input style="background-color: #FFC700;" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                    </div>
-                </div>
-            </div>
-            <div class="google_w_icon">
-                <span class="iconify" style="font-size: 25px; margin-right:15px" data-icon="logos:facebook"></span>
-                <div class="content-icon">
-                    <p style="margin-bottom: 0px;">Facebook</p>
-                    <div class="form-check form-switch">
-                        <input style="background-color: #FFC700;" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                    </div>                        
-                </div>
-            </div>
-            <div class="google_w_icon">
-                <span class="iconify" style="font-size: 25px; margin-right:15px" data-icon="devicon:apple"></span>
-                <div class="content-icon">
-                    <p style="margin-bottom: 0px;">Apple</p>
-                    <div class="form-check form-switch">
-                        <input style="background-color: #FFC700;" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                    </div>                        
-                </div>
-            </div>
+        <div class="mb-3">
+        <label class="form-label" for="emailcontact">Email liên hệ</label>
+        <input
+            class="form-control"
+            id="emailcontact"
+            name="emailcontact"
+            type="email"
+            placeholder="Nhập mail liên hệ"
+            value="<?php echo $itemm['email']; ?>"
+            required
+            style="width: 100%"
+        />
         </div>
+        <div class="mb-3">
+        <label class="form-label" for="phonecontact"
+            >Số điện thoại liên hệ</label
+        >
+        <input
+            class="form-control"
+            id="phonecontact"
+            name="phonecontact"
+            type="number"
+            placeholder="Nhập số điện thoại liên hệ"
+            value="<?php echo $itemm['phone']; ?>"
+            required
+            style="width: 100%"
+        />
+        </div>
+        <div class="mb-5 d-flex flex-row justify-content-center">
+        <button
+            type="reset"
+            class="btn btn-outline-warning me-5"
+            style="color: red"
+        >
+            HỦY
+        </button>
+        <button type="submit" class="btn btn-outline-warning ms-5">
+            LƯU THAY ĐỔI
+        </button>
+        </div>
+    </form>
+    <script>
+        function logFormData(event) {
+            event.preventDefault();
+            var form = event.target;
+
+            if (!validateForm(form)) {
+                return;
+            }
+
+            if (!confirm("Lưu thay đổi?")) {
+                return;
+            }
+
+            var formData = new FormData(form);
+
+            fetch('../../controller/seller/updateAccountdetail.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "?page=account";
+                } else {
+                    console.error('Error:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function validateForm(form) {
+            var email = form.elements["emailcontact"].value;
+            var phone = form.elements["phonecontact"].value;
+            var money = form.elements["money"].value;
+
+            if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/.test(email)) {
+                alert('Please enter a valid email address (<sth>@<sth>.<sth>)');
+                return false;
+            }
+            if (phone.length > 11 || phone.length < 9) {
+                alert('Please eneter a valid phone number (9-11 number)');
+                return false;
+            }
+            if (money < 0){
+                alert('Please enter a valid money (> 0)');
+                return false;
+            }
+            return true;
+        }
+    </script>
     </div>
 </div>

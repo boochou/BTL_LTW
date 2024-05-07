@@ -1,3 +1,11 @@
+<?php
+session_start();
+$isLogin = isset($_COOKIE["id"]) && isset($_SESSION["id"]) && isset($_SESSION["author"]) && isset($_SESSION["phonemail"]) && isset($_SESSION["phone"]);
+if ($isLogin == FALSE) {
+  header("location: /BTL/user/homepage");
+  exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -11,6 +19,7 @@
     <link rel="mask-icon" href="/BTL/public/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"

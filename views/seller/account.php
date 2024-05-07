@@ -4,7 +4,7 @@
     <nav aria-label="breadcrumb" class="d-none d-md-flex d-lg-flex ms-5">
         <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#" class="text-decoration-none" style="color: black"
+            <a href="?page=mainpage" class="text-decoration-none" style="color: black"
             >Trang chủ</a
             >
         </li>
@@ -33,6 +33,11 @@
         >THÔNG TIN QUÁN</a
         >
     </div>
+    <?php
+        include_once("../../controller/seller/getAccountdetail.php");
+        $accountID = "1";
+        $itemm = fetchAccountdetail($accountID);
+    ?>
     <div class="d-flex flex-row align-items-center ms-5">
         <img
         src="/BTL/public/images/logo.png"
@@ -41,10 +46,10 @@
         height="100"
         />
         <a class="ms-5 text-decoration-none" style="color: black"
-        >MTK: <span>1234</span></a
+        >MTK: <span><?php echo $itemm['idAccount']; ?></span></a
         >
     </div>
-    <form class="ms-5 me-5 mt-3" onsubmit="logFormData(event)">
+    <form class="ms-5 me-5 mt-3" onsubmit=" logFormData(event)">
         <div class="mb-3">
         <label class="form-label" for="account">Tên đăng nhập</label>
         <input
@@ -52,10 +57,11 @@
             id="account"
             name="account"
             type="text"
-            value="UniEat"
+            value="<?php echo $itemm['userName']; ?>"
             placeholder="Nhập tên tài khoản"
             required
             style="width: 100%"
+            autocomplete="username"
         />
         </div>
         <div class="mb-3">
@@ -65,10 +71,11 @@
             id="passw"
             name="passw"
             type="password"
-            value="123"
+            value="<?php echo $itemm['pass']; ?>"
             placeholder="Nhập mật khẩu"
             required
             style="width: 100%"
+            autocomplete="current-password"
         />
         </div>
         <div class="mb-3">
@@ -78,7 +85,7 @@
             id="nameshop"
             name="nameshop"
             type="text"
-            value="UniEat"
+            value="<?php echo $itemm['nameStore']; ?>"
             placeholder="Nhập tên quán"
             required
             style="width: 100%"
@@ -92,7 +99,7 @@
             name="emailcontact"
             type="email"
             placeholder="Nhập mail liên hệ"
-            value="xinhdep@gmail.com"
+            value="<?php echo $itemm['email']; ?>"
             required
             style="width: 100%"
         />
@@ -107,7 +114,20 @@
             name="phonecontact"
             type="number"
             placeholder="Nhập số điện thoại liên hệ"
-            value="113"
+            value="<?php echo $itemm['phone']; ?>"
+            required
+            style="width: 100%"
+        />
+        </div>
+        <div class="mb-3">
+        <label class="form-label" for="address">Địa chỉ</label>
+        <input
+            class="form-control"
+            id="address"
+            name="address"
+            type="text"
+            placeholder="Nhập liên kết facebook của quán"
+            value="<?php echo $itemm['address']; ?>"
             required
             style="width: 100%"
         />
@@ -120,7 +140,7 @@
             name="fblink"
             type="text"
             placeholder="Nhập liên kết facebook của quán"
-            value="fb.unieat.com"
+            value="<?php echo $itemm['facebook']; ?>"
             required
             style="width: 100%"
         />
@@ -133,7 +153,7 @@
             name="instalink"
             type="text"
             placeholder="Nhập liên kết instagram của quán"
-            value="ins.unieat.com"
+            value="<?php echo $itemm['instagram']; ?>"
             required
             style="width: 100%"
         />
@@ -146,8 +166,21 @@
             name="tiktoklink"
             type="text"
             placeholder="Nhập liên kết tiktok của quán"
-            value="tiktok.unieat.com"
+            value="<?php echo $itemm['tiktok']; ?>"
             required
+            style="width: 100%"
+        />
+        </div>
+        <div class="mb-3">
+        <label class="form-label" for="money">Tiền vốn</label>
+        <input
+            class="form-control"
+            id="money"
+            name="money"
+            type="text"
+            placeholder="Nhập liên kết tiktok của quán"
+            value="<?php echo $itemm['money']; ?>"
+            required min="0"
             style="width: 100%"
         />
         </div>
@@ -159,8 +192,8 @@
             name="status"
             aria-label="Default select example"
         >
-            <option value="1">Mở cửa</option>
-            <option value="0">Đóng cửa</option>
+            <option value="0" <?php echo ($itemm['isClose'] == '0') ? 'selected' : ''; ?>>Mở cửa</option>
+            <option value="1" <?php echo ($itemm['isClose'] == '1') ? 'selected' : ''; ?>>Đóng cửa</option>
         </select>
         </div>
         <div class="mb-5 d-flex flex-row justify-content-center">
@@ -178,18 +211,54 @@
     </form>
     <script>
         function logFormData(event) {
-        event.preventDefault();
-        const form = event.target;
-        const formData = new FormData(form);
-        var confirmation = confirm("Lưu thay đổi?");
-        if (confirmation) {
-            for (let pair of formData.entries()) {
-            console.log(pair[0] + ": " + pair[1]);
+            event.preventDefault();
+            var form = event.target;
+
+            if (!validateForm(form)) {
+                return;
             }
-            console.log("Form data will be sent to the server...");
+
+            if (!confirm("Lưu thay đổi?")) {
+                return;
+            }
+
+            var formData = new FormData(form);
+
+            fetch('../../controller/seller/updateAccountdetail.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "?page=account";
+                } else {
+                    console.error('Error:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
+
+        function validateForm(form) {
+            var email = form.elements["emailcontact"].value;
+            var phone = form.elements["phonecontact"].value;
+            var money = form.elements["money"].value;
+
+            if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/.test(email)) {
+                alert('Please enter a valid email address (<sth>@<sth>.<sth>)');
+                return false;
+            }
+            if (phone.length > 11 || phone.length < 9) {
+                alert('Please eneter a valid phone number (9-11 number)');
+                return false;
+            }
+            if (money < 0){
+                alert('Please enter a valid money (> 0)');
+                return false;
+            }
+            return true;
         }
     </script>
     </div>
-    <!-- content -->
 </div>

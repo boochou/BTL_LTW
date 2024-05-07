@@ -4,6 +4,7 @@ require_once 'model/user/Mainpage.php';
 require_once 'model/user/Orders.php';
 require_once 'model/user/Orderdetail.php';
 require_once 'model/user/Community.php';
+require_once 'model/user/Userinfo.php';
 require_once 'model/user/Header.php';
 
 class UserController {
@@ -118,6 +119,46 @@ class UserController {
 
         ob_start();
         require_once 'views/user/community.php';
+        $content = ob_get_clean();
+        require_once 'views/user/index.php';
+    }
+    public function userinfo() {
+        $isLogin = isset($_COOKIE["id"]) && isset($_SESSION["id"]) && isset($_SESSION["author"]) && isset($_SESSION["phonemail"]) && isset($_SESSION["phone"]);
+        if ($isLogin) {
+            $product_in_cart = Header::getProductInCart();
+        } else {
+            $product_in_cart = NULL;
+        }
+        $itemm = UserInfo::getAccount();
+
+        ob_start();
+        require_once 'views/user/user_info.php';
+        $content = ob_get_clean();
+        require_once 'views/user/index.php';
+    }
+    public function review() {
+        $isLogin = isset($_COOKIE["id"]) && isset($_SESSION["id"]) && isset($_SESSION["author"]) && isset($_SESSION["phonemail"]) && isset($_SESSION["phone"]);
+        if ($isLogin) {
+            $product_in_cart = Header::getProductInCart();
+        } else {
+            $product_in_cart = NULL;
+        }
+        ob_start();
+        require_once 'views/user/review.php';
+        $content = ob_get_clean();
+        require_once 'views/user/index.php';
+    }
+    public function search() {
+        $isLogin = isset($_COOKIE["id"]) && isset($_SESSION["id"]) && isset($_SESSION["author"]) && isset($_SESSION["phonemail"]) && isset($_SESSION["phone"]);
+        if ($isLogin) {
+            $product_in_cart = Header::getProductInCart();
+        } else {
+            $product_in_cart = NULL;
+        }
+        $products = Homepage::getAllProducts();
+
+        ob_start();
+        require_once 'views/user/findproduct.php';
         $content = ob_get_clean();
         require_once 'views/user/index.php';
     }

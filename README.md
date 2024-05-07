@@ -6,6 +6,8 @@
 
 **_(Cập nhật 27/04/2024: Cập nhật đầy đủ front-end dành cho seller, thêm database)_**
 
+**_(Cập nhật 08/05/2024: Hoàn thành tất cả tính năng của trang Web - frontend + backend + database)_**
+
 ## Getting Start
 
 ### Installing
@@ -43,7 +45,17 @@
 
 1. Mở XAMPP (run as administrator), start Apache và MySQL.
 
-2. Vào trình duyệt web, nhập đường link `http://localhost/BTL/views/user/?page=homepage` để chạy front-end cho user và `http://localhost/BTL/views/seller/?page=mainpage` cho seller.
+2. Setup cơ sở dữ liệu MySQL, mọi người vào [database](https://github.com/boochou/BTL_LTW/tree/main/database) để lấy cơ sở dữ liệu mới nhất và import nó vào máy.
+
+3. Vào trình duyệt web, nhập đường link `http://localhost/BTL/user/homepage` để bắt đầu sử dụng.
+
+4. Khi đăng nhập, một số tài khoản hiện có là:
+
+- email: unieat@gmail.com, password: Unieat@1234 (seller)
+- email: minhnhat@gmail.com, password: Nhat@1234
+- email: ngocyen@gmail.com, password: Yen@1234
+- email: chouchou@gmail.com, password: Chau@1234
+- email: nana@gmail.com, password: Anh@1234
 
 ## Một số thông tin về web
 
@@ -58,36 +70,10 @@
   - Server code: PHP
   - Database: MySQL
 
-### Các trang Web hiện có
-
-- Front-end:
-  - User:
-    - Trang chủ
-    - Trang cộng đồng
-    - Trang yêu thích
-    - Trang các đơn đặt hàng
-    - Trang thông tin người dùng
-    - 2 trang đăng nhập
-  - Seller:
-    - Trang tài khoản
-    - Trang thêm sản phẩm
-    - Trang thêm voucher
-    - Trang cộng đồng
-    - Trang sản phẩm vi phạm
-    - Trang chính
-    - Trang thông báo
-    - Trang hủy đặt hàng
-    - Trang hoàn tiền
-    - Trang đơn tất cả đơn hàng
-    - Trang sản phẩm hiện tại
-    - Trang chi tiết sản phẩm
-    - Trang đánh giá
-    - Trang doanh thu
-    - Trang voucher
-    - Trang chi tiết voucher
-
 ### Các lưu ý
 
-Mọi người kéo về và đẩy lên như hướng dẫn để tránh mất code.
+- Mọi người kéo về và đẩy lên như hướng dẫn để tránh mất code.
+
+- Đổi port trong những connection tới database để chạy được ứng dụng.
 
 Lời cuối, chúc mọi người một ngày tốt lành!

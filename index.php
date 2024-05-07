@@ -12,10 +12,13 @@ if ($isLogin) {
         if ($request_uri == '' || $request_uri == '/') {
             $request_uri = '/user/homepage';
         }
+    } else {
+        header("location: /BTL/views/seller/index.php");
+        exit();
     }
 
 } else {
-    $pages = array("/user/homepage", "/user/mainpage", "/user/community");
+    $pages = array("/user/homepage", "/user/mainpage", "/user/community", "/user/review", "/user/search");
     $request_uri = isset($_GET['url']) ? $_GET['url'] : '';
     $request_uri = '/' . $request_uri;
     if (in_array($request_uri, $pages) == FALSE) {

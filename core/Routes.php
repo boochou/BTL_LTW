@@ -7,5 +7,8 @@ $router->get('/user/mainpage', 'UserController@mainpage');
 $router->get('/user/orders', 'UserController@orders');
 $router->get('/user/orderdetail', 'UserController@orderdetail');
 $router->get('/user/community', 'UserController@community');
+$router->get('/user/userinfo', 'UserController@userinfo');
+$router->get('/user/review', 'UserController@review');
+$router->get('/user/search', 'UserController@search');
 return $router;
 ?>

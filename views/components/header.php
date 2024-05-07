@@ -217,7 +217,7 @@
                     <h5><strong>' . $user["userName"] . '</strong></h5>
                   </div>
                   <div>
-                    <a href="?page=user_info" class="linkStyleColor" style="font-size: small"
+                    <a href="/BTL/user/userinfo" class="linkStyleColor" style="font-size: small"
                       >Quản lý tài khoản</a
                     >
                   </div>
@@ -247,7 +247,7 @@
           <div class="item-menu">
             <span
               class="iconify"
-              data-icon="ant-design:product-filled"
+              data-icon="material-symbols:rate-review"
               style="color: #ffc700; height: 25px; width: 25px"
             ></span>
             <div style="margin-left: 10px">
@@ -255,6 +255,34 @@
                 href="/BTL/user/mainpage"
                 style="text-decoration: none; color: black; font-size: small"
                 >Danh mục sản phẩm</a
+              >
+            </div>
+          </div>
+          <div class="item-menu">
+            <span
+              class="iconify"
+              data-icon="ant-design:product-filled"
+              style="color: #ffc700; height: 25px; width: 25px"
+            ></span>
+            <div style="margin-left: 10px">
+              <a
+                href="/BTL/user/review"
+                style="text-decoration: none; color: black; font-size: small"
+                >Đánh giá và nhận xét</a
+              >
+            </div>
+          </div>
+          <div class="item-menu">
+            <span
+              class="iconify"
+              data-icon="icomoon-free:search"
+              style="color: #ffc700; height: 25px; width: 25px"
+            ></span>
+            <div style="margin-left: 10px">
+              <a
+                href="/BTL/user/search"
+                style="text-decoration: none; color: black; font-size: small"
+                >Tìm kiếm sản phẩm</a
               >
             </div>
           </div>
