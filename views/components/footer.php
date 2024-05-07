@@ -11,14 +11,14 @@
 
 <footer class="container-fluid " style="width:100%; background-color:#FFC700">
     <div class="row d-none d-md-none d-lg-flex">
-        <div class="col-12 ms-3 me-3 mt-3 mb-3 border-bottom">
-            <h2 class="fw-bold"><?php echo $info['nameStore']?></h2>
+        <div class="col-12 mt-3 mb-3 border-bottom">
+            <h2 class="fw-bold ms-3 me-3"><?php echo $info['nameStore']?></h2>
         </div>
-        <div class="col-12 ms-3 me-3 mb-3 border-bottom">
+        <div class="col-12 me-3 mb-3 border-bottom">
             <div class="row">
                 <div class="col-3 d-flex flex-column justify-content-center">
-                    <p>Về UniEat</p>
-                    <p>Blog</p>
+                    <p class="ms-3">Về UniEat</p>
+                    <p class="ms-3">Blog</p>
                 </div>
                 <div class="col-3 d-flex flex-column justify-content-center">
                     <p>Hợp tác với UniEat</p>
