@@ -20,7 +20,7 @@ function getProductInOrder($mysqli, $orderID) {
 function getListOrderAll($mysqli, $orderID) {
     $sql_get_list_reported_user = mysqli_query($mysqli,
         "SELECT accounts.userName as userName, total, orders.note as note, orders.total as total, 
-        statusOrder,orders.id as idOrder, product.name as proName, product_in_order.price as proPrice, orders.address as addr, payment,
+        statusOrder,orders.id as idOrder, product.name as proName, product_in_order.price as proPrice, orders.address as addr, payment, isCanceled,
         product_in_order.quantity as quantity , users.isReported as isReported, users.idAccount as idAccount, accounts.email as email, accounts.phone as phone, dateCreated, product_in_order.note as proNote
         FROM orders, users, accounts, product_in_order, product 
         WHERE idUser = idAccount AND idAccount = accounts.id 

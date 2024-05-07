@@ -5,7 +5,7 @@
                     style="color: black;font-size: large">Trang chủ</a></li>
             <li class="breadcrumb-item"><a href="#" class="text-decoration-none"
                     style="color: black;font-size: large">Quản lý đơn hàng</a></li>
-            <li class="breadcrumb-item"><a href="#" class="text-decoration-none"
+            <li class="breadcrumb-item"><a href="?page=order" class="text-decoration-none"
                     style="color: black;font-size: large">Tất cả đơn hàng</a></li>
         </ol>
     </nav>

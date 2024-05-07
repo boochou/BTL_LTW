@@ -35,6 +35,7 @@ function fetchProductInOrderAll($orderID)
                 'note' => $order['note'],
                 'statusOrder' => $order['statusOrder'],
                 'isReported' => $order['isReported'],
+                'isCanceled' => $order['isCanceled'],
                 'idAccount' => $order['idAccount'],
                 'email' => $order['email'],
                 'phone' => $order['phone'],

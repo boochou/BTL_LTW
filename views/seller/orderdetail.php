@@ -10,7 +10,7 @@
                     <a href="?page=order" class="text-decoration-none" style="color: black">Quản lý đơn hàng</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="?page=product" class="text-decoration-none" style="color: black">Chi tiết đơn hàng</a>
+                    <a href="#" class="text-decoration-none" style="color: black">Chi tiết đơn hàng</a>
                 </li>
             </ol>
         </nav>
@@ -129,7 +129,7 @@
 
             </div>
             <div class="text-center">
-                <?php if ($orderDetail[0]['statusOrder'] == 'Đã hoàn thành'): ?>
+                <?php if ($orderDetail[0]['statusOrder'] == 'Đã hoàn thành' || $orderDetail[0]['isCanceled'] == 1): ?>
                     <button class="btn mt-2 mb-2" style="background-color: #FFC700;" onclick="returnOrder()">
                         <i class="fas fa-reply"></i> Trở về
                     </button>

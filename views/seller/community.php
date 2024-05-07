@@ -5,7 +5,7 @@
                     style="color: black; font-size: large">Trang chủ</a></li>
             <li class="breadcrumb-item"><a href="#" class="text-decoration-none"
                     style="color: black; font-size: large">Giao tiếp</a></li>
-            <li class="breadcrumb-item"><a href="#" class="text-decoration-none"
+            <li class="breadcrumb-item"><a href="?page=community" class="text-decoration-none"
                     style="color: black; font-size: large">Trang cộng đồng</a></li>
         </ol>
     </nav>
@@ -123,7 +123,7 @@
                     <?php endif; ?>
                 </div>
                 <hr />
-                <div style="display: flex; justify-content: space-between">
+                <!-- <div style="display: flex; justify-content: space-between">
                     <div class="like-style">
                         <span class="iconify" data-icon="mdi-light:comment"
                             style="color: #ffd700; height: 24px; width: 24px"></span>
@@ -134,8 +134,8 @@
                             style="color: #ffd700; height: 24px; width: 24px"></span>
                         <div>Chia sẻ</div>
                     </div>
-                </div>
-                <hr />
+                </div> -->
+                <!-- <hr /> -->
                 <!-- <div>
                     <a class="link-underline-light linkStyleColor" href="#">Xem thêm bình luận</a>
                 </div> -->
@@ -304,6 +304,7 @@
     }
 
     function openEditModal(blogID, title, content, imageUrl) {
+        console.log("open edit modal")
         var editModal = document.getElementById('editModal');
         var editBlogIDInput = document.getElementById('editBlogID');
         var editTitleInput = document.getElementById('editTitleInput');
