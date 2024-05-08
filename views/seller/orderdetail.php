@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="d-flex ms-5 me-5 mb-3 align-items-center justify-content-center">
-            <img src="/BTL/public/images/map.png" alt="map" class="img-fluid">
+            <img src="https://c2.staticflickr.com/9/8854/28968848081_eef66b3cba_z.jpg" alt="map" class="img-fluid">
         </div>
         <div class="row ms-5 me-5 border rounded-4 mt-3 mb-3">
             <div class="col-2 d-flex flex-column justify-content-center align-items-center mt-2 mb-2">

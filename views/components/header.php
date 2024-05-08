@@ -1,3 +1,17 @@
+<?php
+if ($isLogin) {
+  $thisUser = Header::getUser($_SESSION["id"]);
+  $isReported = $thisUser["isReported"];
+}
+include_once("model/connectdb.php");
+$query = "SELECT sellers.tiktok, sellers.instagram, sellers.facebook, sellers.nameStore, sellers.address,
+                    accounts.phone, accounts.email
+            FROM accounts
+            INNER JOIN sellers ON accounts.id = sellers.idAccount
+            WHERE sellers.idAccount = 1";
+$result = mysqli_query($mysqli, $query);
+$info = mysqli_fetch_assoc($result);
+?>
 <div class="row">
   <div class="col" style="max-width: 20%; display: flex; align-items: center">
     <button style="background: white; border: 0px" onclick="sidebar_open()">
@@ -7,7 +21,7 @@
         alt=""
       />
     </button>
-    <h3 class="uni-header" style="margin-top: 0px"><strong>UniEat</strong></h3>
+    <h3 class="uni-header" style="margin-top: 0px"><strong><?php echo $info["nameStore"]; ?></strong></h3>
   </div>
   <div class="col" style="display: flex; align-items: center">
   </div>
@@ -66,7 +80,7 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div style="text-align: center; margin-top: 10px">
-          <h3><strong>Giỏ hàng UniEat</strong></h3>
+          <h3><strong>Giỏ hàng <?php echo $info["nameStore"]; ?></strong></h3>
         </div>
         <hr />
         <div
@@ -176,6 +190,7 @@
               echo '        Đặt đơn';
               echo '    </button>';
               echo '</div>';
+              echo '            <input type="hidden" name="isReprted" value="' . $isReported . '" id="isReported">';
               echo '</form>';
             } else {
               echo '<div style="text-align: center; margin-top: 10px">';

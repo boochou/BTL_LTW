@@ -45,5 +45,20 @@ class Header {
         }
         return NULL;
     }
+
+    public static function getUser($userId) {
+        require_once 'core/Database.php';
+        $conn = Database::connect();
+        $sql = "SELECT * FROM users WHERE idAccount = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            return $user;
+        }
+        return NULL;
+    }
 }
 ?>

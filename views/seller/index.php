@@ -5,6 +5,10 @@ if ($isLogin == FALSE) {
   header("location: /BTL/user/homepage");
   exit();
 }
+if ($_SESSION["author"] == "user") {
+  header("location: /BTL/user/homepage");
+  exit();
+} 
 ?>
 <!DOCTYPE html>
 <html lang="vi">

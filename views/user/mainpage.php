@@ -1,18 +1,35 @@
+<?php
+require_once 'core/Database.php';
+$conn = Database::connect();
+$sql = "SELECT * FROM sellers WHERE idAccount = 1";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+$seller = $result->fetch_assoc();
+?>
 <div class="tocotoco_body" style="min-height: 300px">
     <div class="linkStyle">
         <a class="link-underline-light linkStyleColor" href="">Danh mục sản phẩm</a> 
     </div>
     <div class="address">
-        <h2>UNIEAT</h2>
+        <h2><?php echo $seller["nameStore"]; ?></h2>
         <div class="add_detail">
             <div class="open_or_not" style="display: inline-block; margin:5px">
                 <span class="iconify" data-icon="solar:shop-bold"></span>
-                <p style="display: inline; ">Đang mở cửa</p>
+                <p style="display: inline; ">
+                <?php
+                if ($seller["isClose"]) {
+                    echo "Đã đóng cửa";
+                } else {
+                    echo "Đang mở cửa";
+                }
+                ?>
+                </p>
             </div>
             <div class="star_time_dis">
                 <div style="display: inline-block">
                     <span class="iconify" data-icon="mdi:address-marker" style="margin-right: 3px;"></span>
-                    <p style="display: inline;">Ký túc xá khu A: Đường Tạ Quang Bửu, Khu phố 6, Phường Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh</p>
+                    <p style="display: inline;"><?php echo $seller["address"]; ?></p>
                 </div>
             </div>
             <div class="comment" style="margin:5px;">
@@ -52,7 +69,8 @@
                         echo '<div class="products">';
                         for ($j = $i; $j < $i + 2 && $j < $size; $j ++) {
                             echo '<div class="product">';
-                            echo '  <img class="img-product" src="' . $pro_in_cat[$cat][$j]["image"] . '" alt="product1">';
+                            $newPath = str_replace("../../public/", "/BTL/public/", $pro_in_cat[$cat][$j]["image"]);
+                            echo '  <img class="img-product" src="' . $newPath . '" alt="product1">';
                             echo '  <div class="pro_info">';
                             echo '      <div style="display: flex; justify-content:space-between; width: 100%; align-items: center; height: 50px;">';
                             echo '          <b style="color: black;">' . $pro_in_cat[$cat][$j]["name"] . '</b>';
@@ -93,7 +111,7 @@
     </div>
 </div>
 <div id="second-layer"></div>
-<div id="myModal">
+<div id="myModal" style="min-width: 350px">
     <form id="order-form">
         <input type="hidden" id="productId" name="productId" value="">
         <input type="hidden" id="productQuantity" name="productQuantity" value="">
@@ -134,7 +152,7 @@
             </div>
             <div>
                 <div>
-                    <input type="submit" name="add_to_giohang_button" id="add_to_giohang_button" value="Thêm vào giỏ hàng">
+                    <input type="submit" name="add_to_giohang_button" id="add_to_giohang_button" value="Thêm">
                 </div>
             </div>
         </div>

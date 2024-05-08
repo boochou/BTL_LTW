@@ -3,6 +3,7 @@ function updateAccountdetail($mysqli, $accountID, $account, $passw, $nameshop, $
     $query1 = "UPDATE sellers SET nameStore = '$nameshop', address = '$address', tiktok = '$tiktoklink', instagram = '$instalink', 
     facebook = '$fblink', isClose = '$status', money = '$money'
     WHERE idAccount = '$accountID'";
+    $passw = hash("sha256", $passw);
 
     $query2 = "UPDATE accounts SET email = '$emailcontact', pass = '$passw', phone = '$phonecontact', userName = '$account'
     WHERE id = '$accountID'";

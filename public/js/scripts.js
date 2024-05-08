@@ -55,8 +55,13 @@ function total_count() {
 total_count();
 
 var formCart = document.getElementById("cart-form");
+var isReported = document.getElementById("isReported");
 formCart.addEventListener("submit", function (event) {
   event.preventDefault();
+  if (isReported.value == 1) {
+    alert("Bạn đã bị chặn");
+    return;
+  }
   check = confirm("Bạn muốn thanh toán giỏ hàng này");
   if (check == true) {
     var formData = new FormData(this);

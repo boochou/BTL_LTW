@@ -244,7 +244,7 @@
                     </div>
                 <?php } ?>
                 <div id="commentContainer"></div>
-                <div style="
+                <!-- <div style="
                 margin-top: 5px;
                 display: flex;
                 margin-bottom: 20px;
@@ -253,7 +253,7 @@
                     <img class="avatar avatar-48 bg-light rounded-circle text-white p-1" src="../../public/images/logo.png">
                     <input type="text" placeholder="Viết bình luận" class="comment-note-style"
                         onkeypress="submitComment(event,<?php echo $blog['id']; ?>,'<?php echo $account['nameStore']; ?>')" />
-                </div>
+                </div> -->
             </div>
         </div>
     <?php } ?>

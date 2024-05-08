@@ -3,7 +3,10 @@
     <a class="link-underline-light linkStyleColor" href="/BTL/user/community">Cộng đồng</a>
     </div>
     <?php
-    for ($i = 0; $i < count($blogs); $i ++) {
+    for ($i = count($blogs) - 1; $i > -1 ; $i --) {
+        if ($blogs[$i]["isDelete"] == 1) {
+            continue;
+        }
         echo '<div style="display: flex; justify-content: center">';
         echo '    <div style="width: 96%; padding-left: 20px; padding-right: 20px">';
         echo '        <div style="display: flex; align-items: center">';
@@ -23,7 +26,8 @@
         echo '    <div>';
         echo '        <p>' . $blogs[$i]["content"] . '</p>';
         echo '        <div style="display: flex; justify-content: center">';
-        echo '            <img src="' . $blogs[$i]["image"] . '" alt="" style="width: 45%" />';
+        $newPath = str_replace("../../public/", "/BTL/public/", $blogs[$i]["image"]);
+        echo '            <img src="' . $newPath . '" alt="" style="width: 45%" />';
         echo '        </div>';
         echo '    </div>';
         echo '    <div style="display: flex; justify-content: space-between; margin-top: 20px;">';
@@ -60,9 +64,12 @@
 <script>
 <?php
 for ($i = 0; $i < count($blogs); $i ++) {
+    if ($blogs[$i]["isDelete"] == 1) {
+        continue;
+    }
     echo '
-    var form = document.getElementById("comment-form' . $i . '");
-    form.addEventListener("submit", function(event) {
+    var form' . $blogs[$i]["id"] . ' = document.getElementById("comment-form' . $i . '");
+    form' . $blogs[$i]["id"] . '.addEventListener("submit", function(event) {
         event.preventDefault();
         var formData = new FormData(this);
         fetch("../controller/user/add-comment.php", {

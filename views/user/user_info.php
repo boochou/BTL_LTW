@@ -40,7 +40,7 @@
             class="form-control"
             id="passw"
             name="passw"
-            type="text"
+            type="password"
             value=""
             placeholder="Nhập mật khẩu"
             required
