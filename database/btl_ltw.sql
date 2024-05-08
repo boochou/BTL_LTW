@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: May 07, 2024 at 04:59 PM
+-- Host: 127.0.0.1
+-- Generation Time: May 08, 2024 at 03:54 AM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,11 +41,11 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`id`, `email`, `pass`, `phone`, `userName`) VALUES
-(1, 'unieat@gmail.com', 'UniEat007', '0765710073', 'unieat'),
-(2, 'ngocyen@gmail.com', 'NgocYen123', '0904653345', 'Yến'),
-(3, 'minhnhat@gmail.com', 'MinhNhat123', '0123456789', 'Nhật'),
-(4, 'chouchou@gmail.com', 'BaoChau123', '0902361779', 'Chou'),
-(5, 'nana@gmail.com', 'NamAnh123', '0765710073', 'Na');
+(1, 'unieat@gmail.com', '51fc6b7438058dc6899fa4e969865fc83238011bf6fe076d173c9e048d0b8493', '0765710073', 'unieat'),
+(2, 'ngocyen@gmail.com', '615329269eab7b16e725193b7d556f4da727bd135158513f11fecd57021a543a', '0904653345', 'Yến'),
+(3, 'minhnhat@gmail.com', '8134803b59051f57c50bc07b4160c9e3379d9cd5013b779228990a791366ee12', '0123456789', 'Nhật'),
+(4, 'chouchou@gmail.com', 'ae7b75c7372b1bd3d2218cb17a165fac9fb41b9a81389d5fa0ab28dc4956c416', '0902361779', 'Chou'),
+(5, 'nana@gmail.com', '1e58a672479292cc17e578521440baf7c98258c0e50d911aaa2ad77b64bb97db', '0765710073', 'Na');
 
 -- --------------------------------------------------------
 
@@ -67,8 +67,8 @@ CREATE TABLE `blog` (
 --
 
 INSERT INTO `blog` (`id`, `content`, `idSeller`, `header`, `isDelete`, `image`) VALUES
-(20, 'Xin chào các tín đồ của trà sữa và trân châu!<br/>🌟 Bạn đã bao giờ trải nghiệm hương vị mới lạ đầy thú vị chưa? Nếu chưa, thì hãy đến với Quán Trà Sữa Trân Châu Xanh ngay hôm nay để khám phá những ly trà sữa độc đáo và hấp dẫn nhất!<br/>🌟 Tại Quán Trà Sữa Trân Châu Xanh, chúng tôi tự hào mang đến cho quý khách hàng không chỉ là những ly trà sữa thơm ngon mà còn là trải nghiệm độc đáo không thể nào quên. Với sự kết hợp tinh tế giữa trà sữa và những viên trân châu mềm mại, bạn sẽ được thưởng thức một loạt các loại đồ uống phong phú và đa dạng.<br/>🥤 Đừng bỏ lỡ các món đặc biệt tại Quán Trà Sữa Trân Châu Xanh: - Trà sữa trân châu xanh cổ điển, thơm ngon và béo ngậy. - Trà sữa trân châu đặc biệt, kết hợp hương vị trái cây tươi mới. - Trà sữa trân châu socola, một sự kết hợp hoàn hảo giữa trà sữa và socola thơm ngon. - Và còn nhiều món ăn nhẹ và thức uống khác để bạn lựa chọn! Đến với Quán Trà Sữa Trân Châu Xanh, không chỉ là để thưởng thức đồ uống ngon lành mà còn là để tận hưởng không gian ấm cúng và dịch vụ chu đáo từ đội ngũ nhân viên chuyên nghiệp của chúng tôi.<br/>📍 Địa chỉ: [Địa chỉ của quán] 📞 Liên hệ: [Số điện thoại]<br/>Hãy đến và cảm nhận sự khác biệt tại Quán Trà Sữa Trân Châu Xanh ngay hôm nay! Đừng bỏ lỡ cơ hội thưởng thức hương vị mới lạ và độc đáo chỉ có tại chúng tôi! Cảm ơn bạn đã ủng hộ và chia sẻ thông điệp này đến cộng đồng! 🌟', 1, 'Khám phá hương vị mới tại Quán Trà Sữa Trân Châu Xanh!', 0, '../../public/BlogImage/blog1.png'),
-(21, 'Có 2 cách pha chế:<br/>⚡️Cho tất cả hỗn hợp với chút nước sôi 35-40 độ trộn đều là ăn đc (với bạn thích ăn ấm nóng)<br/>⚡️với bạn thích ăn lạnh có thể thả thêm đá nếu muốn.<br/>🌈🌈3 vị cho mn chọn: <br/>• 🍑 Ngũ cốc ĐÀO 🍑 •<br/>• 🍒 Ngũ cốc việt quất 🍒 •<br/>• 🥭 Ngũ cốc XOÀI 🥭', 1, '🥗🥙 NGŨ CỐC TRÁI CÂY TAOZHEN #kèm_sữa_chua 🥗🥙', 0, '../../public/BlogImage/blog2.png');
+(20, 'Xin chào các tín đồ của trà sữa và trân châu đen!<br/>🌟 Bạn đã bao giờ trải nghiệm hương vị mới lạ đầy thú vị chưa? Nếu chưa, thì hãy đến với Quán Trà Sữa Trân Châu Xanh ngay hôm nay để khám phá những ly trà sữa độc đáo và hấp dẫn nhất!<br/>🌟 Tại Quán Trà Sữa Trân Châu Xanh, chúng tôi tự hào mang đến cho quý khách hàng không chỉ là những ly trà sữa thơm ngon mà còn là trải nghiệm độc đáo không thể nào quên. Với sự kết hợp tinh tế giữa trà sữa và những viên trân châu mềm mại, bạn sẽ được thưởng thức một loạt các loại đồ uống phong phú và đa dạng.<br/>🥤 Đừng bỏ lỡ các món đặc biệt tại Quán Trà Sữa Trân Châu Xanh: - Trà sữa trân châu xanh cổ điển, thơm ngon và béo ngậy. - Trà sữa trân châu đặc biệt, kết hợp hương vị trái cây tươi mới. - Trà sữa trân châu socola, một sự kết hợp hoàn hảo giữa trà sữa và socola thơm ngon. - Và còn nhiều món ăn nhẹ và thức uống khác để bạn lựa chọn! Đến với Quán Trà Sữa Trân Châu Xanh, không chỉ là để thưởng thức đồ uống ngon lành mà còn là để tận hưởng không gian ấm cúng và dịch vụ chu đáo từ đội ngũ nhân viên chuyên nghiệp của chúng tôi.<br/>📍 Địa chỉ: [Địa chỉ của quán] 📞 Liên hệ: [Số điện thoại]<br/>Hãy đến và cảm nhận sự khác biệt tại Quán Trà Sữa Trân Châu Xanh ngay hôm nay! Đừng bỏ lỡ cơ hội thưởng thức hương vị mới lạ và độc đáo chỉ có tại chúng tôi! Cảm ơn bạn đã ủng hộ và chia sẻ thông điệp này đến cộng đồng! 🌟', 1, 'Khám phá hương vị mới tại Quán Trà Sữa Trân Châu Xanh!', 0, '/BTL/public/BlogImage/blog1.png'),
+(21, 'Có 2 cách pha chế:<br/>⚡️Cho tất cả hỗn hợp với chút nước sôi 35-40 độ trộn đều là ăn đc (với bạn thích ăn ấm nóng)<br/>⚡️với bạn thích ăn lạnh có thể thả thêm đá nếu muốn.<br/>🌈🌈3 vị cho mn chọn: <br/>• 🍑 Ngũ cốc ĐÀO 🍑 •<br/>• 🍒 Ngũ cốc việt quất 🍒 •<br/>• 🥭 Ngũ cốc XOÀI 🥭', 1, '🥗🥙 NGŨ CỐC TRÁI CÂY TAOZHEN #kèm_sữa_chua 🥗🥙', 0, '/BTL/public/BlogImage/blog2.png');
 
 -- --------------------------------------------------------
 
@@ -321,7 +321,7 @@ INSERT INTO `product` (`id`, `name`, `quantity`, `description`, `isDeleted`, `is
 (19, 'Trà dâu', 15, 'Dâu tươi từ Đà Lạt, em mới đi hôm qua :))', 0, 0, 0, 45000.00, 6, 'Cửa hàng tự vận chuyển', 'https://cdn.tgdd.vn/Files/2019/12/29/1229060/cach-lam-tra-dau-dong-du-mat-lanh-giai-nhiet-don-gian-tai-nha-202209011546111121.jpg', 0.0),
 (20, 'Sinh tố dừa', 25, 'Sinh tố dừa ngọt béo giải nhiệt tức thì !', 0, 0, 0, 30000.00, 7, 'Cửa hàng tự vận chuyển', 'https://cdn.tgdd.vn/Files/2020/02/17/1236915/cach-lam-sinh-to-dua-ngot-beo-giai-nhiet-tuc-thi-202111011153261280.jpg', 0.0),
 (21, 'Nước suối', 20, 'Nước suối nhà nhà đều có nhưng uống thêm cho vui :*', 0, 0, 0, 7000.00, 8, 'Cửa hàng tự vận chuyển', 'https://product.hstatic.net/1000242782/product/aquafina-500ml_e2d2f301b6454680a442989093e13c1c_grande.png', 0.0),
-(22, 'Cơm cuộn rong biển', 45, 'Kimpap hàn quốc ^^', 0, 0, 0, 33000.00, NULL, 'Cửa hàng tự vận chuyển', 'https://www.cet.edu.vn/wp-content/uploads/2022/07/kimbap-han-quoc-chay.jpg', 0.0),
+(22, 'Cơm cuộn rong biển', 45, 'Kimpap hàn quốc ^^', 0, 0, 0, 33000.00, 2, 'Cửa hàng tự vận chuyển', 'https://www.cet.edu.vn/wp-content/uploads/2022/07/kimbap-han-quoc-chay.jpg', 0.0),
 (23, 'Cơm chay', 35, 'Tịnh tâm', 0, 0, 0, 25000.00, 3, 'Cửa hàng tự vận chuyển', 'https://tintuc.vnshop.vn/wp-content/uploads/2020/05/m%C3%B3n-%C4%83n-chay-t%E1%BB%AB-%C4%91%E1%BA%ADu-ph%E1%BB%A5-%C4%91%E1%BA%ADu-ph%E1%BB%A5-kho-chay.jpg', 0.0);
 
 --
@@ -502,7 +502,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idAccount`, `isReported`) VALUES
-(2, 1),
+(2, 0),
 (3, 0),
 (4, 0),
 (5, 0);
