@@ -108,9 +108,9 @@ header .icon-header {
   }
 }
 @media screen and (max-width: 650px) {
-  .col.icon-nav {
+  /* .col.icon-nav {
     display: none;
-  }
+  } */
   .icon-sidebar {
     display: flex;
   }

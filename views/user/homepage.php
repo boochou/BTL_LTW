@@ -33,7 +33,7 @@
                             echo '<div class="products">';
                             for ($j = $i; $j < $i + 3 && $j < $size; $j ++) {
                                 echo '<div class="product" style="margin-right: 10px;">';
-                                echo '  <img src="' . $products[$j]["image"] . '" alt="product1" style="width:100%; height: 200px">';
+                                echo '  <img src="' . $products[$j]["image"] . '" alt="product1" style="width:100%; height: 250px">';
                                 echo '  <div class="pro_info">';
                                 echo '      <div style="display: flex; justify-content:space-between; width: 100%">';
                                 echo '          <b>' . $products[$j]["name"] . '</b>';

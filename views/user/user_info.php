@@ -40,8 +40,8 @@
             class="form-control"
             id="passw"
             name="passw"
-            type="password"
-            value="<?php echo $itemm['pass']; ?>"
+            type="text"
+            value=""
             placeholder="Nhập mật khẩu"
             required
             style="width: 100%"
@@ -102,28 +102,40 @@
                 return;
             }
 
-            var formData = new FormData(form);
-
-            fetch('../../controller/seller/updateAccountdetail.php', {
+            const formData = {
+                "username": form.elements["account"].value,
+                "phone": form.elements["phonecontact"].value,
+                "mail": form.elements["emailcontact"].value,
+                "pass": form.elements["passw"].value,
+            }
+            fetch('../controller/user/updateAccountdetail.php', {
                 method: 'POST',
-                body: formData
+                headers: {
+                'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify(formData)
             })
+            .then(response =>response.json())
             .then(response => {
-                if (response.ok) {
-                    window.location.href = "?page=account";
-                } else {
-                    console.error('Error:', response.statusText);
+                if(response['Update successful']){
+                    alert("Update successfull, login please.")
+                    window.location.reload();
+                }
+                else{
+                    alert("Update failed.");
+                    alert(response)
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
+                alert(error)
             });
         }
 
         function validateForm(form) {
             var email = form.elements["emailcontact"].value;
             var phone = form.elements["phonecontact"].value;
-            var money = form.elements["money"].value;
+            var pass = form.elements["passw"].value;
 
             if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/.test(email)) {
                 alert('Please enter a valid email address (<sth>@<sth>.<sth>)');
@@ -133,8 +145,8 @@
                 alert('Please eneter a valid phone number (9-11 number)');
                 return false;
             }
-            if (money < 0){
-                alert('Please enter a valid money (> 0)');
+            if (pass.trim() === ''|| pass.length < 8 || !/[a-z]/.test(pass) || !/[A-Z]/.test(pass) || !/\d/.test(pass) || !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(pass)){
+                alert('Please enter a valid passsword');
                 return false;
             }
             return true;

@@ -21,7 +21,7 @@
         <h1 id="UniEat">UniEat</h1>
         <h2>WELLCOME TO UNIEAT?</h2>
         <form id="login_infor">
-            <input type="text" id="phonemail" name="phonemail" placeholder="Enter your email"><br>
+            <input type="text" id="phonemail" name="phonemail" placeholder="Enter your email or phone number"><br>
             <div id="error_phonemail" style="display: none"></div>
             <input type="password" id="pass" name = "pass" placeholder="Enter your password"><br>
             <div id="error_pass" style="display: none"></div>

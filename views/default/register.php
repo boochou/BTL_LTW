@@ -166,12 +166,12 @@
             if (inputText.trim() === ''|| inputText !== pass.value) {
                 error_pass_again.style.display = 'block'
                 error_pass_again.style.height = '30px'
-                error_perror_pass_againass.style.color = 'red'
+                error_pass_again.style.color = 'red'
                 if(inputText.trim() === ''){
                     error_pass_again.textContent = "Shouldn't empty."
                 }
                 else{
-                    error_pass_again.textContent = "Shouldn't same as password."
+                    error_pass_again.textContent = "Shouldn't different from password."
                 }
             }
             if (inputText === pass.value) {
@@ -200,6 +200,9 @@
                 if(data['Register successful']){
                     alert("Register successfull, login please.")
                     window.location.href = 'login1.php';
+                }
+                else{
+                    alert("Register failed.");
                 }
             })
             .catch(error => {

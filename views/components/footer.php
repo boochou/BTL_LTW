@@ -21,7 +21,7 @@
     $info = mysqli_fetch_assoc($result);            
 ?>
 
-<footer class="container-fluid " style="width:100%; background-color:#FFC700">
+<footer class="container-fluid " style="width:100%; height: 100% ;background-color:#FFC700">
     <div class="row d-none d-md-none d-lg-flex">
         <div class="col-12 mt-3 mb-3 border-bottom">
             <h2 class="fw-bold ms-3 me-3"><?php echo $info['nameStore']?></h2>
